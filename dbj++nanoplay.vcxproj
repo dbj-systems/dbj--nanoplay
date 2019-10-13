@@ -157,6 +157,9 @@
   <ItemGroup>
     <ClCompile Include="dbj++nanoplay.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="no_macros_valstat.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
