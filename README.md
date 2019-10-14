@@ -5,8 +5,8 @@
 
 Of this project is twofold
 
-A. to act as a testing ground for the dbj++ [Nanolib](https://github.com/dbj-systems/dbj--nanolib)
-B. to be an entry point into the concepts of dbj++ [Nanolib](https://github.com/dbj-systems/dbj--nanolib)
+- to act as a testing ground for the dbj++ [Nanolib](https://github.com/dbj-systems/dbj--nanolib)
+- to be an entry point into the concepts of dbj++ [Nanolib](https://github.com/dbj-systems/dbj--nanolib)
 
 ## Usage
 
