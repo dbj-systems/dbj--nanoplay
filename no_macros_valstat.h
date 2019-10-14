@@ -3,8 +3,11 @@
 #include "dbj--nanolib/dbj++valstat.h"
 #include "dbj--nanolib/dbj++tu.h"
 #include <charconv>
+#include <cstdio>
+#include <cinttypes>
 
 // unavoidabler 
+// this fili is really sily
 #define FILI __FILE__ , __LINE__
 
 namespace try_no_marcos {
@@ -12,64 +15,52 @@ namespace try_no_marcos {
 	using namespace std;
 	using namespace dbj::nanolib;
 
+	// string posix valstat trait
 	using p_vt = posix_valstat_trait<string>;
 
 	[[nodiscard]] p_vt::return_type the_great_divider_in_the_sky
-	( unsigned long dividend, unsigned long divisor  )
+	( uint64_t	dividend, uint64_t	divisor  )
 	{
 		if (0 == divisor)
-			return p_vt::make_error(
-				p_vt::make_status(
-					p_vt::code_type( errc::invalid_argument ), FILI
-				)
+			return p_vt::error(
+					errc::invalid_argument , FILI
 			);
 
-		if ( int(dividend) > INT_MAX )
-			return p_vt::make_error(
-				p_vt::make_status(
-					__FUNCSIG__ " dividend too large" , FILI
-				)
+		if ( int(dividend) >= UINT16_MAX)
+			return p_vt::error(
+				__FUNCTION__  ": dividend too large" , FILI
 			);
 
-		if ( int(divisor) > INT_MAX )
-			return p_vt::make_error(
-				p_vt::make_status(
-					__FUNCSIG__ " divisor too large", FILI
-				)
+		if ( int(divisor) >= UINT16_MAX)
+			return p_vt::error(
+				__FUNCTION__  ": divisor too large", FILI
 			);
 
-		std::array<char, 64> str{ { 0 } };
-
-		auto[p, ec] = to_chars(str.data(), str.data() + str.size(), dividend / divisor );
-
-		if ( ec != std::errc() )
-			return p_vt::make_error(
-				p_vt::make_status(
-					__FUNCSIG__ " std::to_chars() has failed", FILI
-				)
-			);
-
-		*p = '\0';
-
-		return p_vt::make_ok( str.data()  );
-
+			auto buff = v_buffer::format("%.3f", (dividend / divisor));
+		return p_vt::ok( buff.data()  );
 	}
 
 	TU_REGISTER(
 		[] {
 
-			auto div = the_great_divider_in_the_sky;
+			auto driver = [](uint64_t a, uint64_t b) {
+				constexpr auto const& div = the_great_divider_in_the_sky;
 
-			auto [val, stat] = div( 10, 0 );
+				DBJ_PRINT( "\n\nTrying to divide %" PRId64 ", with %" PRId64 " \n\n",a,b);
 
-			if (!val)
-				DBJ_PRINT( DBJ_FG_RED_BOLD "\nERROR" DBJ_RESET );
-			else
-				DBJ_PRINT("\n%s", val->c_str());
+				auto [val, stat] = div(a, b);
 
-			if ( stat )
-				DBJ_PRINT("\n\nstatus: %s\n\n", stat->data() );
+				if (!val)
+					DBJ_PRINT(DBJ_FG_RED_BOLD "\nERROR");
+				else
+					DBJ_PRINT("\n%s", val->c_str());
 
+				if (stat)
+					DBJ_PRINT( DBJ_RESET  "\n\nstatus: %s\n\n", stat->data());
+			};
+
+			driver(UINT16_MAX, 2);
+			driver( 5, 7 );
 		}
 	);
 } // try_no_marcos
