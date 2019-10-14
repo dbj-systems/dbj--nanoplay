@@ -44,7 +44,11 @@ you can place a break point to follow that TU (aka Test Unit), through a debugge
 
 One interesting TU place is inside the Nanolib in the folder `dbj--nanolib` in the file `dbj++valstat.h` where by the end of file we test the `valstat` default traits. That is why we have done `#define TESTING_DBJ_RETVALS` before including it into this project.
 
-Idea and guiding principle is that standard C++ can be simple and useful. Thus the code you find here is not overly complex, neither the files are 10K lines monsters. I will be adding TU's in future releases to test the quality of dbj++ Nanolib implementation and to show the ways of using it.
+## Why have I done this?
+
+Sadly, very often it is not, so the idea and guiding principle is that standard C++ can be simple and useful. 
+
+Thus the code you find here is not overly complex, neither the files are 10K lines monsters. I will be adding TU's in future releases to test the quality of dbj++ Nanolib implementation and to show the ways of using it.
 
 And yes, code in here tends to be well commented.
 
