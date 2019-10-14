@@ -4,4 +4,7 @@
 ---
 
 ### CC BY-SA 4.0 -- https://creativecommons.org/licenses/by-sa/4.0/ 
-&copy; 2019 by dbj.org
+
+---
+[![dbjdbj github avatar](https://github.com/dbjdbj.png)
+ &copy; 2019](https://dbj.netlify.com)
