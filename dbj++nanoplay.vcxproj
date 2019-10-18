@@ -151,13 +151,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="dbj++nanoplay.cpp" />
-    <ClCompile Include="valstat_monster\c_interop.c" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="interop\c_interop.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="no_macros_valstat.h" />
-    <ClInclude Include="valstat_monster\c_interop.h" />
-    <ClInclude Include="valstat_monster\valstat_optiref.h" />
+    <ClInclude Include="interop\c_interop.h" />
+    <ClInclude Include="valstat_optiref\valstat_optiref.h" />
     <ClInclude Include="win\common.h" />
     <ClInclude Include="win\hresultexception.h" />
     <ClInclude Include="win\logfile.h" />

@@ -49,7 +49,7 @@ namespace dbj {
 		return hresult(0, file, line, timestamp);
 	}
 
-#define DBJ_HRESULT(hr) throw HResultException(hr, __FILE__, __LINE__, __TIMESTAMP__)
+#define DBJ_HRESULT(hr) hresult(hr, __FILE__, __LINE__, __TIMESTAMP__)
 #define DBJ_WIN32_HRESULT(dwError) DBJ_HRESULT(HRESULT_FROM_WIN32(dwError))
 #define CHECK_HRESULT(hr) DBJ_CHECK_HRESULT(hr, __FILE__, __LINE__, __TIMESTAMP__)
 

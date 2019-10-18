@@ -1,8 +1,6 @@
 #include <stdlib.h>
 #include "c_interop.h"
 
-#define _DBJ_STRINGIZE(x) #x
-
 #define FLT __FILE__ "(" _DBJ_STRINGIZE(__LINE__) ")" __TIMESTAMP__
 
 /*
