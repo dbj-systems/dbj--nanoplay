@@ -18,9 +18,27 @@
     <ClCompile Include="dbj++nanoplay.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="valstat_monster\c_interop.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="no_macros_valstat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="win\logfile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="win\hresultexception.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="win\common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="valstat_monster\c_interop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="valstat_monster\valstat_optiref.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
