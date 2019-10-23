@@ -9,7 +9,7 @@ valstat 2 -- no pairs necessary
 //#include <stdio.h>
 //#include <utility>
 //#include <optional>
-//#include <string_view>
+#include <charconv>
 
 #include "../dbj--nanolib/dbj++tu.h"
 #include "picojson.h"
@@ -19,17 +19,12 @@ namespace valstat_2 {
 	using namespace dbj::nanolib;
 
 	inline string json_status(const char* file, long line) {
-
-		v_buffer::buffer_type buffy = v_buffer::format(R"({ "file" : "%s", "line" : "%d" })", file, line);
-		picojson::value J{};
-
-		string err = picojson::parse(J, buffy.data());
-		if (!err.empty()) { cerr << err << endl; ; return {}; }
-
-		return J.serialize() ;
+		auto normalized_file_name = v_buffer::replace ( v_buffer::format("%s", file)  , '\\', '/');
+		v_buffer::buffer_type buffy = v_buffer::format("{ \"file\" : \"%s\", \"line\" : %d }", normalized_file_name.data() , line);
+		return { buffy.data() };
 	}
 
-	// native version
+	// native version -- one step from C
 	//template< typename T>
 	// struct [[nodiscard]] valstat  { using value_type = T; T * value; const char * status; };
 
@@ -57,19 +52,23 @@ namespace valstat_2 {
 	template< typename T>
 	inline valstat<T> convert(string_view sv) noexcept(true)
 	{
-		int rez = atoi(sv.data());
-		string stat = json_status(__FILE__, __LINE__);
-		return { {rez}, { stat  } };
+		T rezult;
+		if (auto [p, e] = from_chars(sv.data(), sv.data() + sv.size(), rezult); e == std::errc())
+		{
+			// valstat info state
+			return { {rezult}, { json_status(__FILE__, __LINE__)  } };
+		}
+		else {
+			// valstat error state
+			return { {}, { json_status(__FILE__, __LINE__)  } };
+		}
 	}
 	// Test Unit aka "Unit Test" ;)
 	TU_REGISTER([]
 		{
 			using namespace std::literals;
-			auto s = convert<int>("42"sv);
-
-			auto s_copy = move(s);
-
-			cout << endl << "valstat: " << s_copy;
+			cout << endl << "valstat: " << convert<int>("42"sv) ;
+			cout << endl << "valstat: " << convert<float>("4.2"sv) ;
 		}
 	);
 
