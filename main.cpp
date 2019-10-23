@@ -8,6 +8,7 @@
 
 #include "interop/c_interop.h"
 #include "win/logfile.h"
+#include "valstat_2/valstat_2.h"
 
 
 int main(const int, const char* argv [])

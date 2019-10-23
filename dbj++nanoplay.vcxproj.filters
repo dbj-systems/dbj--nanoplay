@@ -41,5 +41,11 @@
     <ClInclude Include="valstat_optiref\valstat_optiref.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="valstat_2\valstat_2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="valstat_2\picojson.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

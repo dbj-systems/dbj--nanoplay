@@ -157,6 +157,8 @@
   <ItemGroup>
     <ClInclude Include="no_macros_valstat.h" />
     <ClInclude Include="interop\c_interop.h" />
+    <ClInclude Include="valstat_2\picojson.h" />
+    <ClInclude Include="valstat_2\valstat_2.h" />
     <ClInclude Include="valstat_optiref\valstat_optiref.h" />
     <ClInclude Include="win\common.h" />
     <ClInclude Include="win\hresultexception.h" />
