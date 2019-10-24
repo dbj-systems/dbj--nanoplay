@@ -15,12 +15,39 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dbj++nanoplay.cpp">
+    <ClCompile Include="interop\c_interop.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="no_macros_valstat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="win\logfile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="win\hresultexception.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="interop\c_interop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="valstat_2\valstat_2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="testing_dbj_vector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="picojson\picojson.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="valstat_2\valstat_2_optiref.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
