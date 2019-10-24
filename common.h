@@ -1,5 +1,5 @@
-#ifndef _INC_WINDOWS
-#define _INC_WINDOWS
+#ifndef _DBJ_INC_COMMON_
+#define _DBJ_INC_COMMON_
 
 
 /*
@@ -48,5 +48,6 @@ using namespace Gdiplus;
 #endif
 
 #include "../dbj--nanolib/dbj++valstat.h"
+#include "../dbj--nanolib/dbj++tu.h"
 
-#endif // _INC_WINDOWS
+#endif // _DBJ_INC_COMMON_

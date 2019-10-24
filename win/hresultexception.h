@@ -5,7 +5,7 @@ OpenLiveWriter/src/unmanaged/OpenLiveWriter.CppUtils/Include/HResultException.h
 */
 
 #pragma once
-#include "common.h"
+#include "../common.h"
 
 namespace dbj {
 

@@ -1,9 +1,7 @@
 #ifndef _INC_VAL_STAT_OPTIREF_
 #define _INC_VAL_STAT_MONSTER_
 
-#include "../dbj--nanolib/dbj++tu.h"
-//#include <optional>
-//#include <utility>
+#include "../common.h"
 
 namespace dbj {
 

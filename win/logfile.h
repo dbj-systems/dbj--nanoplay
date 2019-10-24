@@ -5,14 +5,14 @@ github.com/OpenLiveWriter/OpenLiveWriter/src/unmanaged/OpenLiveWriter.CppUtils/I
 
 #pragma once
 
+#include "../common.h"
+#include <ShlObj.h>
+#include "hresultexception.h"
+
 // unavoidabler 
 // this fili is really sily
 #define FILI __FILE__ , __LINE__
 
-#include "common.h"
-#include <ShlObj.h>
-
-#include "hresultexception.h"
 namespace dbj {
 	namespace win {
 

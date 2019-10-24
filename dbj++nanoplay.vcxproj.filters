@@ -32,9 +32,6 @@
     <ClInclude Include="win\hresultexception.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="win\common.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="interop\c_interop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -44,7 +41,13 @@
     <ClInclude Include="valstat_2\valstat_2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="valstat_2\picojson.h">
+    <ClInclude Include="common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="testing_dbj_vector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="picojson\picojson.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

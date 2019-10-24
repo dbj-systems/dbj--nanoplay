@@ -1,7 +1,6 @@
 #pragma once
 
-#include "dbj--nanolib/dbj++valstat.h"
-#include "dbj--nanolib/dbj++tu.h"
+#include "common.h"
 #include <charconv>
 #include <cstdio>
 #include <cinttypes>
