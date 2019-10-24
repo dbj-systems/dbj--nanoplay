@@ -15,10 +15,6 @@ namespace dbj::nanoplay {
 
 		string make_status(const char* , long , const char *, const char* = nullptr);
 
-		// native version -- one step from C
-		//template< typename T>
-		// struct [[nodiscard]] valstat  { using value_type = T; T * value; const char * status; };
-
 		// no pair version
 		// status == string
 		template< typename T>
