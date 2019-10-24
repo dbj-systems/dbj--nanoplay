@@ -35,9 +35,6 @@
     <ClInclude Include="interop\c_interop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="valstat_optiref\valstat_optiref.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="valstat_2\valstat_2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -48,6 +45,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="picojson\picojson.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="valstat_2\valstat_2_optiref.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -8,7 +8,7 @@
 // #include "valstat_optiref/valstat_optiref.h"
 // #include "interop/c_interop.h"
 // #include "win/logfile.h"
-#include "valstat_2/valstat_2.h"
+#include "valstat_2/valstat_2_optiref.h"
 
 #include <future>
 #pragma warning( push )

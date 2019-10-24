@@ -1,152 +1,183 @@
 #pragma once
 /*
-valstat 2 -- no pairs 
+valstat 2 -- no pairs
 */
 
 #include "../common.h"
 #include <charconv>
 
-namespace valstat_2 {
-	using namespace std;
-	using namespace dbj::nanolib;
+namespace dbj::nanoplay {
 
-	string make_status( const char* file, long line, const char* msg = nullptr );
+	inline namespace valstat_2 {
 
-	// native version -- one step from C
-	//template< typename T>
-	// struct [[nodiscard]] valstat  { using value_type = T; T * value; const char * status; };
+		using namespace std;
+		using namespace dbj::nanolib;
 
-	// no pair version
-	// status == string
-	template< typename T>
-	struct [[nodiscard]] valstat{ 
-		using value_type = T; 
-	    optional<T> value; 
-		optional<string> status; 
-	};
+		string make_status(const char* file, long line, const char* msg = nullptr);
 
-	// descriptive output
-	template<typename T>
-	ostream& operator << (ostream& os, const valstat<T> vt)
-	{
-		os << "\nvalstat state: ";
-		if (!vt.value &&  vt.status) os << "ERROR";
-		if ( vt.value && !vt.status) os << "OK";
-		if ( vt.value &&  vt.status) os << "INFO";
-		if (!vt.value && !vt.status) os << "EMPTY";
+		// native version -- one step from C
+		//template< typename T>
+		// struct [[nodiscard]] valstat  { using value_type = T; T * value; const char * status; };
 
-		os << "\n\ncontent: \n{";
-		if (vt.value)
-			os << "\n { " << *vt.value << " }";
-		else
-			os << "\n { empty }";
-		os << " ,";
-		if (vt.status)
-			os << "\n { " << *vt.status << " }";
-		else
-			os << "\n { empty }";
-		return os << "\n}\n";
-	}
-	// sampling
-	template< typename T>
-	inline valstat<T> convert(string_view sv) noexcept(true)
-	{
-		T rezult;
-		if (auto [p, e] = from_chars(sv.data(), sv.data() + sv.size(), rezult); 
-			/* std::errc() is dubious hack from cppreference.com */
-			e == std::errc() 
-			)
+		// no pair version
+		// status == string
+		template< typename T>
+		struct [[nodiscard]] valstat{
+			using value_type = T;
+			optional<T> value;
+			optional<string> status;
+		};
+
+		// descriptive output
+		// the  verbose valstat consuming
+		template<typename T>
+		inline ostream& operator << (ostream& os, const valstat<T> vt)
 		{
-			// valstat info state
-			return { {rezult}, { make_status(__FILE__, __LINE__)  } };
+			os << "\nvalstat state: ";
+			if (!vt.value && vt.status) os << "ERROR";
+			if (vt.value && !vt.status) os << "OK";
+			if (vt.value && vt.status) os << "INFO";
+			if (!vt.value && !vt.status) os << "EMPTY";
+
+			os << "\n\ncontent: \n{";
+			if (vt.value)
+				os << "\n { " << *vt.value << " }";
+			else
+				os << "\n { empty }";
+			os << " ,";
+			if (vt.status)
+				os << "\n { " << *vt.status << " }";
+			else
+				os << "\n { empty }";
+			return os << "\n}\n";
 		}
-		else {
-			// valstat error state
-			return { {}, { make_status(__FILE__, __LINE__)  } };
-		}
-	}
-	// Test Unit aka "Unit Test" ;)
-	TU_REGISTER([]
+		// sampling
+		template< typename T>
+		inline valstat<T> convert(string_view sv) noexcept(true)
 		{
-			using namespace std::literals;
-			cout << endl << convert<int>("42"sv) ;
-			cout << endl << convert<float>("4.2"sv) ;
+			T rezult;
+			if (auto [p, e] = from_chars(sv.data(), sv.data() + sv.size(), rezult);
+				/* std::errc() is dubious hack from cppreference.com */
+				e == std::errc()
+				)
+			{
+				// valstat info state
+				return { {rezult}, { make_status(__FILE__, __LINE__)  } };
+			}
+			else {
+				// valstat error state
+				return { {}, { make_status(__FILE__, __LINE__)  } };
+			}
 		}
-	);
+		// Test Unit aka "Unit Test" ;)
+		TU_REGISTER([]
+			{
+				using namespace std::literals;
+				cout << endl << convert<int>("42"sv);
+				cout << endl << convert<float>("4.2"sv);
+			}
+		);
 
-	/*
-	-----------------------------------------------------------------------
-	PARADIGM SHIFTING
-	*/
-	template< size_t N>
-	struct arry final 
-	{
-		array<char, N> buff_{ };
-
-		// valstat return does not require
-		// exception thinking
-		// there is always a return
-		valstat<char> operator [] (size_t idx_) const noexcept
+		/*
+		-----------------------------------------------------------------------
+		PARADIGM SHIFTING -- opearator returning valstat makes for richer
+		return producing and return consuming logic
+		*/
+		template< size_t N>
+		struct arry final
 		{
-			if (idx_ >= buff_.size() )
-				return { {}, { make_status(__FILE__, __LINE__, "Index out of bounds") } };
+			array<char, N> buff_{ };
 
-			return { { buff_[idx_] } , {} };
+			// valstat return does not require
+			// exception thinking
+			// there is always a return
+			valstat<char> operator [] (size_t idx_) const noexcept
+			{
+				if (idx_ >= buff_.size())
+					return { {}, { make_status(__FILE__, __LINE__, "Index out of bounds") } };
+
+				return { { buff_[idx_] } , {} };
+			}
+		}; // arry
+
+		/*
+		(c) dbj@dbj.org
+		literal to std::array
+		but no strings until C++ 2.x
+		*/
+		template< char ... Chs >
+		inline constexpr decltype(auto) operator"" _charay()
+		{
+			// append '\0'
+			return  std::array{ Chs..., char(0) };
 		}
-	}; // arry
 
-	/* 
-	(c) dbj@dbj.org  
-	literal to std::array
-	but no strings until C++ 2.x
-	*/
-	template< char ... Chs >
-	inline constexpr decltype(auto) operator"" _charay()
-	{
-		// append '\0'
-		return  std::array{ Chs..., char(0) };
-	}
-	
-	template< char ... Chs >
-	inline constexpr decltype(auto) operator"" _conv()
-	{
-		// append '\0'
-		return arry<1 + sizeof...(Chs)>{ Chs..., char(0) };
-	}
+		template< char ... Chs >
+		inline constexpr decltype(auto) operator"" _conv()
+		{
+			// append '\0'
+			return arry<1 + sizeof...(Chs)>{ Chs..., char(0) };
+		}
 
 #ifdef __GNUC__ 
-	// https://wandbox.org/permlink/ubNTUYDrs2NEaDFz
-	// yes we can have valstat returned from UDL 
-	template< char ... Chs >
-	inline constexpr decltype(auto) operator"" _to_valstat()
-	{
-		using rtype = arry<1 + sizeof...(Chs)>;
-		using vt = valstat<rtype>;
-		// append '\0'
-		return vt{ { rtype{ Chs..., char(0) } } , {} };
-	}
+		// https://wandbox.org/permlink/ubNTUYDrs2NEaDFz
+		// yes we can have valstat returned from UDL 
+		template< char ... Chs >
+		inline constexpr decltype(auto) operator"" _to_valstat()
+		{
+			using rtype = arry<1 + sizeof...(Chs)>;
+			using vt = valstat<rtype>;
+			// append '\0'
+			return vt{ { rtype{ Chs..., char(0) } } , {} };
+		}
 #endif // __GNUC__
 
-	TU_REGISTER([] {
+		TU_REGISTER([] {
 
-		constexpr auto ar = 123_conv;
-		
-		// paradigm shift
-		// no exception logic
-		// local handling
-		cout << endl << ar[5] ;
-		cout << endl << ar[0] ;
+			constexpr auto ar = 123_conv;
 
-		});
+			// paradigm shift
+			// no exception logic
+			// local handling
+			cout << endl << ar[5];
+			cout << endl << ar[0];
 
-	inline string make_status(const char* file, long line, const char* msg) 
-	{
-		auto nix_path = v_buffer::replace(v_buffer::format("%s", file), '\\', '/');
-		v_buffer::buffer_type buffy = v_buffer::format(
-			"{ \"message\" : \"%s\", \"file\" : \"%s\", \"line\" : %d }",
-			(msg ? msg : "unknown"), nix_path.data(), line);
+			});
 
-		return { buffy.data() };
-	}
+	/*
+	it turns out status as a string sub-concept allows for total
+	decoupling from valstat value half.
+	which in turn allows for pick-n-mix of statuses
+	which in turn means status content can be decided at the
+	very moment of prepraring a return, not before
 
-} // namespace valstat_2 
+	Example:
+
+	valstat<bool> fun ( bool arg_ ) {
+
+	if ( is_win32_error() )
+	  return {{}, { make_win32_status( GetLastError(), __FILE__, __LINE__ ) }};
+
+	if ( is_posix_error() )
+	  return {{}, { make_posix_status( std::errc::ENOMEM, __FILE__, __LINE__ ) }} ;
+
+	  return {{ arg_ }, {}};
+
+	 }
+
+	 this here is just a message+file+line status, for sampling the valstat
+	  it is in a JSON format as evey other string as a status
+	  has no reason not to be
+	*/
+		inline string make_status(const char* file, long line, const char* msg)
+		{
+			auto nix_path = v_buffer::replace(v_buffer::format("%s", file), '\\', '/');
+			v_buffer::buffer_type buffy = v_buffer::format(
+				"{ \"message\" : \"%s\", \"file\" : \"%s\", \"line\" : %d }",
+				(msg ? msg : "unknown"), nix_path.data(), line);
+
+			return { buffy.data() };
+		}
+
+	} // namespace valstat_2 
+} // dbj::nanoplay

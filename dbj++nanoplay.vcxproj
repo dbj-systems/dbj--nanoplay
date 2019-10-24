@@ -161,7 +161,7 @@
     <ClInclude Include="testing_dbj_vector.h" />
     <ClInclude Include="picojson\picojson.h" />
     <ClInclude Include="valstat_2\valstat_2.h" />
-    <ClInclude Include="valstat_optiref\valstat_optiref.h" />
+    <ClInclude Include="valstat_2\valstat_2_optiref.h" />
     <ClInclude Include="win\hresultexception.h" />
     <ClInclude Include="win\logfile.h" />
   </ItemGroup>
