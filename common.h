@@ -47,7 +47,7 @@ using namespace Gdiplus;
 #endif // _GDIPLUS_H
 #endif
 
-#include "../dbj--nanolib/dbj++valstat.h"
-#include "../dbj--nanolib/dbj++tu.h"
+#include "dbj--nanolib/dbj++valstat.h"
+#include "dbj--nanolib/dbj++tu.h"
 
 #endif // _DBJ_INC_COMMON_
