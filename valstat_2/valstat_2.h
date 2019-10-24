@@ -13,7 +13,7 @@ namespace dbj::nanoplay {
 		using namespace std;
 		using namespace dbj::nanolib;
 
-		string make_status(const char* file, long line, const char* msg = nullptr);
+		string make_status(const char* , long , const char *, const char* = nullptr);
 
 		// native version -- one step from C
 		//template< typename T>
@@ -39,114 +39,22 @@ namespace dbj::nanoplay {
 			if (vt.value && vt.status) os << "INFO";
 			if (!vt.value && !vt.status) os << "EMPTY";
 
-			os << "\n\ncontent: \n{";
+			os << " , content: \n{"; 
 			if (vt.value)
-				os << "\n { " << *vt.value << " }";
+				os << "\n { value: " << *vt.value << " }";
 			else
-				os << "\n { empty }";
+				os << "\n { value: empty }";
 			os << " ,";
 			if (vt.status)
-				os << "\n { " << *vt.status << " }";
+				os << "\n { status: " << *vt.status << " }";
 			else
-				os << "\n { empty }";
+				os << "\n { status: empty }";
 			return os << "\n}\n";
 		}
-		// sampling
-		template< typename T>
-		inline valstat<T> convert(string_view sv) noexcept(true)
-		{
-			T rezult;
-			if (auto [p, e] = from_chars(sv.data(), sv.data() + sv.size(), rezult);
-				/* std::errc() is dubious hack from cppreference.com */
-				e == std::errc()
-				)
-			{
-				// valstat info state
-				return { {rezult}, { make_status(__FILE__, __LINE__)  } };
-			}
-			else {
-				// valstat error state
-				return { {}, { make_status(__FILE__, __LINE__)  } };
-			}
-		}
-		// Test Unit aka "Unit Test" ;)
-		TU_REGISTER([]
-			{
-				using namespace std::literals;
-				cout << endl << convert<int>("42"sv);
-				cout << endl << convert<float>("4.2"sv);
-			}
-		);
-
-		/*
-		-----------------------------------------------------------------------
-		PARADIGM SHIFTING -- opearator returning valstat makes for richer
-		return producing and return consuming logic
-		*/
-		template< size_t N>
-		struct arry final
-		{
-			array<char, N> buff_{ };
-
-			// valstat return does not require
-			// exception thinking
-			// there is always a return
-			valstat<char> operator [] (size_t idx_) const noexcept
-			{
-				if (idx_ >= buff_.size())
-					return { {}, { make_status(__FILE__, __LINE__, "Index out of bounds") } };
-
-				return { { buff_[idx_] } , {} };
-			}
-		}; // arry
-
-		/*
-		(c) dbj@dbj.org
-		literal to std::array
-		but no strings until C++ 2.x
-		*/
-		template< char ... Chs >
-		inline constexpr decltype(auto) operator"" _charay()
-		{
-			// append '\0'
-			return  std::array{ Chs..., char(0) };
-		}
-
-		template< char ... Chs >
-		inline constexpr decltype(auto) operator"" _conv()
-		{
-			// append '\0'
-			return arry<1 + sizeof...(Chs)>{ Chs..., char(0) };
-		}
-
-#ifdef __GNUC__ 
-		// https://wandbox.org/permlink/ubNTUYDrs2NEaDFz
-		// yes we can have valstat returned from UDL 
-		template< char ... Chs >
-		inline constexpr decltype(auto) operator"" _to_valstat()
-		{
-			using rtype = arry<1 + sizeof...(Chs)>;
-			using vt = valstat<rtype>;
-			// append '\0'
-			return vt{ { rtype{ Chs..., char(0) } } , {} };
-		}
-#endif // __GNUC__
-
-		TU_REGISTER([] {
-
-			constexpr auto ar = 123_conv;
-
-			// paradigm shift
-			// no exception logic
-			// local handling
-			cout << endl << ar[5];
-			cout << endl << ar[0];
-
-			});
 
 	/*
 	it turns out status as a string sub-concept allows for total
-	decoupling from valstat value half.
+	decoupling from the valstat value half.
 	which in turn allows for pick-n-mix of statuses
 	which in turn means status content can be decided at the
 	very moment of prepraring a return, not before
@@ -165,16 +73,16 @@ namespace dbj::nanoplay {
 
 	 }
 
-	 this here is just a message+file+line status, for sampling the valstat
+	bellow is just a message+file+line status, for sampling the valstat
 	  it is in a JSON format as evey other string as a status
 	  has no reason not to be
 	*/
-		inline string make_status(const char* file, long line, const char* msg)
+		inline string make_status(const char* file, long line, const char * time_stamp, const char* msg)
 		{
 			auto nix_path = v_buffer::replace(v_buffer::format("%s", file), '\\', '/');
 			v_buffer::buffer_type buffy = v_buffer::format(
-				"{ \"message\" : \"%s\", \"file\" : \"%s\", \"line\" : %d }",
-				(msg ? msg : "unknown"), nix_path.data(), line);
+				R"({ "message" : "%s", "file" : "%s", "line" : %d, "timestamp" : "%s" })",
+				(msg ? msg : "unknown"), nix_path.data(), line, time_stamp);
 
 			return { buffy.data() };
 		}

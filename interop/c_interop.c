@@ -1,7 +1,13 @@
 #include <stdlib.h>
 #include "c_interop.h"
 
-#define FLT __FILE__ "(" _DBJ_STRINGIZE(__LINE__) ")" __TIMESTAMP__
+#undef _STRINGIZE_
+#define _STRINGIZE_(x) #x
+#undef _STRINGIZE
+#define _STRINGIZE(x) _STRINGIZE_(x)
+
+#undef FLT
+#define FLT ( __FILE__ "(" _STRINGIZE(__LINE__) ")" __TIMESTAMP__ )
 
 /*
 this is deliberately verbose
@@ -11,7 +17,7 @@ valstat_interop_decl(int) interop_valstat_testing(valstat_kind kind_)
 	// value is static int
 	static int fty2 = 42;
 	// status is static string
-	const char* msg = "What's the meaning of this?";
+	const char* msg = FLT ;
 
 	// info
 	interop_valstat_int vint_info = { &fty2, msg };

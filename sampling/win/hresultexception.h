@@ -5,9 +5,9 @@ OpenLiveWriter/src/unmanaged/OpenLiveWriter.CppUtils/Include/HResultException.h
 */
 
 #pragma once
-#include "../common.h"
+#include "../../common.h"
 
-namespace dbj {
+namespace dbj::nanoplay::win {
 
 	using namespace std;
 	using namespace dbj::nanolib;

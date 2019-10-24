@@ -23,15 +23,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="no_macros_valstat.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="win\logfile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="win\hresultexception.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="interop\c_interop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -41,13 +32,22 @@
     <ClInclude Include="common.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="testing_dbj_vector.h">
+    <ClInclude Include="sampling\win\hresultexception.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="picojson\picojson.h">
+    <ClInclude Include="sampling\win\logfile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="valstat_2\valstat_2_optiref.h">
+    <ClInclude Include="sampling\testing_dbj_vector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sampling\no_macros_valstat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="interop\c_interop_test.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="valstat_2\valstat_2_samples.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

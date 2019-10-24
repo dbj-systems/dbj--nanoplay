@@ -1,21 +1,20 @@
 // (c) 2019 by dbj.org -- CC BY-SA 4.0 -- https://creativecommons.org/licenses/by-sa/4.0/ 
 
-#define TESTING_DBJ_RETVALS
+// #define TESTING_DBJ_RETVALS
 
 #include "common.h"
-#include "testing_dbj_vector.h"
-// #include "no_macros_valstat.h"
-// #include "valstat_optiref/valstat_optiref.h"
-// #include "interop/c_interop.h"
-// #include "win/logfile.h"
-#include "valstat_2/valstat_2_optiref.h"
+#if _DBJ_SAMPLING
+#include "sampling/testing_dbj_vector.h"
+#include "sampling/no_macros_valstat.h"
+#include "sampling/win/logfile.h"
+#endif
+#include "interop/c_interop_test.h"
+#include "valstat_2/valstat_2_samples.h"
 
 #include <future>
 #pragma warning( push )
 #pragma warning( disable: 4100 )
 // https://msdn.microsoft.com/en-us/library/26kb9fy0.aspx 
-
-
 
 // just execute all the registered tests
 // in no particular order
@@ -25,7 +24,7 @@ static void dbj_program_start(
 	const	wchar_t* envp[]
 )
 {
-	DBJ_PRINT(DBJ_FG_CYAN  "\n\ndbj++nanolib playground: %S\n\n" DBJ_RESET, argv[0] );
+	DBJ_PRINT(DBJ_FG_CYAN  "\n\ndbj++nanolib playground: %S\n\n" DBJ_RESET, argv[0]);
 	// call the test units registered, in random order
 	// in this scenario easiest is to place the break point 
 	// in the test unit of interest
@@ -46,7 +45,7 @@ int main(int argc, char* argv[], char* envp[])
 			dbj_program_start(argc, argv, envp);
 		}
 		catch (...) {
-			DBJ_PRINT( DBJ_FG_RED_BOLD "\n\n" __FILE__ "\n\nUnknown exception!\n\n" DBJ_RESET );
+			DBJ_PRINT(DBJ_FG_RED_BOLD "\n\n" __FILE__ "\n\nUnknown exception!\n\n" DBJ_RESET);
 		}
 	};
 

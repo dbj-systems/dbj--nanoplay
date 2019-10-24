@@ -5,7 +5,7 @@ github.com/OpenLiveWriter/OpenLiveWriter/src/unmanaged/OpenLiveWriter.CppUtils/I
 
 #pragma once
 
-#include "../common.h"
+#include "../../common.h"
 #include <ShlObj.h>
 #include "hresultexception.h"
 
@@ -13,7 +13,7 @@ github.com/OpenLiveWriter/OpenLiveWriter/src/unmanaged/OpenLiveWriter.CppUtils/I
 // this fili is really sily
 #define FILI __FILE__ , __LINE__
 
-namespace dbj {
+namespace dbj::nanoplay {
 	namespace win {
 
 		using namespace dbj::nanolib;
