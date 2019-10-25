@@ -25,6 +25,14 @@ static void dbj_program_start(
 )
 {
 	DBJ_PRINT(DBJ_FG_CYAN  "\n\ndbj++nanolib playground: %S\n\n" DBJ_RESET, argv[0]);
+#ifdef __clang__
+	//__clang__             // set to 1 if compiler is clang
+	//	__clang_major__       // integer: major marketing version number of clang
+	//	__clang_minor__       // integer: minor marketing version number of clang
+	//	__clang_patchlevel__  // integer: marketing patch level of clang
+	//	__clang_version__     // string: full version number
+	DBJ_PRINT(DBJ_FG_CYAN  "\n\nCLANG: %s\n\n" DBJ_RESET, __clang_version__ );
+#endif
 	// call the test units registered, in random order
 	// in this scenario easiest is to place the break point 
 	// in the test unit of interest
