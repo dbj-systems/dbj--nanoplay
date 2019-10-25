@@ -161,6 +161,7 @@
     <ClInclude Include="interop\c_interop.h" />
     <ClInclude Include="sampling\testing_dbj_vector.h" />
     <ClInclude Include="valstat_2\valstat_2.h" />
+    <ClInclude Include="valstat_2\valstat_2_future.h" />
     <ClInclude Include="valstat_2\valstat_2_samples.h" />
     <ClInclude Include="sampling\win\hresultexception.h" />
     <ClInclude Include="sampling\win\logfile.h" />

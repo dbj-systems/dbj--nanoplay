@@ -50,5 +50,8 @@
     <ClInclude Include="valstat_2\valstat_2_samples.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="valstat_2\valstat_2_future.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

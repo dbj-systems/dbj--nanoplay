@@ -74,7 +74,7 @@ namespace dbj::nanoplay {
 		return arry<1 + sizeof...(Chs)>{ Chs..., char(0) };
 	}
 
-#ifdef __GNUC__ 
+#if defined(__clang__)
 	// https://wandbox.org/permlink/ubNTUYDrs2NEaDFz
 	// yes we can have valstat returned from UDL 
 	template< char ... Chs >
@@ -92,7 +92,18 @@ namespace dbj::nanoplay {
 		// paradigm shift, no exception logic, local handling
 		cout << endl << ar[5];
 		cout << endl << ar[0];
+
 		});
+
+#if defined(__clang__)
+	TU_REGISTER([] {
+			auto [val,stat] = 0xFFF_to_valstat;
+
+			if (val) {
+				cout << endl << (*val)[1];
+			}
+		});
+#endif
 	/*
 	handling no copy/no move types
      */

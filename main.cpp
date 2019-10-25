@@ -10,6 +10,7 @@
 #endif
 #include "interop/c_interop_test.h"
 #include "valstat_2/valstat_2_samples.h"
+#include "valstat_2/valstat_2_future.h"
 
 #include <future>
 #pragma warning( push )
