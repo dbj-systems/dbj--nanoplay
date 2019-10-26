@@ -3,14 +3,14 @@
 // #define TESTING_DBJ_RETVALS
 
 #include "common.h"
-#if _DBJ_SAMPLING
 #include "sampling/testing_dbj_vector.h"
-#include "sampling/no_macros_valstat.h"
-#include "sampling/win/logfile.h"
-#endif
-#include "interop/c_interop_test.h"
 #include "valstat_2/valstat_2_samples.h"
 #include "valstat_2/valstat_2_future.h"
+#if _DBJ_SAMPLING
+#include "sampling/no_macros_valstat.h"
+#include "sampling/win/logfile.h"
+#include "interop/c_interop_test.h"
+#endif
 
 #include <future>
 #pragma warning( push )
@@ -26,18 +26,11 @@ static void dbj_program_start(
 )
 {
 	DBJ_PRINT(DBJ_FG_CYAN  "\n\ndbj++nanolib playground: %S\n\n" DBJ_RESET, argv[0]);
-#ifdef __clang__
-	//__clang__             // set to 1 if compiler is clang
-	//	__clang_major__       // integer: major marketing version number of clang
-	//	__clang_minor__       // integer: minor marketing version number of clang
-	//	__clang_patchlevel__  // integer: marketing patch level of clang
-	//	__clang_version__     // string: full version number
-	DBJ_PRINT(DBJ_FG_CYAN  "\n\nCLANG: %s\n\n" DBJ_RESET, __clang_version__ );
-#endif
 	// call the test units registered, in random order
 	// in this scenario easiest is to place the break point 
 	// in the test unit of interest
-	dbj::tu::catalog.execute();
+	// if argumet is true, only tu's listing will be shown
+	dbj::tu::catalog.execute( /*true*/ );
 }
 
 #pragma warning( pop ) // 4100
@@ -45,7 +38,7 @@ static void dbj_program_start(
 #if defined(UNICODE) || defined(_UNICODE)
 int wmain(const int argc, const wchar_t* argv[], const wchar_t* envp[])
 #else
-#error "What could be the [t]reason this is not an UNICODE build?"
+#error "What could be the [t]reason t his is not an UNICODE build?"
 int main(int argc, char* argv[], char* envp[])
 #endif
 {

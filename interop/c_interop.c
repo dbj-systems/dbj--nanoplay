@@ -32,8 +32,10 @@ valstat_interop_decl(int) interop_valstat_testing(valstat_kind kind_)
 	case INFO: return vint_info;
 	case OK: return vint_ok;
 	case ERR: return vint_err;
+	case EMPTY: return vint_empty;
 	}
 	return vint_empty;
 }
 
 
+  
