@@ -22,10 +22,6 @@ namespace dbj::nanoplay {
 			using value_type = T;
 			optional<T> value;
 			optional<string> status;
-
-			// just for sampling purposes!
-			template<typename T>
-			friend ostream& operator << (ostream& os, const valstat<T> vt);
 		};
 
 		// descriptive output

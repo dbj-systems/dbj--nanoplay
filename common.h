@@ -47,7 +47,14 @@ using namespace Gdiplus;
 #endif // _GDIPLUS_H
 #endif
 
+#if 0
+// iuse it as local, for when developing
 #include "../dbj--nanolib/dbj++valstat.h"
 #include "../dbj--nanolib/dbj++tu.h"
+#else
+// use it as a submodule
+#include "dbj--nanolib/dbj++valstat.h"
+#include "dbj--nanolib/dbj++tu.h"
+#endif
 
 #endif // _DBJ_INC_COMMON_
