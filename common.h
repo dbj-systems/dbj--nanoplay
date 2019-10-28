@@ -1,7 +1,7 @@
 #ifndef _DBJ_INC_COMMON_
 #define _DBJ_INC_COMMON_
 
-
+#if _MSVC_LANG
 /*
 include windows only from one place
 and do it according to ancient windows lore
@@ -46,6 +46,9 @@ using namespace Gdiplus;
 #pragma comment(lib, "Gdiplus.lib")
 #endif // _GDIPLUS_H
 #endif
+
+#endif // _MSVC_LANG
+
 
 #if 0
 // iuse it as local, for when developing

@@ -3,6 +3,7 @@
 // #define TESTING_DBJ_RETVALS
 
 #include "common.h"
+#include "pprintpp/pprintpp_test.h"
 #include "sampling/testing_dbj_vector.h"
 #include "valstat_2/valstat_2_samples.h"
 #include "valstat_2/valstat_2_future.h"
