@@ -1,6 +1,6 @@
 [submodule "dbj--nanolib"]
 	path = dbj--nanolib
 	url = https://github.com/dbj-systems/dbj--nanolib.git
-[submodule "pprintpp_msvc"]
-	path = pprintpp_msvc
-	url = https://github.com/dbj-systems/pprintpp_msvc.git
+[submodule "fmt6"]
+	path = fmt6
+	url = https://github.com/dbj-systems/fmt6.git
