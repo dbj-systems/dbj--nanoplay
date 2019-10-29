@@ -3,7 +3,6 @@
 // #define TESTING_DBJ_RETVALS
 
 #include "common.h"
-#include "pprintpp/pprintpp_test.h"
 #include "sampling/testing_dbj_vector.h"
 #include "valstat_2/valstat_2_samples.h"
 #include "valstat_2/valstat_2_future.h"
@@ -26,7 +25,7 @@ static void dbj_program_start(
 	const	wchar_t* envp[]
 )
 {
-	DBJ_PRINT(DBJ_FG_CYAN  "\n\ndbj++nanolib playground: %S\n\n" DBJ_RESET, argv[0]);
+	DBJ_PRINT(DBJ_FG_CYAN  "\n\n[" __TIMESTAMP__ "] dbj++nanolib playground\n\nPath to the program: %S\n\n" DBJ_RESET, argv[0]);
 	// call the test units registered, in random order
 	// in this scenario easiest is to place the break point 
 	// in the test unit of interest
