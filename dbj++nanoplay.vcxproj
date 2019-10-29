@@ -158,6 +158,7 @@
     <ClInclude Include="common.h" />
     <ClInclude Include="interop\c_interop_test.h" />
     <ClInclude Include="pprintpp\pprintpp_test.h" />
+    <ClInclude Include="sampling\fmt.h" />
     <ClInclude Include="sampling\no_macros_valstat.h" />
     <ClInclude Include="interop\c_interop.h" />
     <ClInclude Include="sampling\testing_dbj_vector.h" />
