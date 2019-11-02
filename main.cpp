@@ -3,11 +3,11 @@
 // #define TESTING_DBJ_RETVALS
 
 #include "common.h"
-#include "sampling/testing_dbj_vector.h"
-#include "valstat_2/valstat_2_samples.h"
-#include "valstat_2/valstat_2_future.h"
 #include "sampling/fmt.h"
 #if _DBJ_SAMPLING
+#include "valstat_2/valstat_2_samples.h"
+#include "valstat_2/valstat_2_future.h"
+#include "sampling/testing_dbj_vector.h"
 #include "sampling/no_macros_valstat.h"
 #include "sampling/win/logfile.h"
 #include "interop/c_interop_test.h"
