@@ -26,7 +26,8 @@ static void dbj_program_start(
 	const	wchar_t* envp[]
 )
 {
-	DBJ_PRINT(DBJ_FG_CYAN  "\n\n[" __TIMESTAMP__ "] dbj++nanolib playground\n\nPath to the program: %S\n\n" DBJ_RESET, argv[0]);
+	DBJ_PRINT("\n\n dbj++nanolib version: %s" , dbj::nanolib::VERSION  );
+	DBJ_PRINT(DBJ_FG_CYAN  "\n\n dbj++nanolib playground version:[" __TIMESTAMP__ "]");
 	// call the test units registered, in random order
 	// in this scenario easiest is to place the break point 
 	// in the test unit of interest
