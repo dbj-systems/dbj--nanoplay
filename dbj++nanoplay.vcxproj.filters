@@ -59,6 +59,9 @@
     <ClInclude Include="sampling\fmt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="sampling\u8literals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="pprintpp\readme.md" />

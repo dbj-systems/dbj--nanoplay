@@ -3,8 +3,9 @@
 // #define TESTING_DBJ_RETVALS
 
 #include "common.h"
-#include "sampling/fmt.h"
+#include "sampling/u8literals.h"
 #if _DBJ_SAMPLING
+#include "sampling/fmt.h"
 #include "valstat_2/valstat_2_samples.h"
 #include "valstat_2/valstat_2_future.h"
 #include "sampling/testing_dbj_vector.h"
@@ -33,6 +34,7 @@ static void dbj_program_start(
 	// in the test unit of interest
 	// if argumet is true, only tu's listing will be shown
 	dbj::tu::catalog.execute( /*true*/ );
+	dbj::nanolib::system("pause");
 }
 
 #pragma warning( pop ) // 4100

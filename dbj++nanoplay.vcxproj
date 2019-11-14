@@ -162,6 +162,7 @@
     <ClInclude Include="sampling\no_macros_valstat.h" />
     <ClInclude Include="interop\c_interop.h" />
     <ClInclude Include="sampling\testing_dbj_vector.h" />
+    <ClInclude Include="sampling\u8literals.h" />
     <ClInclude Include="valstat_2\valstat_2.h" />
     <ClInclude Include="valstat_2\valstat_2_future.h" />
     <ClInclude Include="valstat_2\valstat_2_samples.h" />
