@@ -3,8 +3,9 @@
 // #define TESTING_DBJ_RETVALS
 
 #include "common.h"
-#include "sampling/u8literals.h"
-#if _DBJ_SAMPLING
+#include "sampling/find_wovels.h"
+#include "utf8_decoder/utf8_decoder_sampler.h"
+#if 0
 #include "sampling/fmt.h"
 #include "valstat_2/valstat_2_samples.h"
 #include "valstat_2/valstat_2_future.h"
@@ -14,7 +15,6 @@
 #include "interop/c_interop_test.h"
 #endif
 
-#include <future>
 #pragma warning( push )
 #pragma warning( disable: 4100 )
 // https://msdn.microsoft.com/en-us/library/26kb9fy0.aspx 

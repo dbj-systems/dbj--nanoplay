@@ -49,6 +49,7 @@ using namespace Gdiplus;
 
 #endif // _MSVC_LANG
 
+#include <future>
 
 #if 0
 // iuse it as local, for when developing

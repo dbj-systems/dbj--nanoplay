@@ -21,6 +21,9 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="utf8_decoder\utf8_decoder.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="interop\c_interop.h">
@@ -50,16 +53,22 @@
     <ClInclude Include="valstat_2\valstat_2_samples.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="valstat_2\valstat_2_future.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="pprintpp\pprintpp_test.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sampling\fmt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sampling\u8literals.h">
+    <ClInclude Include="valstat_2\valstat_2_async.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sampling\find_wovels.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utf8_decoder\utf8_decoder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utf8_decoder\utf8_decoder_sampler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
