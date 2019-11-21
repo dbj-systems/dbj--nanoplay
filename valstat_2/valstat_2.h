@@ -79,7 +79,6 @@ namespace dbj::nanoplay {
 			v_buffer::buffer_type buffy = v_buffer::format(
 				R"({ "message" : "%s", "file" : "%s", "line" : %d, "timestamp" : "%s" })",
 				(msg ? msg : "unknown"), nix_path.data(), line, time_stamp);
-
 			return { buffy.data() };
 		}
 
@@ -87,7 +86,8 @@ namespace dbj::nanoplay {
 			inline std::string errc_to_message(std::errc posix_err_code) 
 			{
 				::std::error_code ec = std::make_error_code(posix_err_code);
-				return pprintf("{}", ec.message().c_str() );
+				v_buffer::buffer_type buffy = v_buffer::format("%s", ec.message().c_str() );
+				return { buffy.data() };
 			};
 		} // posix
 
@@ -110,14 +110,15 @@ namespace dbj::nanoplay {
 					std::system_category()
 				);
 				::SetLastError(0); //yes this helps
-				return pprintf("{}", ec.message().c_str());
+				v_buffer::buffer_type buffy = v_buffer::format("%s", ec.message().c_str());
+				return { buffy.data() };
 			}
 
 			inline auto code_to_message(win32::error_code code) -> std::string
 			{
 				if (code.v)
 					return error_message(code.v);
-				return pprintf("{}", "No error");
+				return { "No error" } ;
 			};
 		} // win32
 
