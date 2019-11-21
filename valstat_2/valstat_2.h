@@ -87,7 +87,7 @@ namespace dbj::nanoplay {
 			inline std::string errc_to_message(std::errc posix_err_code) 
 			{
 				::std::error_code ec = std::make_error_code(posix_err_code);
-				return fmt::format("{}", ec.message().c_str());
+				return pprintf("{}", ec.message().c_str() );
 			};
 		} // posix
 
@@ -110,14 +110,14 @@ namespace dbj::nanoplay {
 					std::system_category()
 				);
 				::SetLastError(0); //yes this helps
-				return fmt::format("{}", ec.message().c_str());
+				return pprintf("{}", ec.message().c_str());
 			}
 
 			inline auto code_to_message(win32::error_code code) -> std::string
 			{
 				if (code.v)
 					return error_message(code.v);
-				return fmt::format("{}", "No error");
+				return pprintf("{}", "No error");
 			};
 		} // win32
 

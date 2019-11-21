@@ -61,7 +61,6 @@ using namespace Gdiplus;
 #include "dbj--nanolib/dbj++tu.h"
 #endif
 
-#define FMT_HEADER_ONLY
-#include "fmt6/format.h"
+#include "dbj--pprintpp/pprintpp.hpp"
 
 #endif // _DBJ_INC_COMMON_
