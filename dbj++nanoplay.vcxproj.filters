@@ -24,6 +24,9 @@
     <ClCompile Include="utf8_decoder\utf8_decoder.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="valstat_2\interop\c_interop.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="interop\c_interop.h">

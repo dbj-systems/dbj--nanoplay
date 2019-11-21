@@ -123,3 +123,30 @@ namespace dbj::nanoplay {
 
 	} // namespace valstat_2 
 } // dbj::nanoplay
+
+namespace valstat_testing_space {
+	using namespace std;
+	auto driver = [](auto function_, char const* prompt_ = nullptr)
+	{
+		if (prompt_) cout << endl << endl << prompt_ << endl;
+
+		cout << boolalpha << endl << DBJ_FG_CYAN << "valstat:" << DBJ_RESET;
+
+		// structured binding of a result from a C function
+		auto [value, status] = function_();
+
+		cout << "\nvalue:\t";
+		if (value)
+			cout << DBJ_FG_CYAN_BOLD << *value << DBJ_RESET;
+		else
+			cout << DBJ_FG_CYAN_BOLD << "{ empty }" << DBJ_RESET;
+
+		cout << " / status:";
+		if (status)
+			cout << DBJ_FG_RED_BOLD << status << DBJ_RESET;
+		else
+			cout << DBJ_FG_CYAN_BOLD << "{ empty }" << DBJ_RESET;
+
+		cout << endl;
+	};
+} // interop_testing_space

@@ -5,9 +5,10 @@
 #include <future>
 #include <thread>
 
-namespace  dbj::nanoplay::future_vt 
+namespace  valstat_testing_space
 {
 	using namespace std;
+	using namespace  valstat_testing_space;
 
 	using dbj::nanoplay::valstat;
 	using int_vt = valstat<int>;

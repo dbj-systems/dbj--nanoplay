@@ -156,17 +156,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="interop\c_interop.c" />
     <ClCompile Include="utf8_decoder\utf8_decoder.c" />
+    <ClCompile Include="valstat_2\interop\c_interop.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h" />
-    <ClInclude Include="interop\c_interop_test.h" />
     <ClInclude Include="pprintpp\pprintpp_test.h" />
     <ClInclude Include="sampling\find_wovels.h" />
     <ClInclude Include="sampling\fmt.h" />
     <ClInclude Include="sampling\no_macros_valstat.h" />
-    <ClInclude Include="interop\c_interop.h" />
     <ClInclude Include="sampling\testing_dbj_vector.h" />
     <ClInclude Include="utf8_decoder\utf8_decoder.h" />
     <ClInclude Include="utf8_decoder\utf8_decoder_sampler.h" />

@@ -110,6 +110,9 @@ namespace dbj::nanoplay {
 	namespace {
 		struct adamant final{
 			inline static const char* genus = "tenacious";
+
+			adamant() = default;
+
 			adamant(const adamant&) = delete;
 			adamant & operator = (const adamant&) = delete;
 			adamant(adamant&&) = delete;
