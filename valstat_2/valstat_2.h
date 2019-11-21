@@ -83,5 +83,43 @@ namespace dbj::nanoplay {
 			return { buffy.data() };
 		}
 
+		namespace posix {
+			inline std::string errc_to_message(std::errc posix_err_code) 
+			{
+				::std::error_code ec = std::make_error_code(posix_err_code);
+				return fmt::format("{}", ec.message().c_str());
+			};
+		} // posix
+
+		namespace win32 {
+			/* win32 error code as a (strong) type */
+			struct error_code;
+			struct error_code
+			{
+				int v{ 0 };
+				error_code() : v(::GetLastError()) { ::SetLastError(0); }
+			};
+
+			constexpr inline bool is_ok(error_code const& ec_) { return ec_.v == 0; }
+
+			/* Last WIN32 error, message */
+			inline std::string error_message(int code = 0)
+			{
+				std::error_code ec(
+					(code ? code : ::GetLastError()),
+					std::system_category()
+				);
+				::SetLastError(0); //yes this helps
+				return fmt::format("{}", ec.message().c_str());
+			}
+
+			inline auto code_to_message(win32::error_code code) -> std::string
+			{
+				if (code.v)
+					return error_message(code.v);
+				return fmt::format("{}", "No error");
+			};
+		} // win32
+
 	} // namespace valstat_2 
 } // dbj::nanoplay

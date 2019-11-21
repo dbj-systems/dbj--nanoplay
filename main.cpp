@@ -3,8 +3,7 @@
 // #define TESTING_DBJ_RETVALS
 
 #include "common.h"
-#include "sampling/find_wovels.h"
-#include "utf8_decoder/utf8_decoder_sampler.h"
+#include "interop/c_interop_test.h"
 #if 0
 #include "sampling/fmt.h"
 #include "valstat_2/valstat_2_samples.h"
@@ -12,7 +11,8 @@
 #include "sampling/testing_dbj_vector.h"
 #include "sampling/no_macros_valstat.h"
 #include "sampling/win/logfile.h"
-#include "interop/c_interop_test.h"
+#include "sampling/find_wovels.h"
+#include "utf8_decoder/utf8_decoder_sampler.h"
 #endif
 
 #pragma warning( push )
