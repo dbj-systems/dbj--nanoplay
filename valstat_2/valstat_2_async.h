@@ -10,11 +10,11 @@ namespace  valstat_testing_space
 	using namespace std;
 	using namespace  valstat_testing_space;
 
-	using dbj::nanoplay::valstat;
+	using dbj::valstat;
 	using int_vt = valstat<int>;
 
 	// string dbj::nanoplay::make_status(const char* file, long line, const char* time_stamp, const char* msg)
-	inline auto & make_status = dbj::nanoplay::make_status;
+	inline auto & make_status = dbj::make_status;
 
 
 	inline auto vt_7 = valstat<int>{ { 7 } , { make_status( __FILE__, __LINE__, __TIMESTAMP__, "sampling future<valstat<T>>" ) } };
@@ -40,8 +40,14 @@ namespace  valstat_testing_space
 		f1.wait();
 		f2.wait();
 		f3.wait();
+
+		using namespace dbj; // for ADL to work
+
 		cout << "All done!\nResults are: \n\n"
-			<< f1.get() << "\n\n" << f2.get() << "\n\n" << f3.get() << '\n';
+			<< f1.get() << "\n\n"
+			<< f2.get() << "\n\n" 
+			<< f3.get() << '\n';
+
 		t.join();
 	});
 }

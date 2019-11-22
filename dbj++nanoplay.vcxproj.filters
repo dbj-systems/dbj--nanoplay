@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="interop\c_interop.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -29,9 +26,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="interop\c_interop.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="valstat_2\valstat_2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -48,9 +42,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sampling\no_macros_valstat.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="interop\c_interop_test.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="valstat_2\valstat_2_samples.h">

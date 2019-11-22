@@ -25,11 +25,16 @@ namespace dbj::nanoplay {
 		}
 	}
 	// Test Unit aka "Unit Test" ;)
-	TU_REGISTER([]
-		{
+	TU_REGISTER([] {
 			using namespace std::literals;
-			cout << endl << convert<int>("42"sv);
-			cout << endl << convert<float>("4.2"sv);
+			using namespace valstat_testing_space;
+			driver(
+				[&] { return convert<int>("42"sv); }, "convert<int>(\"42\"sv)"
+			);
+			// return result 4.2 as int 4
+			driver(
+				[&] { return convert<int>("4.2"sv); }, "convert<int>(\"4.2\"sv)"
+			);
 		}
 	);
 
@@ -54,6 +59,16 @@ namespace dbj::nanoplay {
 			return { { buff_[idx_] } , {} };
 		}
 	}; // arry
+
+	TU_REGISTER([] {
+		arry<0xFF> xarr{ {"0124356ABCDEFH"} };
+		
+		using namespace valstat_testing_space;
+		driver(
+			[&] {  return xarr[7]; }, 
+			"arry<0xFF> xarr{ {\"0124356ABCDEFH\"} }; xarr[7]"
+		);
+	});
 
 	/*
 	(c) dbj@dbj.org
@@ -85,7 +100,7 @@ namespace dbj::nanoplay {
 		// append '\0'
 		return vt{ { rtype{ Chs..., char(0) } } , {} };
 	}
-#endif // __GNUC__
+#endif // __clang__
 
 	TU_REGISTER([] {
 		constexpr auto ar = 123_conv;

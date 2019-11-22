@@ -6,7 +6,54 @@ valstat 2 -- no pairs
 #include "../common.h"
 #include <charconv>
 
-namespace dbj::nanoplay {
+// completely generic 
+// std:: proposal
+namespace future_std 
+{
+	using namespace std;
+	template< typename T, typename S>
+	struct [[nodiscard]] valstat
+	{
+		using value_type	= T;
+		using status_type	= S;
+		optional<T>			value;
+		optional<S>			status;
+	};
+};
+
+namespace dbj 
+{
+	template< typename T>
+	using valstat = future_std::valstat<T, std::string >;
+
+	// descriptive output
+	// the  verbose valstat consuming
+	// for testing purposes only
+	template<typename T>
+	inline std::ostream& operator << (std::ostream& os, const dbj::valstat<T> vt)
+	{
+		os << "\nvalstat state: ";
+		if (!vt.value && vt.status) os << "ERROR";
+		if (vt.value && !vt.status) os << "OK";
+		if (vt.value && vt.status) os << "INFO";
+		if (!vt.value && !vt.status) os << "EMPTY";
+
+		os << " , content: \n{";
+		if (vt.value)
+			os << "\n { value: " << *vt.value << " }";
+		else
+			os << "\n { value: empty }";
+		os << " ,";
+		if (vt.status)
+			os << "\n { status: " << *vt.status << " }";
+		else
+			os << "\n { status: empty }";
+		return os << "\n}\n";
+	}
+
+} // dbj
+
+namespace dbj {
 
 	inline namespace valstat_2 {
 
@@ -14,39 +61,6 @@ namespace dbj::nanoplay {
 		using namespace dbj::nanolib;
 
 		string make_status(const char* , long , const char *, const char* = nullptr);
-
-		// no pair version
-		// status == string
-		template< typename T>
-		struct [[nodiscard]] valstat{
-			using value_type = T;
-			optional<T> value;
-			optional<string> status;
-		};
-
-		// descriptive output
-		// the  verbose valstat consuming
-		template<typename T>
-		inline ostream& operator << (ostream& os, const valstat<T> vt)
-		{
-			os << "\nvalstat state: ";
-			if (!vt.value && vt.status) os << "ERROR";
-			if (vt.value && !vt.status) os << "OK";
-			if (vt.value && vt.status) os << "INFO";
-			if (!vt.value && !vt.status) os << "EMPTY";
-
-			os << " , content: \n{"; 
-			if (vt.value)
-				os << "\n { value: " << *vt.value << " }";
-			else
-				os << "\n { value: empty }";
-			os << " ,";
-			if (vt.status)
-				os << "\n { status: " << *vt.status << " }";
-			else
-				os << "\n { status: empty }";
-			return os << "\n}\n";
-		}
 
 	/*
 	it turns out status as a string sub-concept allows for total
@@ -122,8 +136,8 @@ namespace dbj::nanoplay {
 			};
 		} // win32
 
-	} // namespace valstat_2 
-} // dbj::nanoplay
+	} // inline namespace valstat_2 
+} // dbj
 
 namespace valstat_testing_space {
 	using namespace std;
