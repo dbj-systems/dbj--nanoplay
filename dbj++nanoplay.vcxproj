@@ -157,10 +157,12 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="utf8_decoder\utf8_decoder.c" />
-    <ClCompile Include="valstat_2\interop\c_interop.c" />
+    <ClCompile Include="valstat_research\interop\c_interop.c" />
+    <ClCompile Include="valstat_research\interop\math_valstat.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h" />
+    <ClInclude Include="dbj--nanolib\bare_optional.h" />
     <ClInclude Include="pprintpp\pprintpp_test.h" />
     <ClInclude Include="sampling\find_wovels.h" />
     <ClInclude Include="sampling\fmt.h" />
@@ -168,14 +170,18 @@
     <ClInclude Include="sampling\testing_dbj_vector.h" />
     <ClInclude Include="utf8_decoder\utf8_decoder.h" />
     <ClInclude Include="utf8_decoder\utf8_decoder_sampler.h" />
-    <ClInclude Include="valstat_2\valstat_2.h" />
-    <ClInclude Include="valstat_2\valstat_2_async.h" />
-    <ClInclude Include="valstat_2\valstat_2_samples.h" />
+    <ClInclude Include="valstat_research\dbj_string_registry.h" />
+    <ClInclude Include="valstat_research\interop\math_valstat.h" />
+    <ClInclude Include="valstat_research\valstat" />
+    <ClInclude Include="valstat_research\valstat_dbj.h" />
+    <ClInclude Include="valstat_research\valstat_dbj_async.h" />
+    <ClInclude Include="valstat_research\valstat_dbj_samples.h" />
     <ClInclude Include="sampling\win\hresultexception.h" />
     <ClInclude Include="sampling\win\logfile.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="pprintpp\readme.md" />
+    <None Include="valstat_research\README.MD" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

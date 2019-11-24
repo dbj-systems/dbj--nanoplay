@@ -3,32 +3,32 @@
 valstat 2 -- no pairs
 */
 
+#include "valstat"
 #include "../common.h"
-#include <charconv>
 
-// completely generic 
-// std:: proposal
-namespace future_std 
+namespace dbj
 {
 	using namespace std;
-	template< typename T, typename S>
-	struct [[nodiscard]] valstat
-	{
-		using value_type	= T;
-		using status_type	= S;
-		optional<T>			value;
-		optional<S>			status;
-	};
-};
 
-namespace dbj 
-{
+	/*
+	dbj imagined company
+	this type alias is all they have and need to use std::valstat
+	this makes them fully std::valstat compliant
+	this also makes other people better understand their API's
+
+	NOTE: std::string is not the most performant json
+		  string implementation. dbj, they usually use vector<char> or even
+		  unique_ptr<char[]>
+		  that issue is largely mitigated by not using strings
+		  but handles to the strings registry as the status type
+	*/
 	template< typename T>
 	using valstat = future_std::valstat<T, std::string >;
 
 	// descriptive output
 	// the  verbose valstat consuming
 	// for testing purposes only
+	// dbj usualy do njot use <iostream> in a production code
 	template<typename T>
 	inline std::ostream& operator << (std::ostream& os, const dbj::valstat<T> vt)
 	{
@@ -60,47 +60,43 @@ namespace dbj {
 		using namespace std;
 		using namespace dbj::nanolib;
 
-		string make_status(const char* , long , const char *, const char* = nullptr);
+		/*
+		it turns out status as a string sub-concept allows for total
+		decoupling from the valstat value half.
+		thus dbj do not need to pre-declare valstat types for different status types too
 
-	/*
-	it turns out status as a string sub-concept allows for total
-	decoupling from the valstat value half.
-	which in turn allows for pick-n-mix of statuses
-	which in turn means status content can be decided at the
-	very moment of prepraring a return, not before
+		Example:
 
-	Example:
+		valstat<bool> fun ( bool arg_ ) {
 
-	valstat<bool> fun ( bool arg_ ) {
+		if ( is_win32_error() )
+			return {{}, { make_win32_status( GetLastError(), __FILE__, __LINE__ ) }};
 
-	if ( is_win32_error() )
-	  return {{}, { make_win32_status( GetLastError(), __FILE__, __LINE__ ) }};
+		if ( is_posix_error() )
+			return {{}, { make_posix_status( std::errc::ENOMEM, __FILE__, __LINE__ ) }} ;
 
-	if ( is_posix_error() )
-	  return {{}, { make_posix_status( std::errc::ENOMEM, __FILE__, __LINE__ ) }} ;
+			return {{ arg_ }, {}};
+			}
 
-	  return {{ arg_ }, {}};
-
-	 }
-
-	bellow is just a message+file+line status, for sampling the valstat
-	  it is in a JSON format as evey other string as a status
-	  has no reason not to be
-	*/
-		inline string make_status(const char* file, long line, const char * time_stamp, const char* msg)
+		bellow is just a message+file+line status, for sampling the valstat
+		it is in a JSON format as every other status message
+		*/
+		inline std::string
+			make_status(const char* file, long line, const char* time_stamp, const char* msg = nullptr)
 		{
 			auto nix_path = v_buffer::replace(v_buffer::format("%s", file), '\\', '/');
 			v_buffer::buffer_type buffy = v_buffer::format(
 				R"({ "message" : "%s", "file" : "%s", "line" : %d, "timestamp" : "%s" })",
 				(msg ? msg : "unknown"), nix_path.data(), line, time_stamp);
-			return { buffy.data() };
+
+			return  { buffy.data() };
 		}
 
 		namespace posix {
-			inline std::string errc_to_message(std::errc posix_err_code) 
+			inline std::string errc_to_message(std::errc posix_err_code)
 			{
 				::std::error_code ec = std::make_error_code(posix_err_code);
-				v_buffer::buffer_type buffy = v_buffer::format("%s", ec.message().c_str() );
+				v_buffer::buffer_type buffy = v_buffer::format("%s", ec.message().c_str());
 				return { buffy.data() };
 			};
 		} // posix
@@ -132,7 +128,7 @@ namespace dbj {
 			{
 				if (code.v)
 					return error_message(code.v);
-				return { "No error" } ;
+				return { "No error" };
 			};
 		} // win32
 
@@ -141,7 +137,7 @@ namespace dbj {
 
 namespace valstat_testing_space {
 	using namespace std;
-	auto driver = [](auto function_, char const* prompt_ = nullptr)
+	inline auto driver = [](auto function_, char const* prompt_ = nullptr, bool testing_c_interop = false)
 	{
 		if (prompt_) cout << endl << endl << prompt_ << endl;
 
@@ -150,7 +146,7 @@ namespace valstat_testing_space {
 		// structured binding of a result from a C function
 		auto [value, status] = function_();
 
-		cout << "\nvalue:\t";
+		cout << "\nvalue: ";
 		if (value)
 			cout << DBJ_FG_CYAN_BOLD << *value << DBJ_RESET;
 		else
@@ -158,7 +154,10 @@ namespace valstat_testing_space {
 
 		cout << " / status:";
 		if (status)
-			cout << DBJ_FG_RED_BOLD << status << DBJ_RESET;
+			if ( false == testing_c_interop)
+				cout << DBJ_FG_RED_BOLD << *status << DBJ_RESET;
+			else
+				cout << DBJ_FG_RED_BOLD << status << DBJ_RESET;
 		else
 			cout << DBJ_FG_CYAN_BOLD << "{ empty }" << DBJ_RESET;
 

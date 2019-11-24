@@ -1,7 +1,8 @@
 #ifndef _INC_VAL_STAT_OPTIREF_
 #define _INC_VAL_STAT_OPTIREF_
 
-#include "valstat_2.h"
+#include "valstat_dbj.h"
+#include <charconv>
 
 namespace dbj::nanoplay {
 
@@ -148,9 +149,9 @@ namespace dbj::nanoplay {
 	TU_REGISTER([] {
 			adamant steadfast{};
 
-			auto info = [&]( ) -> adamant::vt { return  { {steadfast}, {"info message"} }; };
+			auto info = [&]( ) -> adamant::vt { return  { {steadfast}, { "info message" } }; };
 
-			auto error = [&]( ) -> adamant::vt { return  { {}, {"error message"} }; };
+			auto error = [&]( ) -> adamant::vt { return  { {}, { "error message" } }; };
 
 			auto ok = [&]( ) -> adamant::vt { return  { {steadfast}, {} }; };
 

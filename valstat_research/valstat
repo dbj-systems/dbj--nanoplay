@@ -1,0 +1,19 @@
+#pragma once
+
+#include <optional>
+// completely generic 
+// std:: proposal
+namespace future_std
+{
+	// using ::nonstd::optional_bare::optional;
+	using ::std::optional;
+
+	template< typename T, typename S>
+	struct [[nodiscard]] valstat
+	{
+		using value_type = T;
+		using status_type = S;
+		optional<T>			value;
+		optional<S>			status;
+	};
+};
