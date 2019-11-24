@@ -178,6 +178,7 @@
     <ClInclude Include="valstat_research\valstat_dbj_samples.h" />
     <ClInclude Include="sampling\win\hresultexception.h" />
     <ClInclude Include="sampling\win\logfile.h" />
+    <ClInclude Include="valstat_research\valstat_dbj_status.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="pprintpp\readme.md" />

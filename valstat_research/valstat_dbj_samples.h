@@ -1,17 +1,16 @@
-#ifndef _INC_VAL_STAT_OPTIREF_
-#define _INC_VAL_STAT_OPTIREF_
+#pragma once
 
-#include "valstat_dbj.h"
+#include "valstat_dbj_status.h"
 #include <charconv>
 
-namespace dbj::nanoplay {
+namespace valstat_testing_space {
 
 	using namespace std;
 	/*
 	putting valstat between users and std::from_chars
 	*/
 	template< typename T>
-	inline valstat<T> convert(string_view sv) noexcept(true)
+	inline dbj::valstat<T> convert(string_view sv) noexcept(true)
 	{
 		T rezult;
 		if (auto [p, e] = from_chars(sv.data(), sv.data() + sv.size(), rezult);
@@ -20,11 +19,11 @@ namespace dbj::nanoplay {
 			)
 		{
 			// valstat info state
-			return { {rezult}, { make_status(__FILE__, __LINE__, __TIMESTAMP__)  } };
+			return { {rezult}, { dbj::make_status(__FILE__, __LINE__, __TIMESTAMP__)  } };
 		}
 		else {
 			// valstat error state
-			return { {}, { make_status(__FILE__, __LINE__, __TIMESTAMP__)  } };
+			return { {}, { dbj::make_status(__FILE__, __LINE__, __TIMESTAMP__)  } };
 		}
 	}
 	// Test Unit aka "Unit Test" ;)
@@ -54,10 +53,10 @@ namespace dbj::nanoplay {
 		// valstat return does not require
 		// exception thinking
 		// there is always a return
-		valstat<char> operator [] (size_t idx_) const noexcept
+		dbj::valstat<char> operator [] (size_t idx_) const noexcept
 		{
 			if (idx_ >= buff_.size())
-				return { {}, { make_status(__FILE__, __LINE__, __TIMESTAMP__,"Index out of bounds") } };
+				return { {}, { dbj::make_status(__FILE__, __LINE__, __TIMESTAMP__,"Index out of bounds") } };
 
 			return { { buff_[idx_] } , {} };
 		}
@@ -106,6 +105,7 @@ namespace dbj::nanoplay {
 #endif // __clang__
 
 	TU_REGISTER([] {
+		using namespace dbj;
 		constexpr auto ar = 123_conv;
 		// paradigm shift, no exception logic, local handling
 		cout << endl << ar[5];
@@ -138,7 +138,7 @@ namespace dbj::nanoplay {
 			// convention:
 			// type::vt
 			// is the encapsulated valstat for the type
-			using vt = valstat< reference_wrapper<adamant> >;
+			using vt = dbj::valstat< reference_wrapper<adamant> >;
 
 			friend ostream& operator << (ostream& os, const adamant& vt)
 			{
@@ -160,6 +160,7 @@ namespace dbj::nanoplay {
 			auto empty = [&]( ) -> adamant::vt { return  { {}, {} }; };
 
 			auto consumer = []( auto producer ) {
+				using namespace dbj;
 				// auto [val, stat] = producer();
 				// sampling through the verbose stream output op.
 				cout << producer();
@@ -172,9 +173,8 @@ namespace dbj::nanoplay {
 
 		});
 
-} // dbj::nanoplay
+} // dbj
 
-#endif // _INC_VAL_STAT_OPTIREF_
 
 
 

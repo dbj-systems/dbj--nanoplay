@@ -1,5 +1,4 @@
-# dbj 
-## The imagined company
+# dbj -- the imagined company
 
 ### This is where dbj are using [`std::valstat`](./valstat)
 
@@ -7,6 +6,7 @@
 | -----|--------
 |valstat| the std::valstat header proposal
 | valstat_dbj.h| the dbj valstat implementation, testing support, etc.
+|valstat_dbj_status.h | status making
 | valstat_dbj_async.h | valstat usage in asycnhronous situation
 | valstat_db_samples.h |basic tests with examples
 

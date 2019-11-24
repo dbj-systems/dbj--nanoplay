@@ -1,6 +1,6 @@
 #pragma once
 
-#include "valstat_dbj.h"
+#include "valstat_dbj_status.h"
 //#include <iostream>
 #include <future>
 #include <thread>
@@ -8,7 +8,6 @@
 namespace  valstat_testing_space
 {
 	using namespace std;
-	using namespace  valstat_testing_space;
 
 	using dbj::valstat;
 	using int_vt = valstat<int>;

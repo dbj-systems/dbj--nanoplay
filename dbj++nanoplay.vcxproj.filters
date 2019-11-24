@@ -80,6 +80,9 @@
     <ClInclude Include="valstat_research\interop\math_valstat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="valstat_research\valstat_dbj_status.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="pprintpp\readme.md" />
