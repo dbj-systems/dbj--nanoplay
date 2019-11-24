@@ -1,4 +1,6 @@
 #pragma once
+// NOT IN USE CURRENTLY
+#if 0
 /*
 table of strings
 motivation: do not "carry arround" strings, but their 
@@ -59,3 +61,5 @@ namespace dbj::registry {
 
 
 } // dbj::registry
+
+#endif

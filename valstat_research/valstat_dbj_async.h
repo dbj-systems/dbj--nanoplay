@@ -13,9 +13,7 @@ namespace  valstat_testing_space
 	using dbj::valstat;
 	using int_vt = valstat<int>;
 
-	// string dbj::nanoplay::make_status(const char* file, long line, const char* time_stamp, const char* msg)
 	inline auto & make_status = dbj::make_status;
-
 
 	inline auto vt_7 = valstat<int>{ { 7 } , { make_status( __FILE__, __LINE__, __TIMESTAMP__, "sampling future<valstat<T>>" ) } };
 	inline auto vt_8 = valstat<int>{ {   } , { make_status( __FILE__, __LINE__, __TIMESTAMP__, "error state" ) } };

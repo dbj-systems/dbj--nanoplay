@@ -7,7 +7,9 @@
 namespace dbj::nanoplay {
 
 	using namespace std;
-	// sampling
+	/*
+	putting valstat between users and std::from_chars
+	*/
 	template< typename T>
 	inline valstat<T> convert(string_view sv) noexcept(true)
 	{

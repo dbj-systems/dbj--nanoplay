@@ -181,6 +181,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="pprintpp\readme.md" />
+    <None Include="valstat_research\interop\README.MD" />
     <None Include="valstat_research\README.MD" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

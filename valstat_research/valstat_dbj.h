@@ -11,7 +11,7 @@ namespace dbj
 	using namespace std;
 
 	/*
-	dbj imagined company
+	dbj -- the imagined company
 	this type alias is all they have and need to use std::valstat
 	this makes them fully std::valstat compliant
 	this also makes other people better understand their API's
@@ -28,7 +28,7 @@ namespace dbj
 	// descriptive output
 	// the  verbose valstat consuming
 	// for testing purposes only
-	// dbj usualy do njot use <iostream> in a production code
+	// dbj usualy do not use <iostream> in a production code
 	template<typename T>
 	inline std::ostream& operator << (std::ostream& os, const dbj::valstat<T> vt)
 	{
