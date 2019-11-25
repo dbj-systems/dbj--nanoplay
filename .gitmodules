@@ -4,3 +4,6 @@
 [submodule "dbj--pprintpp"]
 	path = dbj--pprintpp
 	url = https://github.com/dbj-systems/dbj--pprintpp.git
+[submodule "dbjclib"]
+	path = dbjclib
+	url = https://github.com/dbj-systems/dbjclib.git
