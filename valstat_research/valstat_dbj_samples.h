@@ -29,7 +29,7 @@ namespace valstat_testing_space {
 	// Test Unit aka "Unit Test" ;)
 	TU_REGISTER([] {
 			using namespace std::literals;
-			using namespace valstat_testing_space;
+			using namespace testing_space;
 			driver(
 				[&] { return convert<int>("42"sv); }, "convert<int>(\"42\"sv)"
 			);
@@ -65,7 +65,7 @@ namespace valstat_testing_space {
 	TU_REGISTER([] {
 		arry<0xFF> xarr{ {"0124356ABCDEFH"} };
 		
-		using namespace valstat_testing_space;
+		using namespace testing_space;
 		driver(
 			[&] {  return xarr[7]; }, 
 			"arry<0xFF> xarr{ {\"0124356ABCDEFH\"} }; xarr[7]"
@@ -183,31 +183,69 @@ namespace valstat_testing_space {
 	TU_REGISTER([] {
 			int arg = 0;
 			auto [val, stat] = ref_signal(arg);
-			int v_ = *val;
-			DBJ_ASSERT(v_ == SIG_ATOMIC_MAX);
+			DBJ_ASSERT( *val == SIG_ATOMIC_MAX);
 		});
 
 	namespace {
-
+// #define X_REF_VALSTAT 
 		struct X
 		{
-			int val;
+			constexpr static int special = 42;
+			int val{ -special }; //example: special value -> means default constructed
 			X(X&&) = delete;
 			X(X const&) = delete;
-			X(int i) : val{ i } {}
-
+			X(int i) : val( i % special ) {}
+			X() : val{ 0 } {} // default ctor
+			void method() { val += special;  }
+#ifdef X_REF_VALSTAT
+			using vstat = dbj::valstat< reference_wrapper<X> >;
+#else
 			using vstat = dbj::valstat<X>;
+#endif
 			static X::vstat make(int v_)
 			{
-				return { {v_} , {} };
+#ifdef X_REF_VALSTAT
+				static X x_(v_); // bug
+				return { x_ , {} };
+#else
+				return { v_ , {} };
+#endif
 			}
 		};
 
 		TU_REGISTER([]
 			{
+				// usage stays the same
+				// regalrdes of value being reference or not
 				auto [value, status] = X::make(4);
-				DBJ_ASSERT((*value).val == 4);
+				X& xref = *value;
+				DBJ_ASSERT( xref.val == 4 );
+				xref.method();
 			});
+	}
+
+	namespace rzej_challenge 
+	{
+		template <typename F>
+		dbj::valstat<std::invoke_result<F>> call(F fun)
+		{
+			if (true)
+				return { {fun()}, {} };
+			else
+				return { {}, {"error"} };
+		};
+
+		template <typename T> // may be a reference or a value
+		void use()
+		{
+			auto f = []() { return 42;  };
+			auto [val, err] = call(f); // val may be a reference wrapper or not
+			if (val)
+			{
+				(*val).method();
+				// val->get().method(); // which one should I call?
+			}
+		}
 	}
 
 } // dbj

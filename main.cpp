@@ -6,6 +6,7 @@
 #include "valstat_research/interop/c_interop_test.h"
 #include "valstat_research/valstat_dbj_samples.h"
 #include "valstat_research/valstat_dbj_async.h"
+#include "valstat_research/valstat_cpp03.h"
 #if 0
 #include "sampling/fmt.h"
 #include "sampling/testing_dbj_vector.h"
