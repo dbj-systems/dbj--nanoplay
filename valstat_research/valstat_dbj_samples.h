@@ -173,6 +173,17 @@ namespace valstat_testing_space {
 
 		});
 
+	dbj::valstat<reference_wrapper<int> > ref_signal( int & input_ref_ ) {
+		input_ref_ = SIG_ATOMIC_MAX;
+		return { {input_ref_} , {} };
+	}
+
+	TU_REGISTER([] {
+		int arg = 0;
+
+		auto [val, stat] = ref_signal(arg);
+		});
+
 } // dbj
 
 
