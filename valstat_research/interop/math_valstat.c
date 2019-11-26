@@ -36,7 +36,7 @@ NOTE: this implementation is based on dangerous cludges. This is just a proof of
 
 
 static const char* valstat_last_error = 0;
-valstat_interop_decl(double) log_valstat(arg_) 
+valstat_interop_decl(double) log_valstat( double arg_) 
 {
 	static double last_result = 0;
 	valstat_last_error = 0;

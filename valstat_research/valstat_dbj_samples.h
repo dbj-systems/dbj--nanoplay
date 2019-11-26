@@ -98,7 +98,7 @@ namespace valstat_testing_space {
 	inline constexpr decltype(auto) operator"" _to_valstat()
 	{
 		using rtype = arry<1 + sizeof...(Chs)>;
-		using vt = valstat<rtype>;
+		using vt = dbj::valstat<rtype>;
 		// append '\0'
 		return vt{ { rtype{ Chs..., char(0) } } , {} };
 	}
@@ -116,7 +116,7 @@ namespace valstat_testing_space {
 #if defined(__clang__)
 	TU_REGISTER([] {
 			auto [val,stat] = 0xFFF_to_valstat;
-
+			using namespace dbj; /* pacify ADL */
 			if (val) {
 				cout << endl << (*val)[1];
 			}
@@ -125,7 +125,6 @@ namespace valstat_testing_space {
 	/*
 	handling no copy/no move types
      */
-	namespace {
 		struct adamant final{
 			inline static const char* genus = "tenacious";
 
@@ -135,10 +134,14 @@ namespace valstat_testing_space {
 			adamant & operator = (const adamant&) = delete;
 			adamant(adamant&&) = delete;
 			adamant& operator = (adamant&&) = delete;
-			// convention:
+			
 			// type::vt
 			// is the encapsulated valstat for the type
-			using vt = dbj::valstat< reference_wrapper<adamant> >;
+#if 0
+			using vt = dbj::valstat< adamant >;
+#else
+			using vt = dbj::valstat< reference_wrapper<adamant> >; // clang
+#endif
 
 			friend ostream& operator << (ostream& os, const adamant& vt)
 			{
@@ -146,16 +149,14 @@ namespace valstat_testing_space {
 			}
 		};
 
-	}
-
-	TU_REGISTER([] {
+		TU_REGISTER([] {
 			adamant steadfast{};
 
-			auto info = [&]( ) -> adamant::vt { return  { {steadfast}, { "info message" } }; };
+			auto info = [&]() -> adamant::vt { return  { steadfast, { "info message" } }; };
 
 			auto error = [&]( ) -> adamant::vt { return  { {}, { "error message" } }; };
 
-			auto ok = [&]( ) -> adamant::vt { return  { {steadfast}, {} }; };
+			auto ok = [&]( ) -> adamant::vt { return  { steadfast , {} }; };
 
 			auto empty = [&]( ) -> adamant::vt { return  { {}, {} }; };
 
@@ -173,16 +174,41 @@ namespace valstat_testing_space {
 
 		});
 
-	dbj::valstat<reference_wrapper<int> > ref_signal( int & input_ref_ ) {
+	dbj::valstat<reference_wrapper<int> > ref_signal( int & input_ref_ ) 
+	{
 		input_ref_ = SIG_ATOMIC_MAX;
 		return { {input_ref_} , {} };
 	}
 
 	TU_REGISTER([] {
-		int arg = 0;
-
-		auto [val, stat] = ref_signal(arg);
+			int arg = 0;
+			auto [val, stat] = ref_signal(arg);
+			int v_ = *val;
+			DBJ_ASSERT(v_ == SIG_ATOMIC_MAX);
 		});
+
+	namespace {
+
+		struct X
+		{
+			int val;
+			X(X&&) = delete;
+			X(X const&) = delete;
+			X(int i) : val{ i } {}
+
+			using vstat = dbj::valstat<X>;
+			static X::vstat make(int v_)
+			{
+				return { {v_} , {} };
+			}
+		};
+
+		TU_REGISTER([]
+			{
+				auto [value, status] = X::make(4);
+				DBJ_ASSERT((*value).val == 4);
+			});
+	}
 
 } // dbj
 

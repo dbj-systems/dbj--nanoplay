@@ -57,7 +57,10 @@ namespace dbj
 
 namespace valstat_testing_space {
 	using namespace std;
-	inline auto driver = [](auto function_, char const* prompt_ = nullptr, bool testing_c_interop = false)
+	inline auto driver = [](
+		auto function_, 
+		char const* prompt_ = nullptr, 
+		bool testing_c_interop = false )
 	{
 		if (prompt_) cout << endl << endl << prompt_ << endl;
 
