@@ -8,7 +8,7 @@
 | valstat_dbj.h| the dbj valstat implementation, testing support, etc.
 |valstat_dbj_status.h | status making
 | valstat_dbj_async.h | valstat usage in asycnhronous situation
-| valstat_db_samples.h |basic tests with examples
+| valstat_db_samples.h |Basic tests with examples. This is where handling non movable objects solution is, too.
 
 ---
 #### License
