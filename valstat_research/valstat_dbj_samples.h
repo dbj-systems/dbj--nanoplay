@@ -1,6 +1,8 @@
 #pragma once
 
 #include "valstat_dbj_status.h"
+#include "valstat_dbj.h"
+
 #include <charconv>
 
 namespace valstat_testing_space {
@@ -91,8 +93,8 @@ namespace valstat_testing_space {
 		return arry<1 + sizeof...(Chs)>{ Chs..., char(0) };
 	}
 
-#if 1
-// #ifdef __clang__
+
+#if defined(__clang__ ) || defined(__llvm__) || defined(__GNUC__)
 	// https://wandbox.org/permlink/ubNTUYDrs2NEaDFz
 	// yes we can have valstat returned from UDL 
 	template< char ... Chs >

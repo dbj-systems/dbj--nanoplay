@@ -1,7 +1,6 @@
 #pragma once
 
-#include "c_interop.h"
-
+#include "../valstat_dbj_c_interop.h"
 
 #ifdef __cplusplus
 namespace dbj {

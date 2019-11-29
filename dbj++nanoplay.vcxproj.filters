@@ -21,9 +21,6 @@
     <ClCompile Include="utf8_decoder\utf8_decoder.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="valstat_research\interop\c_interop.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="valstat_research\interop\math_valstat.c">
       <Filter>Source Files</Filter>
     </ClCompile>
