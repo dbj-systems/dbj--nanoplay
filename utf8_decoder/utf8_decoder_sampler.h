@@ -4,10 +4,27 @@
 #include "../common.h"
 
 namespace utf_decoder_sampler {
+#define SPECIMEN u8"ひらがな"
+	
+	TU_REGISTER(
+		[] {
+			// functions returning void,that deal with errors
+			// example
+			// before valstat the return was 'void' and perror() was used internaly
+			auto [val,stat] = dbj::utf8_print_code_points(stdout, (uint8_t*)SPECIMEN);
+
+			// we do not need special value for val
+			// just is it here or not here
+			if (!val) 
+				printf("Error!");
+
+			if (stat) 
+				printf(" %s\n", stat);
+			// interop status is char *
+		});
 
 	TU_REGISTER(
 		[] {
-			
 			printf("\n\nIterating over u8 string literal: u8\"ひらがな\"\n\n");
 			unsigned  cnt_ = 1;
 
@@ -27,5 +44,5 @@ namespace utf_decoder_sampler {
 			if (dumsy) return;
 		}
 	);
-
+#undef SPECIMEN
 } // utf_decoder_sampler

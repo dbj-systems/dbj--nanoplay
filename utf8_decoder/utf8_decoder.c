@@ -25,7 +25,7 @@ static const uint8_t utf8d[] = {
   1,3,1,1,1,1,1,3,1,3,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1, // s7..s8
 };
 
-uint32_t inline
+uint32_t 
 utf8_decode(uint32_t* state, uint32_t* codep, uint32_t byte) 
 {
 	uint32_t type = utf8d[byte];
@@ -38,13 +38,14 @@ utf8_decode(uint32_t* state, uint32_t* codep, uint32_t byte)
 	return *state;
 }
 
-/*
-This function prints out all code points in the string and an error message
-if unexpected bytes are encountered, or if the string ends with an 
-incomplete sequence.
-*/
-
-void utf8_print_code_points(FILE * file_ptr_ , uint8_t * s) 
+/// <summary>
+/// This function prints out all code points in the string and an error message
+/// if unexpected bytes are encountered, or if the string ends with an
+/// incomplete sequence.
+/// </summary>
+/// <param name="file_ptr_">where to print</param>
+/// <param name="s">what to print</param>
+struct interop_void utf8_print_code_points(FILE * file_ptr_ , uint8_t * s) 
 {
 	uint32_t codepoint;
 	uint32_t state = 0;
@@ -53,10 +54,51 @@ void utf8_print_code_points(FILE * file_ptr_ , uint8_t * s)
 		if (!utf8_decode(&state, &codepoint, *s))
 		{
 			if (state != UTF8_ACCEPT) {
+				/**
+				before:
 				perror("\nThe string is not well-formed: ");
 				return;
+				*/
+				return (interop_void){ 0, INTEROP_JSON("The string is not well-formed") };
 			}
 			fprintf(file_ptr_, "U+%04X", codepoint);
-			// printf("%s", (char*)&codepoint);
 		}
+	int T = true;
+	return (interop_void) { &T, INTEROP_JSON("OK") };
+}
+
+///<summary>
+/// Validating and counting characters
+/// This function checks if a null - terminated string is a well - formed UTF - 8 sequence and counts how many code points are in the string.
+/// Before valstat it was used like so :
+/// <code>
+/// if (countCodePoints(s, &count)) {
+/// 	printf("The string is malformed\n");
+/// }
+///  else {
+///	   printf("The string is %u characters long\n", count);
+/// }
+/// </code>
+///<summary>
+struct interop_int countCodePoints(uint8_t * s, size_t * count) {
+	uint32_t codepoint;
+	uint32_t state = 0;
+
+	for (*count = 0; *s; ++s)
+		if (!utf8_decode(&state, &codepoint, *s))
+			*count += 1;
+
+	/* before: return state != UTF8_ACCEPT; */
+
+	int T = true;
+	int F = false;
+
+	if (state == UTF8_ACCEPT)
+		return (interop_int) { & T, INTEROP_JSON("Done.") };
+
+	/*
+	paradigm shift: no need to reurn any special value that means something
+	like false, it is enough to return empty value
+	*/
+	return (interop_int) { 0, INTEROP_JSON("The string argument was malformed!") };
 }

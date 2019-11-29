@@ -28,15 +28,15 @@ namespace valstat_testing_space {
 	}
 	// Test Unit aka "Unit Test" ;)
 	TU_REGISTER([] {
-			using namespace std::literals;
-			using namespace testing_space;
-			driver(
-				[&] { return convert<int>("42"sv); }, "convert<int>(\"42\"sv)"
-			);
-			// return result 4.2 as int 4
-			driver(
-				[&] { return convert<int>("4.2"sv); }, "convert<int>(\"4.2\"sv)"
-			);
+		using namespace std::literals;
+		using namespace testing_space;
+		driver(
+			[&] { return convert<int>("42"sv); }, "convert<int>(\"42\"sv)"
+		);
+		// return result 4.2 as int 4
+		driver(
+			[&] { return convert<int>("4.2"sv); }, "convert<int>(\"4.2\"sv)"
+		);
 		}
 	);
 
@@ -48,7 +48,7 @@ namespace valstat_testing_space {
 	template< size_t N>
 	struct arry final
 	{
-		array<char, N> buff_{ };
+		array<char, N> buff_{ 0 };
 
 		// valstat return does not require
 		// exception thinking
@@ -63,14 +63,14 @@ namespace valstat_testing_space {
 	}; // arry
 
 	TU_REGISTER([] {
-		arry<0xFF> xarr{ {"0124356ABCDEFH"} };
-		
+		static arry<0xFF> xarr{ {"0124356ABCDEFH"} };
+
 		using namespace testing_space;
 		driver(
-			[&] {  return xarr[7]; }, 
+			[&] {  return xarr[7]; },
 			"arry<0xFF> xarr{ {\"0124356ABCDEFH\"} }; xarr[7]"
 		);
-	});
+		});
 
 	/*
 	(c) dbj@dbj.org
@@ -91,7 +91,8 @@ namespace valstat_testing_space {
 		return arry<1 + sizeof...(Chs)>{ Chs..., char(0) };
 	}
 
-#if defined(__clang__)
+#if 1
+// #ifdef __clang__
 	// https://wandbox.org/permlink/ubNTUYDrs2NEaDFz
 	// yes we can have valstat returned from UDL 
 	template< char ... Chs >
@@ -102,6 +103,40 @@ namespace valstat_testing_space {
 		// append '\0'
 		return vt{ { rtype{ Chs..., char(0) } } , {} };
 	}
+
+	template< char ... Chs >
+	inline constexpr decltype(auto) operator"" _charray_valstat()
+	{
+		using val_type = std::array<char, 1 + sizeof...(Chs)>;
+		using vstt = dbj::valstat<val_type>;
+
+		if (sizeof...(Chs) > 42)
+			// ERR state
+			return vstt{ {}, "Do not go over 42!" };
+		// OK state
+		return vstt{ val_type{ Chs..., char(0) } , {} };
+	}
+
+	TU_REGISTER([] {
+		auto [val, stat] = 123_charray_valstat;
+
+		if (val) {
+			cout << *val;
+		}
+
+		if (stat) {
+			cout << *stat;
+		}
+
+		});
+
+	TU_REGISTER([] {
+		auto [val, stat] = 0xFFF_to_valstat;
+		using namespace dbj; /* pacify ADL */
+		if (val) {
+			cout << endl << (*val)[1];
+		}
+		});
 #endif // __clang__
 
 	TU_REGISTER([] {
@@ -112,91 +147,81 @@ namespace valstat_testing_space {
 		cout << endl << ar[0];
 
 		});
-
-#if defined(__clang__)
-	TU_REGISTER([] {
-			auto [val,stat] = 0xFFF_to_valstat;
-			using namespace dbj; /* pacify ADL */
-			if (val) {
-				cout << endl << (*val)[1];
-			}
-		});
-#endif
 	/*
 	handling no copy/no move types
-     */
-		struct adamant final{
-			inline static const char* genus = "tenacious";
+	 */
+	struct adamant final {
+		inline static const char* genus = "tenacious";
 
-			adamant() = default;
+		adamant() = default;
 
-			adamant(const adamant&) = delete;
-			adamant & operator = (const adamant&) = delete;
-			adamant(adamant&&) = delete;
-			adamant& operator = (adamant&&) = delete;
-			
-			// type::vt
-			// is the encapsulated valstat for the type
+		adamant(const adamant&) = delete;
+		adamant& operator = (const adamant&) = delete;
+		adamant(adamant&&) = delete;
+		adamant& operator = (adamant&&) = delete;
+
+		// type::vt
+		// is the encapsulated valstat for the type
 #if 0
-			using vt = dbj::valstat< adamant >;
+		using vt = dbj::valstat< adamant >;
 #else
-			using vt = dbj::valstat< reference_wrapper<adamant> >; // clang
+		using vt = dbj::valstat< reference_wrapper<adamant> >; // clang
 #endif
 
-			friend ostream& operator << (ostream& os, const adamant& vt)
-			{
-				return os << "adamant::genus = " << vt.genus;
-			}
+		friend ostream& operator << (ostream& os, const adamant& vt)
+		{
+			return os << "adamant::genus = " << vt.genus;
+		}
+	};
+
+	TU_REGISTER([] {
+		adamant steadfast{};
+
+		auto info = [&]() -> adamant::vt { return  { steadfast, { "info message" } }; };
+
+		auto error = [&]() -> adamant::vt { return  { {}, { "error message" } }; };
+
+		auto ok = [&]() -> adamant::vt { return  { steadfast , {} }; };
+
+		auto empty = [&]() -> adamant::vt { return  { {}, {} }; };
+
+		auto consumer = [](auto producer) {
+			using namespace dbj;
+			// auto [val, stat] = producer();
+			// sampling through the verbose stream output op.
+			cout << producer();
 		};
 
-		TU_REGISTER([] {
-			adamant steadfast{};
-
-			auto info = [&]() -> adamant::vt { return  { steadfast, { "info message" } }; };
-
-			auto error = [&]( ) -> adamant::vt { return  { {}, { "error message" } }; };
-
-			auto ok = [&]( ) -> adamant::vt { return  { steadfast , {} }; };
-
-			auto empty = [&]( ) -> adamant::vt { return  { {}, {} }; };
-
-			auto consumer = []( auto producer ) {
-				using namespace dbj;
-				// auto [val, stat] = producer();
-				// sampling through the verbose stream output op.
-				cout << producer();
-			};
-
-			consumer(info);
-			consumer(error);
-			consumer(ok);
-			consumer(empty);
+		consumer(info);
+		consumer(error);
+		consumer(ok);
+		consumer(empty);
 
 		});
 
-	dbj::valstat<reference_wrapper<int> > ref_signal( int & input_ref_ ) 
+	dbj::valstat<reference_wrapper<int> > ref_signal(int& input_ref_)
 	{
 		input_ref_ = SIG_ATOMIC_MAX;
 		return { {input_ref_} , {} };
 	}
 
 	TU_REGISTER([] {
-			int arg = 0;
-			auto [val, stat] = ref_signal(arg);
-			DBJ_ASSERT( *val == SIG_ATOMIC_MAX);
+		int arg = 0;
+		auto [val, stat] = ref_signal(arg);
+		DBJ_ASSERT(*val == SIG_ATOMIC_MAX);
 		});
 
 	namespace {
-// #define X_REF_VALSTAT 
+		// #define X_REF_VALSTAT 
 		struct X
 		{
 			constexpr static int special = 42;
 			int val{ -special }; //example: special value -> means default constructed
 			X(X&&) = delete;
 			X(X const&) = delete;
-			X(int i) : val( i % special ) {}
+			X(int i) : val(i% special) {}
 			X() : val{ 0 } {} // default ctor
-			void method() { val += special;  }
+			void method() { val += special; }
 #ifdef X_REF_VALSTAT
 			using vstat = dbj::valstat< reference_wrapper<X> >;
 #else
@@ -213,23 +238,44 @@ namespace valstat_testing_space {
 			}
 		};
 
+		struct Y { constexpr auto special() { return 42; } };
+
 		TU_REGISTER([]
 			{
+				{
+					optional<Y> opty = Y{};
+					static_assert(42 == opty->special());
+
+					dbj::valstat<Y> valty;
+					static_assert(42 == valty.value->special());
+
+					auto tricky = []() -> dbj::valstat<Y> {
+						// agregate and return { Y{} ,  empty } valstat
+						return { Y{}, {} };
+					};
+
+					auto [v, s] = tricky();
+
+					static_assert(42 == v->special()); // returns 42
+				}
+
 				// usage stays the same
 				// regalrdes of value being reference or not
 				auto [value, status] = X::make(4);
 				X& xref = *value;
-				DBJ_ASSERT( xref.val == 4 );
+				DBJ_ASSERT(xref.val == 4);
 				xref.method();
 			});
 	}
 
-	namespace rzej_challenge 
+	namespace rzej_challenge
 	{
 		template <typename F>
 		dbj::valstat<std::invoke_result<F>> call(F fun)
 		{
 			if (true)
+				// DBJ: f() can throw exception?
+				// DBJ: f() can have arguments...
 				return { {fun()}, {} };
 			else
 				return { {}, {"error"} };
@@ -238,8 +284,9 @@ namespace valstat_testing_space {
 		template <typename T> // may be a reference or a value
 		void use()
 		{
-			auto f = []() { return 42;  };
-			auto [val, err] = call(f); // val may be a reference wrapper or not
+			auto f = []() { return T{};  };
+			// val may be a reference wrapper or not
+			auto [val, sat] = call(f);
 			if (val)
 			{
 				(*val).method();

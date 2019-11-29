@@ -24,17 +24,6 @@ Even if end users, have never heard of VALSTAT, somehow it looks strangely famil
 NOTE: this implementation is based on dangerous cludges. This is just a proof of concept.
 */
 
-#undef _STRINGIZE_
-#define _STRINGIZE_(x) #x
-#undef  STRINGIZE
-#define STRINGIZE(x) _STRINGIZE_(x)
-
-#undef FLT
-#define FLT(M) \
-"{ \"file\": \"" __FILE__  "\", " \
- " \"line\": \""  STRINGIZE(__LINE__) "\", "  "\"message\": \"" M "\", \"timestamp\": \"" __TIMESTAMP__  "\" }" 
-
-
 static const char* valstat_last_error = 0;
 valstat_interop_decl(double) log_valstat( double arg_) 
 {
@@ -72,12 +61,12 @@ int _matherr(struct _exception* except)
 	{
 		switch (except->type)
 		{
-		case _DOMAIN: valstat_last_error = FLT(  "DOMAIN ERROR" ); break;
-		case _SING: valstat_last_error = FLT(  "ARGUMENT SINGULARITY" ); break;
-		case _OVERFLOW: valstat_last_error = FLT(  "OVERFLOW RANGE ERROR" ); break;
-		case _UNDERFLOW: valstat_last_error = FLT(  "UNDERFLOW RANGE ERROR" ); break;
-		case _TLOSS: valstat_last_error = FLT(  "TOTAL LOSS OF PRECISION" ); break;
-		case _PLOSS: valstat_last_error = FLT(  "PARTIAL LOSS OF PRECISION" ); break;
+		case _DOMAIN: valstat_last_error = INTEROP_JSON(  "DOMAIN ERROR" ); break;
+		case _SING: valstat_last_error = INTEROP_JSON(  "ARGUMENT SINGULARITY" ); break;
+		case _OVERFLOW: valstat_last_error = INTEROP_JSON(  "OVERFLOW RANGE ERROR" ); break;
+		case _UNDERFLOW: valstat_last_error = INTEROP_JSON(  "UNDERFLOW RANGE ERROR" ); break;
+		case _TLOSS: valstat_last_error = INTEROP_JSON(  "TOTAL LOSS OF PRECISION" ); break;
+		case _PLOSS: valstat_last_error = INTEROP_JSON(  "PARTIAL LOSS OF PRECISION" ); break;
 		default: 
 			perror("Unknown math exception type");
 			exit(1);
