@@ -71,9 +71,6 @@
     <ClInclude Include="utf8_decoder\utf8_decoder_sampler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="dbj--nanolib\bare_optional.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="valstat_research\valstat">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -102,6 +99,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="valstat_research\valstat_dbj_c_interop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="jzon_sampling\tests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="jzon_sampling\test-boxing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="jzon_sampling\json-checker-fail.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="jzon_sampling\conformance-string.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="jzon_sampling\conformance-double.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -97,7 +97,7 @@ struct interop_int countCodePoints(uint8_t * s, size_t * count) {
 		return (interop_int) { & T, INTEROP_JSON("Done.") };
 
 	/*
-	paradigm shift: no need to reurn any special value that means something
+	paradigm shift: no need to return any special value that means something
 	like false, it is enough to return empty value
 	*/
 	return (interop_int) { 0, INTEROP_JSON("The string argument was malformed!") };

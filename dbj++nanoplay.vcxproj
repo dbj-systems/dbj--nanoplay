@@ -170,7 +170,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h" />
-    <ClInclude Include="dbj--nanolib\bare_optional.h" />
+    <ClInclude Include="jzon_sampling\conformance-double.h" />
+    <ClInclude Include="jzon_sampling\conformance-string.h" />
+    <ClInclude Include="jzon_sampling\json-checker-fail.h" />
+    <ClInclude Include="jzon_sampling\test-boxing.h" />
+    <ClInclude Include="jzon_sampling\tests.h" />
     <ClInclude Include="pprintpp\pprintpp_test.h" />
     <ClInclude Include="sampling\dbj_meta_converter.h" />
     <ClInclude Include="sampling\find_wovels.h" />

@@ -34,7 +34,7 @@ namespace utf_decoder_sampler {
 			for ( auto const & elem : SPECIMEN )
 			{
 				cnt_ += 1;
-				printf("%s", (const char *)elem);
+				printf("%c", elem);
 			}
 
 			printf("\n\nIterated %d times", cnt_);

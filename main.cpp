@@ -3,11 +3,16 @@
 // #define TESTING_DBJ_RETVALS
 
 #include "common.h"
+#include "jzon_sampling/tests.h"
+#include "jzon_sampling/test-boxing.h"
+#include "jzon_sampling/json-checker-fail.h"
+#include "jzon_sampling/conformance-string.h"
+#include "jzon_sampling/conformance-double.h"
+#if 0
 #include "utf8_decoder/utf8_decoder_sampler.h"
 #include "valstat_research/valstat_dbj_samples.h"
 #include "valstat_research/valstat_dbj_async.h"
 #include "valstat_research/valstat_cpp03.h"
-#if 0
 #include "sampling/dbj_meta_converter.h"
 #include "sampling/testing_dbj_vector.h"
 #include "sampling/no_macros_valstat.h"
