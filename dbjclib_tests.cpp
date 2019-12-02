@@ -2,6 +2,8 @@
 #include "dbjclib/dbjclib.h"
 #include "common.h"
 
+#ifdef DBJ_CLIB_TESTING 
+
 TU_REGISTER(
 	[] {
 
@@ -12,3 +14,5 @@ TU_REGISTER(
 		dbj_string_trim_test(stdout);
 	}
 );
+
+#endif // DBJ_CLIB_TESTING 
