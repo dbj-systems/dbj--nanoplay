@@ -59,6 +59,7 @@ using namespace Gdiplus;
 // use it as a submodule
 #include "dbj--nanolib/dbj++valstat.h"
 #include "dbj--nanolib/jzon/jzon.h"
+#include "dbj--nanolib/jzon/jzon_utils.h"
 #include "dbj--nanolib/dbj++tu.h"
 #endif
 
