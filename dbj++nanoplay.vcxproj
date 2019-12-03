@@ -186,8 +186,8 @@
     <ClInclude Include="utf8_decoder\utf8_decoder_sampler.h" />
     <ClInclude Include="valstat_research\dbj_string_registry.h" />
     <ClInclude Include="valstat_research\interop\math_valstat.h" />
-    <ClInclude Include="valstat_research\valstat" />
-    <ClInclude Include="valstat_research\valstat_cpp03.h" />
+    <ClInclude Include="valstat_research\valstat.h" />
+    <ClInclude Include="valstat_research\valstat_dbj_own.h" />
     <ClInclude Include="valstat_research\valstat_dbj.h" />
     <ClInclude Include="valstat_research\valstat_dbj_async.h" />
     <ClInclude Include="valstat_research\valstat_dbj_c_interop.h" />

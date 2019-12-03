@@ -1,11 +1,14 @@
 #pragma once
 
+#define DBJ_STD_VALSTAT
+
+#ifdef DBJ_STD_VALSTAT
 #include <optional>
-// completely generic 
-// std:: proposal
-namespace future_std
+#endif
+
+namespace dbj_std
 {
-	// using ::nonstd::optional_bare::optional;
+    inline namespace valstat_std {
 	using ::std::optional;
 
 	template< typename T, typename S>
@@ -16,4 +19,9 @@ namespace future_std
 		optional<T>			value;
 		optional<S>			status;
 	};
+	}
+
+#ifdef DBJ_STD_VALSTAT
+	using namespace valstat_std;
+#endif
 };

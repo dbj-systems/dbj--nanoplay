@@ -17,7 +17,7 @@
 namespace jzon {
 
 
-	using jzon_valstat =  future_std::valstat< jzon::document, jzon::error >;
+	using jzon_valstat =  dbj_std::valstat< jzon::document, jzon::error >;
 
 	inline namespace jzon_literals 
 	{

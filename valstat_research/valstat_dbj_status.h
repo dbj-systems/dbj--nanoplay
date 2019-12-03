@@ -1,6 +1,6 @@
 #pragma once
 
-#include "valstat"
+#include "valstat.h"
 #include "../common.h"
 
 namespace dbj {
