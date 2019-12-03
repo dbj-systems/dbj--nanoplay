@@ -24,7 +24,7 @@ namespace dbj
 		  but handles to the strings registry as the status type
 	*/
 	template< typename T>
-	using valstat = dbj_std::valstat_std::valstat<T, std::string >;
+	using valstat = dbj_std::valstat<T, std::string >;
 
 	// descriptive output
 	// the  verbose valstat consuming

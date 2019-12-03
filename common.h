@@ -3,7 +3,7 @@
 
 #if _MSVC_LANG
 
-#if !defined(_DBH_HAS_CXX17) && !defined(_DBH_HAS_CXX20)
+#if !defined(_DBJ_HAS_CXX17) && !defined(_DBJ_HAS_CXX20)
 #if defined(_MSVC_LANG)
 #define _DBJ__STL_LANG _MSVC_LANG
 #else // ^^^ use _MSVC_LANG / use __cplusplus vvv
@@ -11,18 +11,18 @@
 #endif // ^^^ use __cplusplus ^^^
 
 #if _DBJ__STL_LANG > 201703L
-#define _DBH_HAS_CXX17 1
-#define _DBH_HAS_CXX20 1
+#define _DBJ_HAS_CXX17 1
+#define _DBJ_HAS_CXX20 1
 #elif _DBJ__STL_LANG > 201402L
-#define _DBH_HAS_CXX17 1
-#define _DBH_HAS_CXX20 0
+#define _DBJ_HAS_CXX17 1
+#define _DBJ_HAS_CXX20 0
 #else // _DBJ__STL_LANG <= 201402L
-#define _DBH_HAS_CXX17 0
-#define _DBH_HAS_CXX20 0
-#endif // Use the value of _DBJ__STL_LANG to define _DBH_HAS_CXX17 and _DBH_HAS_CXX20
+#define _DBJ_HAS_CXX17 0
+#define _DBJ_HAS_CXX20 0
+#endif // Use the value of _DBJ__STL_LANG to define _DBJ_HAS_CXX17 and _DBJ_HAS_CXX20
 
 #undef _DBJ__STL_LANG
-#endif // !defined(_DBH_HAS_CXX17) && !defined(_DBH_HAS_CXX20)
+#endif // !defined(_DBJ_HAS_CXX17) && !defined(_DBJ_HAS_CXX20)
 /*
 include windows only from one place
 and do it according to ancient windows lore

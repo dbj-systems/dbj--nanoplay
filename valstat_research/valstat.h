@@ -1,27 +1,29 @@
-#pragma once
+#ifndef _DBJ_VALSTAT_INC_
+#define _DBJ_VALSTAT_INC_
+/**
+ Proposal for c++ standard function returns
+ This is concept, behavioral pattern and kind-of-a standard C++ interface
+ 
+ (c) by  Dusn B. Jovanovic, https://dusanjovanovic.org
 
-#define DBJ_STD_VALSTAT
+ Licence: CC BY SA 4.0
+*/
 
-#ifdef DBJ_STD_VALSTAT
 #include <optional>
-#endif
 
 namespace dbj_std
 {
-    inline namespace valstat_std {
 	using ::std::optional;
 
 	template< typename T, typename S>
 	struct [[nodiscard]] valstat
 	{
-		using value_type = T;
-		using status_type = S;
+		using type			= valstat;
+		using value_type	= T;
+		using status_type	= S;
 		optional<T>			value;
 		optional<S>			status;
 	};
-	}
-
-#ifdef DBJ_STD_VALSTAT
-	using namespace valstat_std;
-#endif
 };
+
+#endif // !_DBJ_VALSTAT_INC_
