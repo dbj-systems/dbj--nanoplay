@@ -165,7 +165,7 @@ namespace dbj {
 			static_assert(typetraits::is_std_string_v<return_type>, "return type must be standard string type");
 
 			template<typename T>
-			return_type operator () (T arg)
+			return_type operator () (T arg) const
 			{
 				using namespace typetraits;
 
@@ -197,26 +197,47 @@ namespace dbj {
 				}
 			}
 
-			// dealing with native string literals
-			template<typename T, size_t N>
-			return_type operator () (const T(&arg)[N])
+	// native pointers are now allowed
+	// comfortable API for everyone
+	// WARNING: zero terminated strings
+	// as char pointers
+	// are a safety risk
+			template<typename CHR >
+			return_type operator () (CHR* sv_) const
 			{
-				using namespace typetraits;
-
 				using actual_type
-					= std::remove_cv_t< std::remove_pointer_t<T> >;
-
+					= std::remove_cv_t< std::remove_pointer_t<CHR> >;
 				static_assert (
-					is_std_char_v< actual_type >,
-					"can transform only literals made out of standard char types"
+					typetraits::is_std_char_v< actual_type >,
+					"can transform only sequences made out of standard char types"
 					);
-
-				// make string and send it to 
-				// range transformation method
+				// make the string and send it to 
+				// the range transformation method
 				return this->operator()(
-					std::basic_string<actual_type>{ arg }
+					std::basic_string<actual_type>{sv_}
 				);
 			}
+
+			//// dealing with native string literals
+			//template<typename T, size_t N>
+			//return_type operator () (const T(&arg)[N]) const
+			//{
+			//	using namespace typetraits;
+
+			//	using actual_type
+			//		= std::remove_cv_t< std::remove_pointer_t<T> >;
+
+			//	static_assert (
+			//		is_std_char_v< actual_type >,
+			//		"can transform only literals made out of standard char types"
+			//		);
+
+			//	// make string and send it to 
+			//	// range transformation method
+			//	return this->operator()(
+			//		std::basic_string<actual_type>{ arg }
+			//	);
+			//}
 
 			// native poiinters are not allowed
 			// that would rely on zero terminats strings
@@ -265,6 +286,8 @@ std::cout << std::endl << DBJ_FG_CYAN << _DBJ_STRINGIZE(x) << DBJ_FG_CYAN_BOLD <
 namespace meta_conversion_testing {
 
 	using namespace std;
+
+#if defined( DBJ_META_CONVERTER_CANONICAL_TESTS )
 
 	/// <summary>
 	///  the string meta converter testing
@@ -365,6 +388,32 @@ namespace meta_conversion_testing {
 #if __cplusplus > 201703L
 				test_conversion(dbj::range_to_u8string);
 #endif	
+			});
+#endif
+
+		TU_REGISTER(
+			[] {
+				using namespace std;
+				// 
+				// AD hoc testing of the API comfortability
+				//
+				// this instance transforms anything (legal) to the std::string
+				// dbj::range_to_string 
+				// make it a three letter tool
+				auto const & tos = dbj::range_to_string;
+
+				// use it
+				// with another string type
+				DBJ_TX( tos(std::wstring(L"WIDE")) );
+
+				// with char32_t string literal
+				DBJ_TX( tos(U"WIDE LITERAL") );
+
+				// with native array
+				char16_t utf16[]{ u'U', u'T', u'F', u'1', u'6', 0 };
+
+				DBJ_TX( tos( utf16 ) );
+
 			});
 }
 
