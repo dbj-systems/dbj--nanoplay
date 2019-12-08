@@ -3,6 +3,7 @@
 // #define TESTING_DBJ_RETVALS
 
 #include "common.h"
+#include "sampling/dbj_meta_converter.h"
 #include "valstat_research/fibo.h"
 #include "valstat_research/polygon.h"
 #if 0
@@ -16,7 +17,6 @@
 #include "jzon_sampling/conformance-string.h"
 #include "jzon_sampling/conformance-double.h"
 #include "utf8_decoder/utf8_decoder_sampler.h"
-#include "sampling/dbj_meta_converter.h"
 #include "sampling/testing_dbj_vector.h"
 #include "sampling/no_macros_valstat.h"
 #include "sampling/fmt.h"

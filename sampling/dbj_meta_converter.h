@@ -25,7 +25,6 @@ thus the macto _TEST bellow does not get in that mess ...
 namespace dbj {
 
 	namespace typetraits {
-		using namespace std;
 
 		template <typename T> struct remove_all_ptr { typedef T type; };
 
@@ -112,13 +111,13 @@ namespace dbj {
 
 		// is T, a standard string
 		template< class T >
-		struct is_std_string : integral_constant<bool,
-			is_same_v<T, string    >||
-			is_same_v<T, wstring   >||
-			is_same_v<T, u16string >||
-			is_same_v<T, u32string >
+		struct is_std_string : std::integral_constant < bool,
+			std::is_same_v<T, std::string    > ||
+			std::is_same_v<T, std::wstring   > ||
+			std::is_same_v<T, std::u16string > ||
+			std::is_same_v<T, std::u32string >
 #if __cplusplus > 201703L
-			|| is_same_v<T, u8string >
+			|| std::is_same_v<T, std::u8string >
 #endif
 			>
 		{};
