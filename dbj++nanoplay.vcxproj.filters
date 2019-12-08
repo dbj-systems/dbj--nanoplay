@@ -122,6 +122,9 @@
     <ClInclude Include="valstat_research\polygon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="valstat_research\fibo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="pprintpp\readme.md" />

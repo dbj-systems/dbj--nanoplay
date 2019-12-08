@@ -95,7 +95,7 @@ namespace valstat_testing_space {
 	// no can do -- void as the value type
 	inline void point_print_all(Point::pointer pl_) noexcept
 	{
-		while (pl_ != false ) {
+		while (pl_ ) {
 			debug::print("\n\nPoint { [%d] %d, %d, %p }", pl_->TAG, pl_->x, pl_->y, pl_->next.get());
 			pl_ = pl_->next;
 		}
@@ -103,7 +103,7 @@ namespace valstat_testing_space {
 
 	inline void point_rmv(Point::pointer pl_) noexcept
 	{
-		while (pl_ != false) {
+		while (pl_ ) {
 			debug::print("\n\nRMV-ing Point { (%d, %d, %d), next: %p }", pl_->TAG, pl_->x, pl_->y, pl_->next.get());
 			auto tmp = pl_ ;
 			pl_ = pl_->next;
@@ -111,7 +111,9 @@ namespace valstat_testing_space {
 		}
 	}
 
-	inline polygon_vstat<Point::pointer>  point_new(int tag, int x, int y) noexcept
+	// no reason for valstat here
+	// make_shared_will abort if no memory
+	inline Point::pointer point_new(int tag, int x, int y) noexcept
 	{
 		// we terminate on heap axhaustion
 		Point::pointer newp = std::make_shared<Point>();
@@ -119,19 +121,16 @@ namespace valstat_testing_space {
 		newp->TAG = tag;
 		newp->x = x;
 		newp->y = y;
-		return { newp, {} };
+		return newp;
 	}
 
 	inline  polygon_vstat<Point::pointer> point_add(Point::pointer last, int tag_, int x, int y) noexcept
 	{
-		auto [point, state] = point_new(tag_, x, y);
-
-		if (point) {
-			last->next = *point;
-			return { last->next, {} }; // OK state
-		}
-
-		return { {}, state }; // pass the ERROR state
+	if (!last)	return { {} , "Invalid argument" };
+		// point will be always here
+		auto point = point_new(tag_, x, y);
+			last->next = point;
+	return { last->next, {} }; // OK state
 	}
 
 	/*
