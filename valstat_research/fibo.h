@@ -1,6 +1,6 @@
 #pragma once
 #include "../common.h"
-#include "valstat.h"
+#include <valstat>
 
 namespace valstat_testing_space {
 
@@ -40,7 +40,7 @@ namespace valstat_testing_space {
 
     // declare the valstat type
     // status is POSIX error code
-    using valstat_fibo = dbj_std::valstat< fibo_type, std::errc >;
+    using valstat_fibo = std::valstat< fibo_type, std::errc >;
 
     // the outcome is very safe and simple, compile time fibonacci
     constexpr inline valstat_fibo fibo(fibo_type n) noexcept

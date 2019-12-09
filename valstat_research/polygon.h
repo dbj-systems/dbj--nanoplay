@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../common.h"
-#include "../valstat_research/valstat.h"
+#include <valstat>
 
 /**
 Apply the valstat to some beginers/intermediate C++ code
@@ -45,7 +45,7 @@ namespace valstat_testing_space {
 	/// this declaration is all we nead to reap the benefits of valstat
 	/// </summary>
 	template<typename T>
-	using polygon_vstat = dbj_std::valstat<T, std::string >;
+	using polygon_vstat = std::valstat<T, std::string >;
 
 /// <summary>
 /// Polygon is a list of points
