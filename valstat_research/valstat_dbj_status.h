@@ -1,6 +1,6 @@
 #pragma once
 
-#include "valstat.h"
+#include "valstat_dbj.h"
 #include "../common.h"
 
 namespace dbj {
@@ -12,8 +12,8 @@ namespace dbj {
 
 		/*
 		it turns out status as a string sub-concept allows for total
-		decoupling from the valstat value half.
-		thus dbj do not need to pre-declare valstat types for different status types too
+		decoupling. dbj have found they do not need to pre-declare valstat
+		types for different status types too
 
 		Example:
 
@@ -46,8 +46,7 @@ namespace dbj {
 			inline std::string errc_to_message(std::errc posix_err_code)
 			{
 				::std::error_code ec = std::make_error_code(posix_err_code);
-				v_buffer::buffer_type buffy = v_buffer::format("%s", ec.message().c_str());
-				return { buffy.data() };
+				return ec.message() ;
 			};
 		} // posix
 

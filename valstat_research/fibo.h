@@ -2,6 +2,25 @@
 #include "../common.h"
 #include <valstat>
 
+namespace dbj {
+    // repeated here to cut on 
+    // dependancies
+    namespace posix {
+        inline std::string e_to_m(std::errc posix_err_code)
+        {
+            ::std::error_code ec = std::make_error_code(posix_err_code);
+            return ec.message() ;
+        };
+        // consume immediately
+        inline char const * e_to_s(std::errc posix_err_code)
+        {
+            static std::string anchor_{}; 
+                anchor_ = e_to_m(posix_err_code);
+                    return anchor_.c_str() ;
+        };
+    } // posix
+}
+
 namespace valstat_testing_space {
 
     using fibo_type = int64_t;
@@ -70,13 +89,14 @@ namespace valstat_testing_space {
                 ::printf("\nPOSIX errno: %d" , *stat);
             }
 
+            using dbj::posix::e_to_s;
             // let's try a sequence of valstat calls
             // show the benefits of new if syntax
-            if (auto [val, stat] = fibo(41); stat) printf("error: %d", *stat);
+            if (auto [val, stat] = fibo(41); stat) printf("error: %s", e_to_s(*stat) );
             else // proceed
-                if (auto [val, stat] = fibo(42); stat) printf("error: %d", *stat);
+                if (auto [val, stat] = fibo(42); stat) printf("error: %s", e_to_s(*stat) );
                 else
-                    if (auto [val, stat] = fibo(43); stat) printf("error: %d", *stat);
+                    if (auto [val, stat] = fibo(43); stat) printf("error: %s", e_to_s(*stat) );
                     else
                         printf("And the final fibo(43) == %I64d", *val);
 

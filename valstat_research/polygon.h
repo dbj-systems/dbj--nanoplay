@@ -5,7 +5,7 @@
 
 /**
 Apply the valstat to some beginers/intermediate C++ code
-Basically no asserts any more ...
+Basically minimize asserts, maximize the resilience ...
 
 NOTE: very often beginners code looks like C
 */

@@ -51,5 +51,22 @@ namespace dbj
 		return os << "\n}\n";
 	}
 
+	/// <summary>
+	/// fact of C++ computing is POSIX error codes are going to stay
+	/// thus dbj have decalred the following valstat type too
+	/// valstat_bj_status.h contains message
+	/// creation from std::errc, part of <system_error>
+	/// namespace dbj::posix {
+	///		inline std::string errc_to_message(std::errc posix_err_code);
+	/// }
+	/// used only when needed. 
+	/// 
+	/// Thus dbj pass the std::errc arround and get to its message
+	/// only when needed
+	/// 
+	/// </summary>
+	template<typename T>
+	using posix_vs = std::valstat<T, std::errc >;
+
 } // dbj
 
