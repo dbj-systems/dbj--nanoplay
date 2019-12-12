@@ -125,6 +125,12 @@
     <ClInclude Include="valstat_research\fibo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="lambdatix\lambda_mx_makers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sampling\cpp20.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="pprintpp\readme.md" />

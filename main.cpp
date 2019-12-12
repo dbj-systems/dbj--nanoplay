@@ -3,6 +3,8 @@
 // #define TESTING_DBJ_RETVALS
 
 #include "common.h"
+#include "sampling/cpp20.h"
+#include "lambdatix/lambda_mx_makers.h"
 #include "sampling/dbj_meta_converter.h"
 #include "valstat_research/fibo.h"
 #include "valstat_research/polygon.h"

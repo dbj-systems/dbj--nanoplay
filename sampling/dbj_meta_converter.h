@@ -24,6 +24,12 @@ thus the macto _TEST bellow does not get in that mess ...
 
 namespace dbj {
 
+	enum class dbj_meta_converter_version {
+		major = 2, minor = 0, patch = 0
+	};
+
+	constexpr char const* dbj_meta_converter_version_string = "2.0.0 " __TIMESTAMP__ ;
+
 	namespace typetraits {
 
 		template <typename T> struct remove_all_ptr { typedef T type; };
@@ -36,9 +42,6 @@ namespace dbj {
 		template <typename T>
 		using remove_all_ptr_t = typename remove_all_ptr<T>::type;
 
-#if __cplusplus <= 201703L
-		// NOT C++20 code
-		// ::std::remove_cvref is to be in the C++20
 		template< class T >
 		struct remove_cvref {
 			typedef ::std::remove_cv_t<::std::remove_reference_t<T>> type;
@@ -46,7 +49,6 @@ namespace dbj {
 
 		template< class T >
 		using remove_cvref_t = typename remove_cvref<T>::type;
-#endif
 
 		// reduce any compound type , to its base type
 		template <class T>
@@ -394,6 +396,8 @@ namespace meta_conversion_testing {
 		TU_REGISTER(
 			[] {
 				using namespace std;
+
+				DBJ_TX(dbj::dbj_meta_converter_version_string);
 				// 
 				// AD hoc testing of the API comfortability
 				//
