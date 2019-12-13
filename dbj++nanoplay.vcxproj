@@ -29,26 +29,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>ClangCL</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>ClangCL</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>ClangCL</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>ClangCL</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -169,7 +169,7 @@
     <ClCompile Include="dbjclib\tests\dbj_string_trim_test.c" />
     <ClCompile Include="dbjclib_tests.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="utf8_decoder\utf8_decoder.c" />
+    <ClCompile Include="utf8\utf8_decoder.c" />
     <ClCompile Include="valstat_research\interop\math_valstat.c" />
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +181,7 @@
     <ClInclude Include="jzon_sampling\test-boxing.h" />
     <ClInclude Include="jzon_sampling\tests.h" />
     <ClInclude Include="lambdatix\lambda_mx_makers.h" />
+    <ClInclude Include="lambdatix\narf_again.h" />
     <ClInclude Include="pprintpp\pprintpp_test.h" />
     <ClInclude Include="sampling\cpp20.h" />
     <ClInclude Include="sampling\dbj_meta_converter.h" />
@@ -188,8 +189,10 @@
     <ClInclude Include="sampling\fmt.h" />
     <ClInclude Include="sampling\no_macros_valstat.h" />
     <ClInclude Include="sampling\testing_dbj_vector.h" />
-    <ClInclude Include="utf8_decoder\utf8_decoder.h" />
-    <ClInclude Include="utf8_decoder\utf8_decoder_sampler.h" />
+    <ClInclude Include="utf8\utf8_common.h" />
+    <ClInclude Include="utf8\utf8_decoder.h" />
+    <ClInclude Include="utf8\utf8_decoder_sampler.h" />
+    <ClInclude Include="utf8\utf8_kilim.h" />
     <ClInclude Include="valstat_research\dbj_string_registry.h" />
     <ClInclude Include="valstat_research\fibo.h" />
     <ClInclude Include="valstat_research\interop\math_valstat.h" />
