@@ -187,6 +187,7 @@
     <ClInclude Include="sampling\dbj_meta_converter.h" />
     <ClInclude Include="sampling\find_wovels.h" />
     <ClInclude Include="sampling\fmt.h" />
+    <ClInclude Include="sampling\any_opty.h" />
     <ClInclude Include="sampling\no_macros_valstat.h" />
     <ClInclude Include="sampling\testing_dbj_vector.h" />
     <ClInclude Include="utf8\utf8_common.h" />

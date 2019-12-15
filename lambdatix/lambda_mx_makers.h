@@ -1,27 +1,29 @@
 #pragma once
 
-#include "../common.h"
 
-//#include <iostream>
-//#include <array>
-//#include <cassert>
-//#include <memory>
+#include <iostream>
+#include <array>
+#include <cassert>
+#include <memory>
 //#include <cstdlib>
 
 namespace dbj::mtx {
 
 /*
-matrix orienteering  logic
+(c) 2019/2020 by dbj@dbj.org
 
-declaration : int M[3][3]
-in 2d space :
+C++ modern lambda powering a modern matrix
+
+matrix orienteering  logic used in here
+
+declaration : int M[3][3] means in 2d space :
 
 width : 3
 height: 3
 
 0,0   ...  ...
 ...   ...  ...
-...   ...  3,3
+...   ...  2,2
 
 */
 
@@ -50,12 +52,12 @@ height: 3
 #define dbj_mx_make_heap(T,R,C) dbj_mx_make(T, R, C, arr_heap)
 #define dbj_mx_make_stack(T,R,C) dbj_mx_make(T, R, C, arr_stack)
 
-	auto changer = [](auto matrix_, size_t row_, size_t col_, auto value_) {
+	inline auto changer = [](auto matrix_, size_t row_, size_t col_, auto value_) {
 		matrix_(row_, col_) = value_;
 		return matrix_;
 	};
 
-	auto printer = [](auto matrix_, size_t width_, size_t height_) -> void {
+	inline auto printer = [](auto matrix_, size_t width_, size_t height_) -> void {
 		using namespace std;
 		for (size_t row_ = 0; row_ < width_; row_++) {
 			cout << endl << "{";
@@ -67,26 +69,26 @@ height: 3
 		cout << endl;
 	};
 
-	TU_REGISTER([]
-		{
-			using namespace dbj::mtx;
-			using namespace std ;
+TU_REGISTER([]
+{
+	using namespace dbj::mtx;
+	using namespace std ;
 
-			constexpr size_t width_ = 3; // 0,1,2
-			constexpr size_t height_ = 3; // 0,1,2
+	constexpr size_t width_ = 3; // 0,1,2
+	constexpr size_t height_ = 3; // 0,1,2
 
-			constexpr size_t last_col_ = width_  - 1; // 0,1,2
-			constexpr size_t last_row_ = height_ - 1; // 0,1,2
+	constexpr size_t last_col_ = width_  - 1; // 0,1,2
+	constexpr size_t last_row_ = height_ - 1; // 0,1,2
 
-			constexpr auto matrix_on_stack = dbj_mx_make_stack(int, width_, height_);
-			 auto matrix_on_heap = dbj_mx_make_heap(int, width_, height_);
+	constexpr auto matrix_on_stack = dbj_mx_make_stack(int, width_, height_);
+		auto matrix_on_heap = dbj_mx_make_heap(int, width_, height_);
 
-			cout << endl << "matrix_on_stack " << endl;
-			printer( changer(matrix_on_stack , last_col_, last_row_, 42 ) , width_, height_) ;
+	cout << endl << "matrix_on_stack " << endl;
+	printer( changer(matrix_on_stack , last_col_, last_row_, 42 ) , width_, height_) ;
 
-			cout << endl << "matrix_on_heap " << endl;
-			printer(changer(matrix_on_stack, last_col_, last_row_, 42), width_, height_);
-		});
+	cout << endl << "matrix_on_heap " << endl;
+	printer(changer(matrix_on_stack, last_col_, last_row_, 42), width_, height_);
+});
 
 #undef dbj_mx_make 
 #undef dbj_mx_make_heap 
