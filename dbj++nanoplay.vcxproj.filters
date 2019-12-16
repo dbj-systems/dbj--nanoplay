@@ -39,6 +39,9 @@
     <ClCompile Include="utf8\utf8_decoder.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="stack_allocator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">
