@@ -22,6 +22,16 @@ namespace dbj_kilim {
 
 	TU_REGISTER([]
 		{
+
+			{
+				::system("chcp 65001");
+				// LINUX
+				auto smiley = u8"😀";
+				return ::printf(
+					"\n\nThe %s 'glyph': %s", typeid(smiley).name(), (const char*)smiley
+				);
+			}
+
 			auto driver = [&](auto char_set, size_t counter = 0xF) {
 
 				using namespace std::chrono_literals;
