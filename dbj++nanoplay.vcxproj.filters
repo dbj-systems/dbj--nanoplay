@@ -146,6 +146,9 @@
     <ClInclude Include="sampling\any_opty.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="sampling\dbj_scope_guard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="pprintpp\readme.md" />

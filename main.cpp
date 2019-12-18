@@ -3,6 +3,7 @@
 // #define TESTING_DBJ_RETVALS
 
 #include "common.h"
+#include "sampling/dbj_scope_guard.h"
 #include "sampling/any_opty.h"
 #if 0
 #include "lambdatix/narf_again.h"
@@ -60,6 +61,9 @@ int wmain(const int argc, const wchar_t* argv[], const wchar_t* envp[])
 int main(int argc, char* argv[], char* envp[])
 #endif
 {
+
+#include <stdio.h>
+
 	auto main_worker = [&]() {
 		try {
 			dbj_program_start(argc, argv, envp);
