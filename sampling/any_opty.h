@@ -35,7 +35,7 @@ namespace nano_play {
     }
 
 
-    inline auto driver = [](auto va_pair) {
+    inline auto const & driver = [](auto const & va_pair) {
 
         auto value_ = va_pair.first();
         auto any_   = va_pair.second;
