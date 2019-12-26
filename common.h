@@ -1,28 +1,6 @@
 #ifndef _DBJ_INC_COMMON_
 #define _DBJ_INC_COMMON_
 
-#if _MSVC_LANG
-
-#if !defined(_DBJ_HAS_CXX17) && !defined(_DBJ_HAS_CXX20)
-#if defined(_MSVC_LANG)
-#define _DBJ__STL_LANG _MSVC_LANG
-#else // ^^^ use _MSVC_LANG / use __cplusplus vvv
-#define _DBJ__STL_LANG __cplusplus
-#endif // ^^^ use __cplusplus ^^^
-
-#if _DBJ__STL_LANG > 201703L
-#define _DBJ_HAS_CXX17 1
-#define _DBJ_HAS_CXX20 1
-#elif _DBJ__STL_LANG > 201402L
-#define _DBJ_HAS_CXX17 1
-#define _DBJ_HAS_CXX20 0
-#else // _DBJ__STL_LANG <= 201402L
-#define _DBJ_HAS_CXX17 0
-#define _DBJ_HAS_CXX20 0
-#endif // Use the value of _DBJ__STL_LANG to define _DBJ_HAS_CXX17 and _DBJ_HAS_CXX20
-
-#undef _DBJ__STL_LANG
-#endif // !defined(_DBJ_HAS_CXX17) && !defined(_DBJ_HAS_CXX20)
 /*
 include windows only from one place
 and do it according to ancient windows lore
@@ -67,8 +45,6 @@ using namespace Gdiplus;
 #pragma comment(lib, "Gdiplus.lib")
 #endif // _GDIPLUS_H
 #endif
-
-#endif // _MSVC_LANG
 
 #include <future>
 #include <iomanip>

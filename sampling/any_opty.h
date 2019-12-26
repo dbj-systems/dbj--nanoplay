@@ -45,6 +45,21 @@ namespace nano_play {
     };
 
     TU_REGISTER([] {
+        //
+ {
+    using exiter = dbj::nanolib::on_scope_exit<dbj::nanolib::void_void_function_ptr>;
+
+    auto sg = exiter([] {
+        DBJ_PRINT("Guarded " __FILE__ "(" _DBJ_STRINGIZE(__LINE__) ")[" __TIMESTAMP__ "]");
+        });
+
+#ifdef _DEBUG
+    bool dumsy{};
+    if (!dumsy)
+        dumsy = true ;
+#endif
+ }
+
         auto [proxy, anyval] = any_opt(42);
         int i42 = proxy();
         std::any any_42 = anyval; // std::any holding int 42

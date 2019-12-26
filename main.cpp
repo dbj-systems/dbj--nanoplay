@@ -1,9 +1,9 @@
 // (c) 2019 by dbj.org -- CC BY-SA 4.0 -- https://creativecommons.org/licenses/by-sa/4.0/ 
 
 // #define TESTING_DBJ_RETVALS
+#include <crtdbg.h>
 
 #include "common.h"
-#include "sampling/dbj_scope_guard.h"
 #include "sampling/any_opty.h"
 #if 0
 #include "lambdatix/narf_again.h"
