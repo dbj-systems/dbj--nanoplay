@@ -17,35 +17,41 @@
 //    free(p);
 //}
 
-constexpr size_t stack_alloc_size = 200;
-
-template<typename T_>
-using stack_alloc_type = stackalloc_space::stack_allocator<T_, stack_alloc_size>;
+// very fast and very dangerous
+template< template< class T_, class A_> typename container_type, typename value_type, size_t stack_alloc_size = 0xFFF, 
+    typename stack_alloc_type  =  stackalloc_space::stack_allocator<value_type, stack_alloc_size> >
+using small_container = container_type< value_type , stack_alloc_type > ;
 
 static auto dumsy = []
     {
-        // using SmallVector = std::vector<int, stack_allocator<int, 200> > ;
-        using SmallVector = std::vector<int, stack_alloc_type<int> > ;
+        using small_vector = small_container< std::vector, char > ;
+        //using small_vector = std::vector<char> ;
 
-        //stack_arena<N> a;
-        SmallVector v{int(0),4};
+        small_vector v(4, '*');
+        // v.resize(4);
 
-        v.push_back(1);
-        v.push_back(2);
-        v.push_back(3);
-        v.push_back(4);
+        v[0] = ('A');
+        v[1] = ('B');
+        v[2] = ('C');
+        v[3] = ('D');
+
+        auto data_ = v.data();
+        auto size_ = v.size();
 
         return true;
-}; //  ();
+}();
 
 #include <intrin.h>
 
+template <typename T, std::size_t Alignment>
+using aaloc = allignedalloc_space::aligned_allocator<T, Alignment>;
+
 static auto test_aligned_allocator = []()
 {
-    typedef std::vector<__m128, allignedalloc_space::aligned_allocator<__m128, sizeof(__m128)> > aligned_vector;
+    typedef std::vector<__m128, aaloc<__m128, sizeof(__m128)> > aligned_vector;
 
-    aligned_vector lhs{ 1000, __m128{} };
-    aligned_vector rhs{ 1000, __m128{} };
+    aligned_vector lhs{ 1000 };
+    aligned_vector rhs{ 1000 };
 
     float a = 1.0f;
     float b = 2.0f;

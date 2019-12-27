@@ -43,6 +43,23 @@ namespace allignedalloc_space {
 		typedef std::size_t size_type;
 		typedef ptrdiff_t difference_type;
 
+		std::size_t max_size() const
+		{
+			// The following has been carefully written to be independent of
+			// the definition of size_t and to avoid signed/unsigned warnings.
+			return (static_cast<std::size_t>(0) - static_cast<std::size_t>(1)) / sizeof(T);
+		}
+
+		// DBJ NOTE: as of 2019 DEC 26, VStudio 2019 fully updated
+		// err's wit compilation message: vector end of file not found
+		// if rebind is not defined as bellow
+		template <typename U>
+		struct rebind
+		{
+			typedef aligned_allocator<U, Alignment> other;
+		};
+
+#if (DBJ_CPLUSPLUS < 201703L)
 		T* address(T& r) const
 		{
 			return &r;
@@ -52,21 +69,6 @@ namespace allignedalloc_space {
 		{
 			return &s;
 		}
-
-		std::size_t max_size() const
-		{
-			// The following has been carefully written to be independent of
-			// the definition of size_t and to avoid signed/unsigned warnings.
-			return (static_cast<std::size_t>(0) - static_cast<std::size_t>(1)) / sizeof(T);
-		}
-
-
-		// The following must be the same for all allocators.
-		template <typename U>
-		struct rebind
-		{
-			typedef aligned_allocator<U, Alignment> other;
-		};
 
 		bool operator!=(const aligned_allocator& other) const
 		{
@@ -92,18 +94,25 @@ namespace allignedalloc_space {
 		{
 			return true;
 		}
+#endif // (DBJ_CPLUSPLUS < 201703L)
 
-
+#if (DBJ_CPLUSPLUS < 201703L)
 		// Default constructor, copy constructor, rebinding constructor, and destructor.
 		// Empty for stateless allocators.
-		aligned_allocator() { }
-
 		aligned_allocator(const aligned_allocator&) { }
 
-		template <typename U> aligned_allocator(const aligned_allocator<U, Alignment>&) { }
-
 		~aligned_allocator() { }
+#endif // (DBJ_CPLUSPLUS < 201703L)
 
+// DBJ NOTE: as of 2019 DEC 26, VStudio 2019 fully updated
+// err's with compilation message: default ctor not found
+// if it is not defined as bellow
+		aligned_allocator() { }
+
+		// DBJ NOTE: as of 2019 DEC 26, VStudio 2019 fully updated
+		// err's with complex compilation message
+		// if the following rebinding ctor is not defined as bellow
+		template <typename U> aligned_allocator(const aligned_allocator<U, Alignment>&) { }
 
 		// The following will be different for each allocator.
 		T* allocate(const std::size_t n) const
@@ -125,7 +134,7 @@ namespace allignedalloc_space {
 			if (n > max_size())
 			{
 				perror("aligned_allocator<T>::allocate() - Integer overflow.");
-				exit( EXIT_FAILURE);
+				exit(EXIT_FAILURE);
 			}
 
 			// Mallocator wraps malloc().
@@ -148,12 +157,15 @@ namespace allignedalloc_space {
 		}
 
 
+#if (DBJ_CPLUSPLUS < 201703L)
+
 		// The following will be the same for all allocators that ignore hints.
 		template <typename U>
 		T* allocate(const std::size_t n, const U* /* const hint */) const
 		{
 			return allocate(n);
 		}
+#endif // (DBJ_CPLUSPLUS < 201703L)
 
 
 		// Allocators are not required to be assignable, so
@@ -164,7 +176,9 @@ namespace allignedalloc_space {
 		// base class assignment operator is inaccessible" within
 		// the STL headers, but that warning is useless.
 	private:
+#if (DBJ_CPLUSPLUS < 201703L)
 		aligned_allocator& operator=(const aligned_allocator&);
+#endif
 	}; // aligned_allocator
 
 } // namespace allignedalloc_space 
