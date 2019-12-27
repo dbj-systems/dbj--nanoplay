@@ -2,20 +2,51 @@
 #include "../dbj--nanolib/nonstd/aligned_allocator.h"
 #include "../dbj--nanolib/nonstd/stack_allocator.h"
 
+#include <memory>
+
+// if this compiles with the result of get_allocator()
+// on the container using your allocator
+// in that case your allocator is fine
+// NOTE: can not use referecne on the allocator argument
+// because get_allocator() returns a copy of allocator
+// second reason is, allocator traits requires non const
+// reference to the allocator instance used
+template< typename Allocator , typename value_t = typename Allocator::value_type >
+void traits_sampling( Allocator  allocator_ , value_t def_val_ )
+{
+    using my_trait = std::allocator_traits < Allocator >;
+
+    DBJ_PRINT(DBJ_FG_GREEN_BOLD "\n\nAllocator type: %s, max size: %zu\n\n" DBJ_RESET,
+        typeid(my_trait::allocator_type).name(), my_trait::max_size(allocator_));
+
+    auto p = my_trait::allocate(allocator_, size_t(7));
+    my_trait::deallocate(allocator_, p, size_t(7));
+
+    value_t val_{};
+    my_trait::construct(allocator_, &val_, def_val_);
+    my_trait::destroy(allocator_, & val_);
+
+}
+
 TU_REGISTER([]
 {
-        using small_vector = dbj::nanolib::alloc::small_container< std::vector, char > ;
-        small_vector v(4, '*');
-        // v.resize(4);
+        struct X final {
+            char id;
+            X() = delete;
+        };
 
-        v[0] = ('A');
-        v[1] = ('B');
-        v[2] = ('C');
-        v[3] = ('D');
+        using small_vector = dbj::nanolib::alloc::small_container< std::vector, X >;
 
-        auto data_ = v.data();
-        auto size_ = v.size();
+        small_vector v(4, { '*' });
+        // CAUTION: makes a copy of allocator in use
+        traits_sampling(v.get_allocator(), { '*' });
 
+        v[0] = { 'A' };
+        v[1] = { 'B' };
+        v[2] = { 'C' };
+        v[3] = { 'D' };
+    auto data_ = v.data();
+    auto size_ = v.size();
 });
 
 #include <intrin.h>
@@ -29,6 +60,9 @@ TU_REGISTER([]()
 
     aligned_vector lhs{ 1000 };
     aligned_vector rhs{ 1000 };
+
+    traits_sampling(lhs.get_allocator(), __m128( _mm_set_ps(1,2,3,4) ) );
+
 
     float a = 1.0f;
     float b = 2.0f;

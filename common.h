@@ -1,6 +1,11 @@
 #ifndef _DBJ_INC_COMMON_
 #define _DBJ_INC_COMMON_
 
+// _ITERATOR_DEBUG_LEVEL 2 is the DEBUG build defauly
+// and that will produce segv with dbj stack alocator 
+// that was not tested with stack allocator I suppose?
+// https://docs.microsoft.com/en-us/cpp/standard-library/iterator-debug-level?view=vs-2019
+#define _ITERATOR_DEBUG_LEVEL  0
 /*
 include windows only from one place
 and do it according to ancient windows lore
