@@ -39,10 +39,10 @@
     <ClCompile Include="utf8\utf8_decoder.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="allocators\allocators_testing.cpp">
+    <ClCompile Include="low_level\allocators_testing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="low_level\allocators_testing.cpp">
+    <ClCompile Include="low_level\cpuid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
