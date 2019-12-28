@@ -42,6 +42,9 @@
     <ClCompile Include="allocators\allocators_testing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="low_level\allocators_testing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">
