@@ -91,7 +91,7 @@ struct interop_int countCodePoints(uint8_t * s, size_t * count) {
 	/* before: return state != UTF8_ACCEPT; */
 
 	int T = true;
-	int F = false;
+	// int F = false;
 
 	if (state == UTF8_ACCEPT)
 		return (interop_int) { & T, INTEROP_JSON("Done.") };

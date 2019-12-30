@@ -17,7 +17,7 @@ void traits_sampling( Allocator  allocator_ , value_t def_val_ )
     using my_trait = std::allocator_traits < Allocator >;
 
     DBJ_PRINT(DBJ_FG_GREEN_BOLD "\n\nAllocator type: %s, max size: %zu\n\n" DBJ_RESET,
-        typeid(my_trait::allocator_type).name(), my_trait::max_size(allocator_));
+        typeid(typename my_trait::allocator_type).name(), my_trait::max_size(allocator_));
 
     auto p = my_trait::allocate(allocator_, size_t(7));
     my_trait::deallocate(allocator_, p, size_t(7));
@@ -27,6 +27,10 @@ void traits_sampling( Allocator  allocator_ , value_t def_val_ )
     my_trait::destroy(allocator_, & val_);
 
 }
+
+#if (_ITERATOR_DEBUG_LEVEL != 0)
+#pragma message(  "Warning _ITERATOR_DEBUG_LEVEL is not 0?" )
+#endif
 
 TU_REGISTER([]
 {
@@ -46,7 +50,9 @@ TU_REGISTER([]
         v[2] = { 'C' };
         v[3] = { 'D' };
     auto data_ = v.data();
+    data_ = nullptr;
     auto size_ = v.size();
+    size_ = 0;
 });
 
 #include <intrin.h>
@@ -84,5 +90,6 @@ TU_REGISTER([]()
     }
 
     __m128 mul = _mm_mul_ps(lhs[10], rhs[10]);
+    mul = __m128{};
 
 });

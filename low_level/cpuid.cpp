@@ -5,6 +5,11 @@
 // Uses the __cpuid intrinsic to get information about
 // CPU extended instruction set support.
 
+#if (_ITERATOR_DEBUG_LEVEL != 0)
+#undef _ITERATOR_DEBUG_LEVEL
+#define _ITERATOR_DEBUG_LEVEL  0
+#endif
+
 #include <iostream>
 #include <vector>
 #include <bitset>
