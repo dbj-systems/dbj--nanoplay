@@ -93,3 +93,37 @@ TU_REGISTER([]()
     mul = __m128{};
 
 });
+
+/*
+testing dbj++platform.h
+*/
+TU_REGISTER(
+    [] {
+        namespace pm = dbj::nanolib::platform;
+        DBJ_PRINT( "\n\n dbj::nanolib::platform::NAME : \"%s\" \n dbj::nanolib::platform::CODE : %3d \n\n", pm::NAME, pm::CODE );
+
+        namespace cr = dbj::nanolib::compiler;
+        DBJ_PRINT("\n\n dbj::nanolib::compiler\n NAME : %s\n CODE : \"%3u\" \n MAJOR : %3d \n\n", cr::NAME, cr::CODE, cr::MAJOR);
+
+        namespace le = dbj::nanolib::language;
+        DBJ_PRINT("\n\n dbj::nanolib::language\n NAME : %s\n CODE : %3u \n\n", le::NAME,  le::CODE );
+    }
+);
+
+/*
+testing dbj++ct.h
+*/
+
+#include "../dbj--nanolib/nonstd/dbj++ct.h"
+
+TU_REGISTER(
+    [] {
+        namespace ct = dbj::nanolib::ct;
+
+        char target[] = "0123456789";
+
+        assert( 0 == ct::mem_set_s(target, sizeof target, '!', 3 ) );
+
+        assert( 0 == ct::mem_set(target, '*', 3 ) );
+    }
+);

@@ -161,6 +161,9 @@
     <ClInclude Include="sampling\tuple_print.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="dbj--nanolib\dbj++platform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="pprintpp\readme.md" />

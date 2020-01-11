@@ -6,34 +6,7 @@
 #include <deque>
 #include <string>
 #include <iterator>
-// https://stackoverflow.com/a/54383242/10870835
-#include <iostream>
 
-#pragma region tuple print
-
-#include <tuple>
-
-namespace detail {
-	template<class TupType, size_t... I>
-	inline
-		std::ostream& tuple_print(std::ostream& os,
-			const TupType& _tup, std::index_sequence<I...>)
-	{
-		os << "(";
-		(..., (os << (I == 0 ? "" : ", ") << std::get<I>(_tup)));
-		os << ")";
-		return os;
-	}
-}
-
-template<class... T>
-inline 
-std::ostream& operator<< (std::ostream& os, const std::tuple<T...>& _tup)
-{
-	return detail::tuple_print(os, _tup, std::make_index_sequence<sizeof...(T)>());
-}
-
-#pragma endregion tuple print
 
 /*
 The problem statement
