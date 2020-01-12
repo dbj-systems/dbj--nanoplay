@@ -184,7 +184,7 @@
     <ClCompile Include="dbjclib\tests\dbj_string_list_test.c" />
     <ClCompile Include="dbjclib\tests\dbj_string_trim_test.c" />
     <ClCompile Include="dbjclib_tests.cpp" />
-    <ClCompile Include="low_level\allocators_testing.cpp" />
+    <ClCompile Include="low_level\low_evel_testing.cpp" />
     <ClCompile Include="low_level\cpuid.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="utf8\utf8_decoder.c" />
