@@ -164,6 +164,9 @@
     <ClInclude Include="dbj--nanolib\dbj++platform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="dbj--nanolib\dbj++log.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="pprintpp\readme.md" />

@@ -123,7 +123,20 @@ TU_REGISTER(
         char target[] = "0123456789";
 
         assert( 0 == ct::mem_set_s(target, sizeof target, '!', 3 ) );
+    }
+);
 
-        assert( 0 == ct::mem_set(target, '*', 3 ) );
+#include "../dbj--nanolib/dbj++log.h"
+
+TU_REGISTER(
+    [] {
+        namespace log = dbj::nanolib::logging;
+     
+        log::log("abra", true, "dabra");
+        log::logf("%s -- %d -- %s","abra", true, "dabra");
+
+        log::print("\nLook", " no", " prefix!");
+        log::prinf("\n%s -- %d -- %s", "abra", true, "dabra");
+
     }
 );
