@@ -21,6 +21,8 @@ The solution
 
 namespace dbj_nanoplay {
 
+	namespace dbjlog = dbj::nanolib::logging;
+
 	namespace detail {
 
 		/*
@@ -65,22 +67,22 @@ namespace dbj_nanoplay {
 
 			auto size_ = [&] { return  size_t( distance( begin_, end_ ) );  };
 
-			if (show_size) cout << " sequence [size:" << size_() << "]";
+			if (show_size) dbjlog::log(" sequence [size:" ,size_() ,"]");
 
-			cout << " {";
+			dbjlog::log(" {");
 			auto walker = begin_ ;
 			if (walker != end_ )
 			{
 				// first sequence element
 				// no leading comma
-				cout << " " << *walker; 
+				dbjlog::log(" " ,*walker);
 				walker++;
 				while (walker != end_ ) {
-					cout << " , " << *walker;
+					dbjlog::log(" , " ,*walker);
 					walker++;
 				}
 			}
-			cout << " }";
+			dbjlog::log(" }");
 		}
 
 		// print a sequence with a comma in between elements
@@ -118,7 +120,7 @@ namespace dbj_nanoplay {
 
 			assign_sorted(sorted_, added_);
 
-			printf("\nMerged sorted\n");sequence_print(sorted_);	printf("\n");
+			dbjlog::log("\nMerged sorted\n");sequence_print(sorted_);	dbjlog::log("\n");
 		}
 
 		// second call does it all
@@ -136,7 +138,7 @@ namespace dbj_nanoplay {
 
 				assign_sorted(sorted_, unsorted_);
 
-				printf("\ntwo_calls merged sorted\n"); sequence_print(sorted_); printf("\n");
+				dbjlog::log("\ntwo_calls merged sorted\n"); sequence_print(sorted_); dbjlog::log("\n");
 			};
 		};
 
@@ -153,8 +155,8 @@ namespace dbj_nanoplay {
 				auto args_set_1 = make_tuple( ppack_1 ... );
 				auto args_set_2 = make_tuple( ppack_2 ... );
 
-				cout << endl << " First  ppack: " << boolalpha << args_set_1 ;
-				cout << endl << " Second ppack: " << boolalpha << args_set_2 << endl;
+				dbjlog::log(" First  ppack: " ,boolalpha ,args_set_1 );
+				dbjlog::log(" Second ppack: " ,boolalpha ,args_set_2);
 
 				return tuple_cat(args_set_1, args_set_2);
 			};
@@ -169,7 +171,7 @@ namespace dbj_nanoplay {
 			//two_calls<std::list>(1, 3, 5)(6, 4, 2);
 
 			auto merged_pack = two_ppacks(1, false, 'X')(6.32f, "Hola!", 3.14156);
-			cout << endl << " Merged  ppack: " << boolalpha << merged_pack;
+			dbjlog::log(" Merged  ppack: " , merged_pack);
 
 			//variadicoid<list>(1,2);
 

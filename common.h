@@ -85,30 +85,30 @@ namespace testing_space {
 		bool testing_c_interop = false)
 	{
 		using namespace std;
+		namespace dbjlog = dbj::nanolib::logging ;
 
-		if (prompt_) cout << endl << endl << prompt_ << endl;
+		if (prompt_) dbjlog::log(prompt_);
 
-		cout << boolalpha << endl << DBJ_FG_CYAN << "valstat:" << DBJ_RESET;
+		dbjlog::log(DBJ_FG_CYAN, "valstat:", DBJ_RESET);
 
 		// structured binding of a result from a C function
 		auto [value, status] = function_();
 
-		cout << "\nvalue: ";
+		dbjlog::log("value: ");
 		if (value)
-			cout << DBJ_FG_CYAN_BOLD << *value << DBJ_RESET;
+			dbjlog::log(DBJ_FG_CYAN_BOLD, *value, DBJ_RESET);
 		else
-			cout << DBJ_FG_CYAN_BOLD << "{ empty }" << DBJ_RESET;
+			dbjlog::log(DBJ_FG_CYAN_BOLD, "{ empty }", DBJ_RESET);
 
-		cout << " / status:";
+		dbjlog::log(" / status:") ;
 		if (status)
 			if (false == testing_c_interop)
-				cout << DBJ_FG_RED_BOLD << *status << DBJ_RESET;
+				dbjlog::log(DBJ_FG_RED_BOLD, *status, DBJ_RESET);
 			else
-				cout << DBJ_FG_RED_BOLD << status << DBJ_RESET;
+				dbjlog::log(DBJ_FG_RED_BOLD, status, DBJ_RESET);
 		else
-			cout << DBJ_FG_CYAN_BOLD << "{ empty }" << DBJ_RESET;
+			dbjlog::log(DBJ_FG_CYAN_BOLD, "{ empty }", DBJ_RESET);
 
-		cout << endl;
 	}
 } // interop_testing_space
 

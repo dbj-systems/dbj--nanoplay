@@ -16,7 +16,7 @@ void traits_sampling( Allocator  allocator_ , value_t def_val_ )
 {
     using my_trait = std::allocator_traits < Allocator >;
 
-    DBJ_PRINT(DBJ_FG_GREEN_BOLD "\n\nAllocator type: %s, max size: %zu\n\n" DBJ_RESET,
+    DBJ_PRINT( "Allocator type: " DBJ_FG_GREEN_BOLD " %s, max size: %zu" DBJ_RESET,
         typeid(typename my_trait::allocator_type).name(), my_trait::max_size(allocator_));
 
     auto p = my_trait::allocate(allocator_, size_t(7));
@@ -100,13 +100,13 @@ testing dbj++platform.h
 TU_REGISTER(
     [] {
         namespace pm = dbj::nanolib::platform;
-        DBJ_PRINT( "\n\n dbj::nanolib::platform::NAME : \"%s\" \n dbj::nanolib::platform::CODE : %3d \n\n", pm::NAME, pm::CODE );
+        DBJ_PRINT( " dbj::nanolib::platform::NAME : \"%s\" -- dbj::nanolib::platform::CODE : %3d ", pm::NAME, pm::CODE );
 
         namespace cr = dbj::nanolib::compiler;
-        DBJ_PRINT("\n\n dbj::nanolib::compiler\n NAME : %s\n CODE : \"%3u\" \n MAJOR : %3d \n\n", cr::NAME, cr::CODE, cr::MAJOR);
+        DBJ_PRINT(" dbj::nanolib::compiler NAME : %s -- CODE : \"%3u\" -- MAJOR : %3d ", cr::NAME, cr::CODE, cr::MAJOR);
 
         namespace le = dbj::nanolib::language;
-        DBJ_PRINT("\n\n dbj::nanolib::language\n NAME : %s\n CODE : %3u \n\n", le::NAME,  le::CODE );
+        DBJ_PRINT(" dbj::nanolib::language NAME : %s -- CODE : %3u ", le::NAME,  le::CODE );
     }
 );
 
@@ -143,14 +143,16 @@ TU_REGISTER(
         log::config::set_sink_function([](std::string_view log_line) {  fprintf(stderr, log_line.data());  });
 
         // no time stamps, console output
-        log::print("\n\n'Normal'", " output", " with no prefix!\n");
+        log::config::no_timestamp();
+        log::logf("\n\n\nNo timestamp requires user defined new line!\n");
         // sinking to the syslog
         // log::config::set_sink_function([](std::string_view log_line) {  local_syslog_client( log_line.data());  });
         // no time stamp, local syslog clinet  output makes the time stamp
-        log::prinf("\n|%-12s|--|%12s|--|%-12s|\n", "This", "goes", "to syslog()");
+        log::logf("\n|%-12s|--|%12s|--|%-12s|\n", "This", "goes", "to syslog()\n");
 
-        log::config::restore_default_sink_function();
+        log::config::default_sink_function();
+        log::config::default_timestamp();
 
-        log::log("Back to default\n\n");
+        log::log("Back to default");
     }
 );
