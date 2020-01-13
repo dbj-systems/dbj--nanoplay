@@ -2,15 +2,61 @@
 
 #include "../common.h"
 
+namespace dbj::nanolib {
+
+	namespace detail {
+		template<class T>
+		inline constexpr T compile_time_pow(const T base, unsigned const exponent)
+		{
+			return (exponent == 0) ? 1 : (base * compile_time_pow(base, exponent - 1));
+		}
+
+		enum class LEG : int { less, equal, greater };
+
+		template<int decimal_places> LEG compare_doubles(double v1, double v2)
+		{
+			constexpr auto multiplier = compile_time_pow(10, decimal_places);
+			if (std::round(v1 * multiplier) == std::round(v2 * multiplier))
+				return LEG::equal;
+			if (v1 < v2)
+				return LEG::less;
+			return LEG::greater;
+		}
+	}
+
+	constexpr int dflt_dec_plac{ 5 };
+	// v1 == v2
+	template< int decimal_places = dflt_dec_plac>
+	inline bool doubles_equal(double v1, double v2)
+	{
+		return (detail::LEG::equal == detail::compare_doubles<decimal_places>(v1, v2));
+	}
+
+	// v1 < v2
+	template< int decimal_places = dflt_dec_plac>
+	inline bool doubles_less(double v1, double v2)
+	{
+		return (detail::LEG::less == detail::compare_doubles<decimal_places>(v1, v2));
+	}
+
+	// v > v2
+	template< int decimal_places = dflt_dec_plac>
+	inline bool doubles_greater(double v1, double v2)
+	{
+		return (detail::LEG::greater == detail::compare_doubles<decimal_places>(v1, v2));
+	}
+
+} // dbj::nanolib
+
 namespace dbj_jzon_testing
 {
 
-#define TEST_DOUBLE(json, expect) \
-    doc.parse(json);              \
-    TU_CHECK(doc[0].to_number() == expect);
+#define TEST_DOUBLE(json, expect) do { doc.parse(json); DBJ_PRINT("doc.parse(%s)", json); \
+TU_CHECK( dbj::nanolib::doubles_equal<1>( doc[0].to_number() , expect) ); } while(0)
 
-	TU_REGISTER ([] {
+	TU_REGISTER([] {
 		jzon::document doc;
+		//
 		TEST_DOUBLE("[0.0]", 0.0);
 		TEST_DOUBLE("[-0.0]", -0.0);
 		TEST_DOUBLE("[1.0]", 1.0);
@@ -120,7 +166,7 @@ namespace dbj_jzon_testing
 			"7567186443383770486037861622771738545623065874679014086723327636718751234567890123456789012345678901"
 			"e-308]",
 			2.2250738585072014e-308);
-	});
+		});
 }
 
 #undef TEST_DOUBLE
