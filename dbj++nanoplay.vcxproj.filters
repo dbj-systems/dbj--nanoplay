@@ -24,18 +24,6 @@
     <ClCompile Include="dbjclib_tests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="dbjclib\tests\dbj_sll_test.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dbjclib\tests\dbj_string_list_test.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dbjclib\tests\dbj_string_trim_test.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dbjclib\tests\dbj_front_back_string_test.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="utf8\utf8_decoder.c">
       <Filter>Source Files</Filter>
     </ClCompile>
