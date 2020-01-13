@@ -38,9 +38,9 @@
 // just execute all the registered tests
 // in no particular order
 static void dbj_program_start(
-	const	int			argc,
-	const	wchar_t* argv[],
-	const	wchar_t* envp[]
+	const	int	   argc,
+	const	char * argv[],
+	const	char * envp[]
 )
 {
 	DBJ_PRINT("\n\n dbj++nanolib version: %s" , dbj::nanolib::VERSION  );
@@ -55,15 +55,29 @@ static void dbj_program_start(
 
 #pragma warning( pop ) // 4100
 
-#if defined(UNICODE) || defined(_UNICODE)
-int wmain(const int argc, const wchar_t* argv[], const wchar_t* envp[])
-#else
-#error "What could be the [t]reason t his is not an UNICODE build?"
-int main(int argc, char* argv[], char* envp[])
-#endif
+int main(int argc, const char* argv[], const char* envp[])
 {
 
-#include <stdio.h>
+#ifdef DBJ_REDIRECT_STD_IN
+	if (freopen("input.txt", "r", stdin) == NULL) {
+		// Handle error, errno is set to indicate error
+	}
+#endif
+
+#ifdef DBJ_REDIRECT_STD_OUT
+	std::string logfile_name(argv[0]);
+	logfile_name.append(".log");
+
+#ifndef NDEBUG
+	DBJ_PRINT("local log file: %s", logfile_name.c_str());
+#endif
+	// https://stackoverflow.com/a/46869216/10870835
+	if (freopen(logfile_name.c_str(), "w", stdout) == NULL) {
+		// Handle error, errno is set to indicate error
+		perror( "\n\n" __FILE__ "\n\nCould not redirect stdout? " );
+		exit( EXIT_FAILURE );
+	}
+#endif // DBJ_REDIRECT_STD_OUT
 
 	auto main_worker = [&]() {
 		try {

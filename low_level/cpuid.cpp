@@ -200,6 +200,8 @@ private:
 // Initialize static member data
 const InstructionSet::InstructionSet_Internal InstructionSet::CPU_Rep;
 
+#include "../common.h"
+namespace dbjlog = dbj::nanolib::logging;
 
 // Print out supported instruction set extensions
 int test();
@@ -207,14 +209,14 @@ static int execute = test();
 
 static int test()
 {
-    auto& outstream = std::cout;
-
-    auto support_message = [&outstream](std::string isa_feature, bool is_supported) {
-        outstream << isa_feature << (is_supported ? " supported" : " not supported") << std::endl;
+    auto support_message = [&](std::string isa_feature, bool is_supported) 
+    {
+        // outstream << isa_feature << (is_supported ? " supported" : " not supported") << std::endl;
+        dbjlog::prinf( " %-16s %-16s",isa_feature , (is_supported ? " supported" : " not supported")) ;
     };
 
-    std::cout << InstructionSet::Vendor() << std::endl;
-    std::cout << InstructionSet::Brand() << std::endl;
+    dbjlog::prinf( " Vendor: %s", InstructionSet::Vendor().c_str() );
+    dbjlog::prinf( " Brand: %s\n", InstructionSet::Brand().c_str() );
 
     support_message("3DNOW", InstructionSet::_3DNOW());
     support_message("3DNOWEXT", InstructionSet::_3DNOWEXT());

@@ -1,8 +1,9 @@
+#ifdef DBJ_CLIB_TESTING 
+
 #include "dbjclib/tests/tests.h"
 #include "dbjclib/dbjclib.h"
 #include "common.h"
 
-#ifdef DBJ_CLIB_TESTING 
 
 TU_REGISTER(
 	[] {
