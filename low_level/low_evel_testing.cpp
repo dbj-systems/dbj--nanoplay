@@ -116,15 +116,51 @@ testing dbj++ct.h
 
 #include "../dbj--nanolib/nonstd/dbj++ct.h"
 
+#include <initializer_list>
+
+namespace dbj {
+
+}
+
 TU_REGISTER(
     [] {
         namespace ct = dbj::nanolib::ct;
+        namespace log = dbj::nanolib::logging;
 
         char target[] = "0123456789";
 
         assert( 0 == ct::mem_set_s(target, sizeof target, '!', 3 ) );
+
+        //
+        ct::secure_reset( target, sizeof target );
+
+        static_assert( false ==  ct::str_equal("A", "B") );
+
+#define HIRAGANA "平仮名"
+
+        constexpr auto str_size_ = ct::str_len(HIRAGANA);
+        constexpr auto str_size_u8 = ct::str_len(u8"" HIRAGANA);
+        constexpr auto str_size_u8r = ct::str_len(u8R"(平仮名)");
+
+        static_assert( ct::eq3(str_size_ , str_size_u8 , str_size_u8r) );
+
+        // "0 .. 9" + '\0' == 11
+        auto target_count_ = ct::countof(target);
+        constexpr auto target_count_ct_ = ct::countof(HIRAGANA);
+
+        log::logf("%zu -- %zu", target_count_, target_count_ct_);
+
+#define HIRAGANA_WS "  平\t \v仮\r \f 名 "
+
+        constexpr auto clean_hana_ = ct::remove_ws( HIRAGANA_WS );
+
+       log::log("Clean Hiragana: %s", clean_hana_.data());
+
     }
 );
+
+#undef HIRAGANA
+#undef HIRAGANA_WS
 
 TU_REGISTER(
     [] {
@@ -141,9 +177,9 @@ TU_REGISTER(
 
         // chnage where is the output sinking to
         log::config::set_sink_function([](std::string_view log_line) {  fprintf(stderr, log_line.data());  });
-
         // no time stamps, console output
         log::config::no_timestamp();
+
         log::logf("\n\n\nNo timestamp requires user defined new line!\n");
         // sinking to the syslog
         // log::config::set_sink_function([](std::string_view log_line) {  local_syslog_client( log_line.data());  });

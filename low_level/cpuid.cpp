@@ -209,7 +209,7 @@ TU_REGISTER([]
         auto support_message = [&](std::string isa_feature, bool is_supported)
         {
             // outstream << isa_feature << (is_supported ? " supported" : " not supported") << std::endl;
-            dbjlog::logf(" %-16s %-16s", isa_feature, (is_supported ? " supported" : " not supported"));
+            dbjlog::logf(" %-16s %-16s", isa_feature.c_str() , (is_supported ? " supported" : " not supported"));
         };
 
         dbjlog::logf(" Vendor: %s", InstructionSet::Vendor().c_str());
