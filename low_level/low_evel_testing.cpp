@@ -1,6 +1,7 @@
 #include "../common.h"
 #include "../dbj--nanolib/nonstd/aligned_allocator.h"
 #include "../dbj--nanolib/nonstd/stack_allocator.h"
+#include "../dbj--nanolib/nonstd/dbj_sequence_print.h"
 
 #include <memory>
 
@@ -192,3 +193,35 @@ TU_REGISTER(
         log::log("Back to default");
     }
 );
+
+char my_delimiters(dbj::nanolib::dc idx_) { 
+    switch (idx_) {
+        case dbj::nanolib::dc::LEFT_BRACE: return '>';
+        case dbj::nanolib::dc::RIGHT_BRACE : return '<';
+        case dbj::nanolib::dc::LEFT_SQ_BRACE : return '|';
+        case dbj::nanolib::dc::RIGHT_SQ_BRACE : return '|';
+        case dbj::nanolib::dc::COMMA: return ',';
+        case dbj::nanolib::dc::DOT : return '.';
+        case dbj::nanolib::dc::SPACE : return ' ';
+    }
+    assert(false);
+    return '?';
+};
+
+TU_REGISTER([]
+    {
+        using namespace std;
+        using namespace dbj::nanolib;
+
+        array<char, 0xF> charr{ {'+'} };
+        charr.fill('+');
+        sequence_print(charr);
+
+        std::cout << "\n\nUsing my delimiters\n\n";
+
+        sequence_print(charr, true, my_delimiters);
+
+        auto doner = { "Done!" };
+        std::cout << "\n\n";
+        sequence_print(doner, false);
+    });

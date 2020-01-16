@@ -190,6 +190,7 @@
     <ClInclude Include="allocators\aligned_allocator.h" />
     <ClInclude Include="allocators\stack_allocator.h" />
     <ClInclude Include="common.h" />
+    <ClInclude Include="dbj--nanolib\nonstd\dbj_sequence_print.h" />
     <ClInclude Include="jzon_sampling\conformance-double.h" />
     <ClInclude Include="jzon_sampling\conformance-string.h" />
     <ClInclude Include="jzon_sampling\json-checker-fail.h" />
