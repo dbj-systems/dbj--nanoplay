@@ -8,7 +8,7 @@ valstat 2 -- no pairs
 
 namespace dbj
 {
-	using namespace std;
+	// using namespace std;
 
 	/*
 	dbj -- the imagined company
