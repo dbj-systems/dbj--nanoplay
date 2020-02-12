@@ -2,7 +2,7 @@
 
 #include "../common.h"
 
-namespace dbj::nanolib {
+namespace dbj_jzon_testing {
 
 	namespace detail {
 		template<class T>
@@ -46,13 +46,8 @@ namespace dbj::nanolib {
 		return (detail::LEG::greater == detail::compare_doubles<decimal_places>(v1, v2));
 	}
 
-} // dbj::nanolib
-
-namespace dbj_jzon_testing
-{
-
 #define TEST_DOUBLE(json, expect) do { doc.parse(json); DBJ_PRINT("doc.parse(%s)", json); \
-TU_CHECK( dbj::nanolib::doubles_equal<1>( doc[0].to_number() , expect) ); } while(0)
+TU_CHECK( doubles_equal<1>( doc[0].to_number() , expect) ); } while(0)
 
 	TU_REGISTER([] {
 		jzon::document doc;

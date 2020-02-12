@@ -35,21 +35,22 @@ void traits_sampling( Allocator  allocator_ , value_t def_val_ )
 
 TU_REGISTER([]
 {
-        struct X final {
+        struct XType final {
             char id;
-            X() = delete;
+            XType(int new_id) : id(new_id) {};
         };
 
-        using small_vector = std::vector< X, dbj::nanolib::alloc::stack_allocator<X> >;
+        using small_vector = std::vector< XType, dbj::nanolib::alloc::stack_allocator<XType> >;
 
-        small_vector v(4, { '*' });
+        small_vector v ;
         // CAUTION: makes a copy of allocator in use
-        traits_sampling(v.get_allocator(), { '*' });
+        // traits_sampling(v.get_allocator(), { '*' });
 
-        v[0] = { 'A' };
-        v[1] = { 'B' };
-        v[2] = { 'C' };
-        v[3] = { 'D' };
+        v.push_back( XType{ 'A' } );
+        v.push_back( XType{ 'B' } );
+        v.push_back( XType{ 'C' } );
+        v.push_back( XType{ 'D' } );
+
     auto data_ = v.data();
     data_ = nullptr;
     auto size_ = v.size();
@@ -140,10 +141,14 @@ TU_REGISTER(
 #define HIRAGANA "平仮名"
 
         constexpr auto str_size_ = ct::str_len(HIRAGANA);
+
+#if ! (DBJ__STL_LANG > 201703L)
+
         constexpr auto str_size_u8 = ct::str_len(u8"" HIRAGANA);
         constexpr auto str_size_u8r = ct::str_len(u8R"(平仮名)");
 
         static_assert( ct::eq3(str_size_ , str_size_u8 , str_size_u8r) );
+#endif // not C++20
 
         // "0 .. 9" + '\0' == 11
         auto target_count_ = ct::countof(target);

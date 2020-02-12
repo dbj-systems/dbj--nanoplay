@@ -2,6 +2,8 @@
 
 #include "../common.h"
 
+#if ! (DBJ__STL_LANG > 201703L) 
+// forget it for C++20
 namespace dbj_jzon_testing
 {
 
@@ -47,3 +49,4 @@ break"])json"));
 		});
 
 } // namespace dbj_jzon_testing
+#endif // not C++20

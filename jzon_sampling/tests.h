@@ -11,12 +11,15 @@ namespace dbj_jzon_testing {
 		TU_CHECK( false == doc.parse(""));
 		TU_CHECK(doc.error_code() == jzon::error::expecting_value);
 
-		TU_CHECK(doc.parse(u8R"json(1234567890)json"));
 		TU_CHECK(doc.is_number());
 		TU_CHECK(doc.to_number() == 1234567890);
 
-		TU_CHECK( false == doc.parse(u8R"json({42: "member name must be string")json"));
 		TU_CHECK(doc.error_code() == jzon::error::expecting_string);
+
+#if ! (DBJ__STL_LANG > 201703L)
+
+		TU_CHECK(doc.parse(u8R"json(1234567890)json"));
+		TU_CHECK(false == doc.parse(u8R"json({42: "member name must be string")json"));
 
 		TU_CHECK(doc.parse(u8R"json({
     "empty": {},
@@ -24,6 +27,8 @@ namespace dbj_jzon_testing {
     "num": 123456789,
     "literals": [false, true, null]
 })json"));
+#endif // not C++20
+
 		TU_CHECK(doc.is_object());
 		TU_CHECK(doc.size() == 4);
 		// TU_CHECK(doc["alpha"].to_string(), "abcdefghijklmnopqrstuvwyz");

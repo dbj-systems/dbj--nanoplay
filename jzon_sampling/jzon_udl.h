@@ -41,6 +41,8 @@ namespace jzon {
 		}
 	}
 
+#if ! (DBJ__STL_LANG > 201703L)
+
 	TU_REGISTER([] {
 
         #define HIRAGANA u8"ひらがな"
@@ -67,5 +69,8 @@ namespace jzon {
 		DBJ_PRINT("'message' == %s", json_doc["message"].to_string("null"));
 
 		});
-}
+#endif // not c++20
+
+} // jzon
+
 #undef HIRAGANA	
