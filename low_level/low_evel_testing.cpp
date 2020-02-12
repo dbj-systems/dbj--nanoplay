@@ -40,7 +40,7 @@ TU_REGISTER([]
             X() = delete;
         };
 
-        using small_vector = dbj::nanolib::alloc::small_container< std::vector, X >;
+        using small_vector = std::vector< X, dbj::nanolib::alloc::stack_allocator<X> >;
 
         small_vector v(4, { '*' });
         // CAUTION: makes a copy of allocator in use

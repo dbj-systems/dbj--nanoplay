@@ -27,7 +27,7 @@ namespace dbj_nanoplay {
 
 		/*
 		sorted means lowermost is on the left
-		incoming has 3 siutations: append, prepend and insert
+		incoming has 3 states possible: append, prepend and insert
 		*/
 		template<typename Sequence >
 		inline void push_(Sequence& sorted_, typename Sequence::value_type incoming_)
