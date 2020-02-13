@@ -2,7 +2,7 @@
 
 #include "../common.h"
 
-#if ! (DBJ__STL_LANG > 201703L) 
+#if DBJ_HAS_CXX20 == 0
 // forget it for C++20
 namespace dbj_jzon_testing
 {

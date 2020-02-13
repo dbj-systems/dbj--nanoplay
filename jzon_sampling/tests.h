@@ -16,7 +16,7 @@ namespace dbj_jzon_testing {
 
 		TU_CHECK(doc.error_code() == jzon::error::expecting_string);
 
-#if ! (DBJ__STL_LANG > 201703L)
+#if DBJ_HAS_CXX20 == 0
 
 		TU_CHECK(doc.parse(u8R"json(1234567890)json"));
 		TU_CHECK(false == doc.parse(u8R"json({42: "member name must be string")json"));

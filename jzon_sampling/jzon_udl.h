@@ -41,7 +41,7 @@ namespace jzon {
 		}
 	}
 
-#if ! (DBJ__STL_LANG > 201703L)
+#if DBJ_HAS_CXX20 == 0
 
 	TU_REGISTER([] {
 

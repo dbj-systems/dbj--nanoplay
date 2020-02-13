@@ -43,14 +43,14 @@ static void dbj_program_start(
 	const	char * envp[]
 )
 {
-	DBJ_PRINT("dbj++nanolib version: %s" , ::dbj::nanolib::VERSION  );
+	DBJ_PRINT("dbj++nanolib version: %s" , dbj::nanolib::VERSION  );
 	DBJ_PRINT(DBJ_FG_CYAN  "dbj++nanolib playground version:[" __TIMESTAMP__ "]");
 	// call the test units registered, in random order
 	// in this scenario easiest is to place the break point 
 	// in the test unit of interest
 	// if argumet is true, only tu's listing will be shown
-	::dbj::tu::catalog.execute( /*true*/ );
-	::dbj::nanolib::system("pause");
+	dbj::tu::catalog.execute( /*true*/ );
+	dbj::nanolib::system_call("pause");
 }
 
 #pragma warning( pop ) // 4100

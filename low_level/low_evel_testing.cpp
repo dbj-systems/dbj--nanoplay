@@ -99,6 +99,7 @@ TU_REGISTER([]()
 /*
 testing dbj++platform.h
 */
+#include "../dbj--nanolib/dbj++platform.h"
 TU_REGISTER(
     [] {
         namespace pm = dbj::nanolib::platform;
@@ -142,7 +143,7 @@ TU_REGISTER(
 
         constexpr auto str_size_ = ct::str_len(HIRAGANA);
 
-#if ! (DBJ__STL_LANG > 201703L)
+#if DBJ_HAS_CXX20 == 0
 
         constexpr auto str_size_u8 = ct::str_len(u8"" HIRAGANA);
         constexpr auto str_size_u8r = ct::str_len(u8R"(平仮名)");
