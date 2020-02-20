@@ -1,0 +1,50 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "msvc debug build",
+            "type": "shell",
+            "command": "cl.exe",
+            "args": [
+                "/std:c++17",
+                "/MDd",
+                "-D_HAS_EXCEPTIONS=0",
+                "/Zi",
+                "/Fe:",
+                "nanoplay_dbg.exe",
+                "main.cpp",
+                "/link",
+                "/LIBPATH:C:\\Program Files (x86)\\Visual Leak Detector\\lib\\Win64"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "msvc release build",
+            "type": "shell",
+            "command": "cl.exe",
+            "args": [
+                "/std:c++17",
+                "/MDd",
+                "-D_HAS_EXCEPTIONS=0",
+                "/Fe:",
+                "nanoplay.exe",
+                "main.cpp"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always"
+            },
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}
