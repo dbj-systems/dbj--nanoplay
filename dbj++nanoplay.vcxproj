@@ -109,6 +109,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <SuppressStartupBanner>false</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -180,6 +181,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dbjclib_tests.cpp" />
+    <ClCompile Include="low_level\alligned_allocation.cpp" />
     <ClCompile Include="low_level\cpuid.cpp" />
     <ClCompile Include="low_level\low_evel_testing.cpp" />
     <ClCompile Include="main.cpp" />
