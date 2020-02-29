@@ -63,7 +63,8 @@ int main(int argc, const char* argv[], const char* envp[])
 	}
 #endif
 
-#ifdef DBJ_REDIRECT_STD_OUT
+#define  DBJ_REDIRECT_STD_ERR
+#ifdef DBJ_REDIRECT_STD_ERR
 	std::string logfile_name(argv[0]);
 	logfile_name.append(".log");
 
@@ -71,12 +72,11 @@ int main(int argc, const char* argv[], const char* envp[])
 	DBJ_PRINT("local log file: %s", logfile_name.c_str());
 #endif
 	// https://stackoverflow.com/a/46869216/10870835
-	if (freopen(logfile_name.c_str(), "w", stdout) == NULL) {
-		// Handle error, errno is set to indicate error
-		perror( "\n\n" __FILE__ "\n\nCould not redirect stdout? " );
-		exit( EXIT_FAILURE );
-	}
-#endif // DBJ_REDIRECT_STD_OUT
+
+	bool revert_on_destruct_ = false;
+	dbj::redirector redirect_{ revert_on_destruct_, logfile_name.c_str() };
+
+#endif // DBJ_REDIRECT_STD_ERR
 
 	auto main_worker = [&]() {
 		try {

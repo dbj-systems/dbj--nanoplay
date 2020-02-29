@@ -1,9 +1,6 @@
 #pragma once
-
+#include "../common.h"
 #include "valstat_dbj_status.h"
-//#include <iostream>
-#include <future>
-#include <thread>
 
 namespace  valstat_testing_space
 {
@@ -20,6 +17,8 @@ namespace  valstat_testing_space
 
 	TU_REGISTER([]
 	{
+			using dbj::nanolib::logging::log;
+
 		// from a packaged_task
 		packaged_task<int_vt()> task([] { return vt_7; }); // wrap the function
 		future<int_vt> f1 = task.get_future();  // get a future
@@ -33,17 +32,17 @@ namespace  valstat_testing_space
 		future<int_vt> f3 = p.get_future();
 		thread([&p] { p.set_value_at_thread_exit(vt_9); }).detach();
 
-		cout << "Waiting..." << flush;
+		log("Waiting...");
 		f1.wait();
 		f2.wait();
 		f3.wait();
 
 		using namespace dbj; // for ADL to work
 
-		cout << "All done!\nResults are: \n\n"
-			<< f1.get() << "\n\n"
-			<< f2.get() << "\n\n" 
-			<< f3.get() << '\n';
+		log( "All done!\nResults are: \n\n"
+			, f1.get() , "\n\n"
+			, f2.get() , "\n\n" 
+			, f3.get() , '\n');
 
 		t.join();
 	});

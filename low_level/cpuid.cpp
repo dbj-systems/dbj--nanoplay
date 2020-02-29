@@ -12,11 +12,7 @@
 
 #include "../common.h"
 
-//#include <iostream>
-//#include <vector>
 #include <bitset>
-//#include <array>
-//#include <string>
 #include <intrin.h>
 
 class InstructionSet

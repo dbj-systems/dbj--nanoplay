@@ -1,6 +1,5 @@
 #pragma once
-#include <random>
-#include <iostream>
+#include "../common.h"
 /* this can speed up things considerably. but test comprehensively first! */
 namespace dbj {
 
@@ -56,12 +55,8 @@ namespace dbj {
 	inline auto
 		print(T const& first_param, A const& ... params)
 	{
-		std::cout << first_param;
-		// if there are  more params
-		if constexpr (sizeof...(params) > 0) {
-			// recurse
-			print(params...);
-		}
+		using dbj::nanolib::logging::log;
+		log( first_param, params ... ) ;
 	};
 } // dbj
 

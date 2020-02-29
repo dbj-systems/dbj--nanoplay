@@ -4,6 +4,8 @@
 
 namespace cpp03 {
 
+	using dbj::nanolib::logging::log;
+
 	/// <summary>
 	/// std free valstat 
 	/// </summary>
@@ -92,14 +94,14 @@ namespace cpp03 {
 	{
 		using namespace std;
 
-		cout << endl << __FUNCSIG__;
+		log("\n" __FUNCSIG__ );
 
 		if (input_ref_ < 42) {
 			input_ref_ = SIG_ATOMIC_MAX;
-			cout << " OK return" << endl;
+			log( " OK return\n" );
 			return int_vstat::ok(SIG_ATOMIC_MAX); // { value, empty }
 		}
-		cout << " Error return" << endl;
+		log(" Error return\n");
 		return int_vstat::error("error: input must be bigger than magical constant");
 	}
 
@@ -107,23 +109,23 @@ namespace cpp03 {
 		{
 			using namespace std;
 
-			int arg = 0, arg2 = 44;
+			int arg = 0;
 
 			{
 				auto [value, status] = ref_signal(arg);
-				cout << endl;
+				log("\n");
 				if (value && !status)
-					cout << "\nOK state -- value: " << get(value) << ", status: [empty]";
+					log(  "\nOK state -- value: " , get(value) , ", status: [empty]");
 
 				if (value && status)
-					cout << "\nINFO state -- value: " << get(value) << ", status: " << get(status);
+					log(  "\nINFO state -- value: " , get(value) , ", status: " , get(status));
 
 				if (!value && !status)
-					cout << "\nEMPTY state --value: [empty], status : [empty] ";
+					log(  "\nEMPTY state --value: [empty], status : [empty] ");
 
 				if (!value && status)
-					cout << "\nERROR state -- value: [empty], status: " << get(status);
-				cout << endl;
+					log(  "\nERROR state -- value: [empty], status: " , get(status));
+				log("\n");
 			};
 
 		});
