@@ -3,8 +3,6 @@
 #include "../dbj--nanolib/nonstd/stack_allocator.h"
 #include "../dbj--nanolib/nonstd/dbj_sequence_print.h"
 
-#include <memory>
-
 // if this compiles with the result of get_allocator()
 // on the container using your allocator
 // in that case your allocator is fine
@@ -217,17 +215,17 @@ char my_delimiters(dbj::nanolib::dc idx_) {
 TU_REGISTER([]
     {
         using namespace std;
-        using namespace dbj::nanolib;
+        using dbj::nanolib::logging::log;
 
         array<char, 0xF> charr{ {'+'} };
         charr.fill('+');
-        sequence_print(charr);
+        dbj::nanolib::sequence_print(charr);
 
-        std::cout << "\n\nUsing my delimiters\n\n";
+        log( "\n\nUsing my delimiters\n\n" );
 
         sequence_print(charr, true, my_delimiters);
 
         auto doner = { "Done!" };
-        std::cout << "\n\n";
-        sequence_print(doner, false);
+        log( "\n\n" );
+        dbj::nanolib::sequence_print(doner, false);
     });
