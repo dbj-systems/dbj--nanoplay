@@ -4,8 +4,6 @@
 
 namespace  valstat_testing_space
 {
-	using namespace std;
-
 	using dbj::valstat;
 	using int_vt = valstat<int>;
 
@@ -20,17 +18,17 @@ namespace  valstat_testing_space
 			using dbj::nanolib::logging::log;
 
 		// from a packaged_task
-		packaged_task<int_vt()> task([] { return vt_7; }); // wrap the function
-		future<int_vt> f1 = task.get_future();  // get a future
-		thread t(move(task)); // launch on a thread
+		std::packaged_task<int_vt()> task([] { return vt_7; }); // wrap the function
+		std::future<int_vt> f1 = task.get_future();  // get a future
+		std::thread t(move(task)); // launch on a thread
 
 		// from an async()
-		future<int_vt> f2 = async(launch::async, [] { return vt_8; });
+		std::future<int_vt> f2 = async(launch::async, [] { return vt_8; });
 
 		// from a promise
-		promise<int_vt> p;
-		future<int_vt> f3 = p.get_future();
-		thread([&p] { p.set_value_at_thread_exit(vt_9); }).detach();
+		std::promise<int_vt> p;
+		std::future<int_vt> f3 = p.get_future();
+		std::thread([&p] { p.set_value_at_thread_exit(vt_9); }).detach();
 
 		log("Waiting...");
 		f1.wait();
@@ -40,9 +38,9 @@ namespace  valstat_testing_space
 		using namespace dbj; // for ADL to work
 
 		log( "All done!\nResults are: \n\n"
-			, f1.get() , "\n\n"
-			, f2.get() , "\n\n" 
-			, f3.get() , '\n');
+			, to_string( f1.get() ), "\n\n"
+			, to_string( f2.get() ), "\n\n"
+			, to_string( f3.get() ), '\n');
 
 		t.join();
 	});

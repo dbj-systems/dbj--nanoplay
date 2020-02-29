@@ -1,7 +1,8 @@
 #pragma once
 
 #include "../common.h"
-#include <valstat>
+#include "../valstat_research/valstat_dbj_status.h"
+/// #include <valstat>
 
 /**
 Apply the valstat to some beginers/intermediate C++ code

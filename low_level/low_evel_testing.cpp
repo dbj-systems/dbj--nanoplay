@@ -155,7 +155,7 @@ TU_REGISTER(
         auto target_count_ = ct::countof(target);
         constexpr auto target_count_ct_ = ct::countof(HIRAGANA);
 
-        log::logf("%zu -- %zu", target_count_, target_count_ct_);
+        log::logfmt("%zu -- %zu", target_count_, target_count_ct_);
 
 #define HIRAGANA_WS "  平\t \v仮\r \f 名 "
 
@@ -176,22 +176,22 @@ TU_REGISTER(
         // log to console
         // default timestamp
         log::log("Output", " with time", "stamp");
-        log::logf("|%-12s|--|%12s|--|%-12s|\n","Formated", "output", "with prefix");
+        log::logfmt("|%-12s|--|%12s|--|%-12s|\n","Formated", "output", "with prefix");
 
         log::config::nanosecond_timestamp();
         log::log("Output", " with nanosecond time", "stamp");
-        log::logf("|%-12s|--|%12s|--|%-12s|", "Formated", "output", "with nanosecond time stamp");
+        log::logfmt("|%-12s|--|%12s|--|%-12s|", "Formated", "output", "with nanosecond time stamp");
 
         // chnage where is the output sinking to
         log::config::set_sink_function([](std::string_view log_line) {  fprintf(stderr, log_line.data());  });
         // no time stamps, console output
         log::config::no_timestamp();
 
-        log::logf("\n\n\nNo timestamp requires user defined new line!\n");
+        log::logfmt("\n\n\nNo timestamp requires user defined new line!\n");
         // sinking to the syslog
         // log::config::set_sink_function([](std::string_view log_line) {  local_syslog_client( log_line.data());  });
         // no time stamp, local syslog clinet  output makes the time stamp
-        log::logf("\n|%-12s|--|%12s|--|%-12s|\n", "This", "goes", "to syslog()\n");
+        log::logfmt("\n|%-12s|--|%12s|--|%-12s|\n", "This", "goes", "to syslog()\n");
 
         log::config::default_sink_function();
         log::config::default_timestamp();

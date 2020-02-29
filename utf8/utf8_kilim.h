@@ -22,17 +22,17 @@ namespace dbj_kilim {
 
 	TU_REGISTER([]
 		{
-
+			using dbj::nanolib::logging::logfmt;
 			{
 				::system("chcp 65001");
 				// LINUX
 				auto smiley = u8"😀";
-				::printf(
+				logfmt(
 					"\n\nThe %s 'glyph': %s", typeid(smiley).name(), (const char*)smiley
 				);
 			}
 
-			auto driver = [&](auto char_set, size_t counter = 0xF) {
+			auto driver = [&](auto char_set, size_t counter = size_t(0xF)) {
 
 				using namespace std::chrono_literals;
 				std::uniform_int_distribution<> random_idx(0, char_set.size() - 1);
@@ -41,13 +41,13 @@ namespace dbj_kilim {
 				{
 					// just print & pray
 					// this cast makes it silent
-					std::printf("%s", (const char *)char_set[random_idx(the_generator_)]);
+					logfmt("%s", (const char *)char_set[random_idx(the_generator_)]);
 					std::this_thread::sleep_for(1s);
 				}
-				std::printf("\n");
+				logfmt("\n");
 			};
 
-			std::printf("\n(c) 2020 dusanjovanovic.org\n");
+			logfmt("\n(c) 2020 dusanjovanovic.org\n");
 			//driver(singles,		0xFFFF);
 			//driver(doubles,		0xFFFF);
 			//driver(doublesv,	0xFF);

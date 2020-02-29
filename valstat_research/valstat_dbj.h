@@ -30,25 +30,29 @@ namespace dbj
 	// for testing purposes only
 	// dbj usualy do not use <iostream> in a production code
 	template<typename T>
-	inline std::ostream& operator << (std::ostream& os, const dbj::valstat<T> vt)
+	inline std::string to_string ( const dbj::valstat<T> & vt)
 	{
-		os << "\nvalstat state: ";
-		if (!vt.value && vt.status) os << "ERROR";
-		if (vt.value && !vt.status) os << "OK";
-		if (vt.value && vt.status) os << "INFO";
-		if (!vt.value && !vt.status) os << "EMPTY";
+		std::string retval( "\nvalstat state: ");
+		if (!vt.value && vt.status) retval +=  "ERROR";
+		if (vt.value && !vt.status) retval += "OK";
+		if (vt.value && vt.status) retval += "INFO";
+		if (!vt.value && !vt.status) retval += "EMPTY";
 
-		os << " , content: \n{";
+		retval += " , content: \n{";
 		if (vt.value)
-			os << "\n { value: " << *vt.value << " }";
+		{
+			retval += "\n { value: ";  retval += *vt.value + " }";
+		}
 		else
-			os << "\n { value: empty }";
-		os << " ,";
+			retval += "\n { value: empty }";
+		retval += " ,";
 		if (vt.status)
-			os << "\n { status: " << *vt.status << " }";
+		{
+			retval += "\n { status: "; retval += *vt.status + " }";
+		}
 		else
-			os << "\n { status: empty }";
-		return os << "\n}\n";
+			retval += "\n { status: empty }";
+		return retval += "\n}\n";
 	}
 
 	/// <summary>

@@ -22,7 +22,7 @@ thus the macto _TEST bellow does not get in that mess ...
 #include <type_traits>
 #include <string>
 
-namespace dbj {
+namespace dbj_meta_converter {
 
 	enum class dbj_meta_converter_version {
 		major = 2, minor = 0, patch = 0
@@ -260,15 +260,15 @@ namespace dbj {
 	} // inner
 
 	// all the meta converter INTANCES required / implicit instantiations
-	inline dbj::inner::meta_converter<std::string   > range_to_string{};
-	inline dbj::inner::meta_converter<std::wstring  > range_to_wstring{};
-	inline dbj::inner::meta_converter<std::u16string> range_to_u16string{};
-	inline dbj::inner::meta_converter<std::u32string> range_to_u32string{};
+	inline inner::meta_converter<std::string   > range_to_string{};
+	inline inner::meta_converter<std::wstring  > range_to_wstring{};
+	inline inner::meta_converter<std::u16string> range_to_u16string{};
+	inline inner::meta_converter<std::u32string> range_to_u32string{};
 #if __cplusplus > 201703L
 	// C++20
-	inline dbj::inner::meta_converter<std::u8string> range_to_u8string{};
+	inline inner::meta_converter<std::u8string> range_to_u8string{};
 #endif
-} // dbj 
+} // dbj_meta_converter 
 
 // TESTING
 
@@ -396,15 +396,16 @@ namespace meta_conversion_testing {
 		TU_REGISTER(
 			[] {
 				using namespace std;
+				using namespace dbj_meta_converter;
 
-				DBJ_TX(dbj::dbj_meta_converter_version_string);
+				DBJ_TX(dbj_meta_converter_version_string);
 				// 
 				// AD hoc testing of the API comfortability
 				//
 				// this instance transforms anything (legal) to the std::string
 				// dbj::range_to_string 
 				// make it a three letter tool
-				auto const & tos = dbj::range_to_string;
+				auto const & tos = range_to_string;
 
 				// use it
 				// with another string type

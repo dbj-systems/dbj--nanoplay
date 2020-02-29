@@ -48,6 +48,14 @@ namespace dbj {
 				::std::error_code ec = std::make_error_code(posix_err_code);
 				return ec.message() ;
 			};
+
+			// consume immediately
+			inline char const* e_to_s(std::errc posix_err_code)
+			{
+				static std::string anchor_{};
+				anchor_ = errc_to_message(posix_err_code);
+				return anchor_.c_str();
+			};
 		} // posix
 
 		namespace win32 {

@@ -1,7 +1,8 @@
 #pragma once
 #include "../common.h"
-#include <valstat>
-
+#include "../valstat_research/valstat_dbj_status.h"
+/// #include <valstat>
+#if 0
 namespace dbj {
     // repeated here to cut on 
     // dependancies
@@ -20,7 +21,7 @@ namespace dbj {
         };
     } // posix
 }
-
+#endif
 namespace valstat_testing_space {
 
     using fibo_type = int64_t;
@@ -89,7 +90,7 @@ namespace valstat_testing_space {
                 ::printf("\nPOSIX errno: %d" , *stat);
             }
 
-            using dbj::posix::e_to_s;
+            using ::dbj::valstat_2::posix::e_to_s;
             // let's try a sequence of valstat calls
             // show the benefits of new if syntax
             if (auto [val, stat] = fibo(41); stat) printf("error: %s", e_to_s(*stat) );
