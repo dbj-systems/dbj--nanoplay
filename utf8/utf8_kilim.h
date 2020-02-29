@@ -27,7 +27,7 @@ namespace dbj_kilim {
 				::system("chcp 65001");
 				// LINUX
 				auto smiley = u8"😀";
-				return ::printf(
+				::printf(
 					"\n\nThe %s 'glyph': %s", typeid(smiley).name(), (const char*)smiley
 				);
 			}
@@ -47,7 +47,7 @@ namespace dbj_kilim {
 				std::printf("\n");
 			};
 
-			std::printf("\n(c) 2019 dusanjovanovic.org\n");
+			std::printf("\n(c) 2020 dusanjovanovic.org\n");
 			//driver(singles,		0xFFFF);
 			//driver(doubles,		0xFFFF);
 			//driver(doublesv,	0xFF);

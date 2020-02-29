@@ -142,7 +142,7 @@ namespace valstat_testing_space {
 			return { {}, "null argument ?" };
 
 		Point::pointer last_ = first_;
-		for (int tag = 0; tag < side_num; tag++)
+		for (unsigned int tag = 0; tag < side_num; tag++)
 		{
 			/*
 			sequence of calls returning valstat's each

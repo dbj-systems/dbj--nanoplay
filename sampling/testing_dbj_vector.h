@@ -5,6 +5,7 @@
 
 #define DBJ_TESTING_VECTOR_PERFORMANCE 1
 #define DBJ_TESTING_VECTOR_CONFORMANCE 1
+#include "../dbj--nanolib/nonstd/dbj++vector.h"
 
 namespace dbj::nanoplay::testing {
 

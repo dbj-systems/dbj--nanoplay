@@ -1,5 +1,6 @@
 #pragma once
 #include <random>
+#include <iostream>
 /* this can speed up things considerably. but test comprehensively first! */
 namespace dbj {
 
