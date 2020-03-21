@@ -60,3 +60,54 @@ namespace dbj {
 	};
 } // dbj
 
+namespace dbj::win {
+
+class ConsoleUTF8 {
+ public:
+  ConsoleUTF8() : original_cp(::GetConsoleOutputCP()) {
+    ::SetConsoleOutputCP(65001 /*CP_UTF8*/);
+  }
+  ~ConsoleUTF8() { ::SetConsoleOutputCP(original_cp); }
+
+ private:
+  UINT original_cp;
+};
+
+/// -------------------------------------------------------------------------
+std::wstring narrow_utf8_to_wstring(std::string_view view) {
+  int size = MultiByteToWideChar(65001 /*CP_UTF8*/, 0, view.data(),
+                                 static_cast<int32_t>(view.size()), nullptr, 0);
+
+  if (size == 0) {
+    return {};
+  }
+
+  std::wstring result(size, L'*');
+  size = MultiByteToWideChar(65001 /*CP_UTF8*/, 0, view.data(),
+                             static_cast<int32_t>(view.size()), result.data(),
+                             size);
+  _ASSERT(size > 1);
+
+  return result;
+}
+
+/// -------------------------------------------------------------------------
+inline std::string wide_utf8_to_string(std::wstring_view value) {
+  int size = WideCharToMultiByte(65001 /*CP_UTF8*/, 0, value.data(),
+                                 static_cast<int32_t>(value.size()), nullptr, 0,
+                                 nullptr, nullptr);
+  if (size == 0) {
+    return {};
+  }
+
+  std::string result(size, '?');
+  size = WideCharToMultiByte(65001 /*CP_UTF8*/, 0, value.data(),
+                             static_cast<int32_t>(value.size()), result.data(),
+                             size, nullptr, nullptr);
+
+  _ASSERT(size > 1);
+
+  return result;
+}
+
+}  // namespace dbj::win

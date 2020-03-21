@@ -63,7 +63,7 @@ int main(int argc, const char* argv[], const char* envp[])
 	}
 #endif
 
-#define  DBJ_REDIRECT_STD_ERR
+#undef  DBJ_REDIRECT_STD_ERR
 #ifdef DBJ_REDIRECT_STD_ERR
 	std::string logfile_name(argv[0]);
 	logfile_name.append(".log");
