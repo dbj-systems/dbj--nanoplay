@@ -16,6 +16,7 @@
     4. or is is [ntstrsafe.h](https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/ntstrsafe/) ?
     5. is [RtlAnsiStringToUnicodeString](https://docs.microsoft.com/en-gb/windows-hardware/drivers/ddi/wdm/nf-wdm-rtlansistringtounicodestring) actually to be used isntead of ...
     6. is it feasible to try and extract wincpprt [hstring](https://docs.microsoft.com/en-us/windows/uwp/cpp-and-winrt-apis/strings) as the ultimate win string?
+    7. The fact is it primarily encapsulates [HSTRING](https://docs.microsoft.com/en-us/windows/win32/winrt/hstring) and UTF-16 WIN.
 
 ---------------------------------------------------------------------  
 
