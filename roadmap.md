@@ -17,6 +17,14 @@
     5. is [RtlAnsiStringToUnicodeString](https://docs.microsoft.com/en-gb/windows-hardware/drivers/ddi/wdm/nf-wdm-rtlansistringtounicodestring) actually to be used isntead of ...
     6. is it feasible to try and extract wincpprt [hstring](https://docs.microsoft.com/en-us/windows/uwp/cpp-and-winrt-apis/strings) as the ultimate win string?
     7. The fact is it primarily encapsulates [HSTRING](https://docs.microsoft.com/en-us/windows/win32/winrt/hstring) and UTF-16 WIN.
+3. #### Core of logging
+    4. Could be [WIN ZLOG](https://github.com/jeffrey-antoine/WinZlog)  
+       - Pro: it seems very recently used
+       - Con: it is not syslog compatible
+       - Requires 
+         - [UNIXEM](https://github.com/synesissoftware/UNIXem)
+         - [PTHREADS WIN32](https://github.com/nicolaichuk/pthread-win32/)
+     - Might be refactored to have replaceable targets: file and syslog to start with
 
 ---------------------------------------------------------------------  
 
