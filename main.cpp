@@ -4,24 +4,25 @@
 #include <crtdbg.h>
 
 #include "common.h"
-#include "sampling/keep_it_sorted.h"
-#include "sampling/any_opty.h"
+
+//#include "sampling/keep_it_sorted.h"
+//#include "sampling/any_opty.h"
 #ifdef DBJ_HAS_CXX20
 #include "sampling/cpp20.h"
+#include "utf8/utf8_decoder_sampler.h"
 #endif
-#include "utf8/utf8_kilim.h"
-#include "lambdatix/lambda_mx_makers.h"
-#include "sampling/dbj_meta_converter.h"
-#include "valstat_research/fibo.h"
-#include "valstat_research/polygon.h"
-#include "valstat_research/valstat_dbj_async.h"
-#include "valstat_research/valstat_dbj_own.h"
-#include "sampling/find_wovels.h"
+//#include "utf8/utf8_kilim.h"
+//#include "lambdatix/lambda_mx_makers.h"
+//#include "sampling/dbj_meta_converter.h"
+//#include "valstat_research/fibo.h"
+//#include "valstat_research/polygon.h"
+//#include "valstat_research/valstat_dbj_async.h"
+//#include "valstat_research/valstat_dbj_own.h"
+//#include "sampling/find_wovels.h"
 
 #if 0
 #include "valstat_research/valstat_dbj_samples.h"
 
-#include "utf8_decoder/utf8_decoder_sampler.h"
 
 #include "sampling/testing_dbj_vector.h"
 #include "sampling/no_macros_valstat.h"

@@ -184,6 +184,7 @@
     <ClCompile Include="low_level\cpuid.cpp" />
     <ClCompile Include="low_level\low_evel_testing.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="utf8\cuchar_sampler.cpp" />
     <ClCompile Include="utf8\utf8_decoder.c" />
     <ClCompile Include="valstat_research\interop\math_valstat.c" />
   </ItemGroup>

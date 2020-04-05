@@ -33,6 +33,9 @@
     <ClCompile Include="low_level\alligned_allocation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="utf8\cuchar_sampler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">

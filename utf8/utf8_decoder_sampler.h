@@ -31,6 +31,7 @@ namespace utf_decoder_sampler {
 			// msvc c++20 , type of elem is int
 			// same is for clang and g++
 			// iteration is byte by byte, total of 14 times
+			// note: cl.exe /utf-8  is in use
 			for ( auto const & elem : SPECIMEN )
 			{
 				cnt_ += 1;
