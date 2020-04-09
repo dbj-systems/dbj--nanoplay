@@ -4,13 +4,13 @@
 #include "../common.h"
 
 namespace utf_decoder_sampler {
+
+// NOTE: be sure to use /utf-8 cl.exe switch
 #define SPECIMEN u8"ひらがな"
 
 	TU_REGISTER(
 		[] {
-			// functions returning void,that deal with errors
-			// example
-			// before valstat the return was 'void' and perror() was used internaly
+			printf("\n\n UTF8 decoding: %s == ", (char const *)SPECIMEN);
 			auto [val, stat] = dbj::utf8_print_code_points(stdout, (uint8_t*)SPECIMEN);
 
 			// we do not need special value for val
@@ -18,9 +18,20 @@ namespace utf_decoder_sampler {
 			if (!val)
 				printf("Error!");
 
-			if (stat)
-				printf(" %s\n", stat);
-			// interop status is char *
+			// interop status type is char *
+			if (stat) printf("\n\n Status: %s", stat);
+
+			{
+				auto [val, stat] = dbj::countCodePoints((uint8_t*)SPECIMEN);
+
+				if (!val)
+					printf("Error!");
+				else
+				   printf("\n\n\"%s\", has %d UTF-8 code points aka glyphs", (char *)SPECIMEN, *val);
+
+				if (stat) printf("\n\nStatus: %s\n", stat);
+			}
+
 		});
 
 	TU_REGISTER(

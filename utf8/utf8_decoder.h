@@ -13,7 +13,7 @@ namespace dbj {
 		uint32_t
 			utf8_decode(uint32_t* state, uint32_t* codep, uint32_t byte);
 
-		struct interop_int countCodePoints(uint8_t* s, size_t* count);
+		struct interop_int countCodePoints(uint8_t* s);
 
 		struct interop_void utf8_print_code_points(FILE*, uint8_t* s);
 

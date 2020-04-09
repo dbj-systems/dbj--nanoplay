@@ -54,51 +54,39 @@ struct interop_void utf8_print_code_points(FILE * file_ptr_ , uint8_t * s)
 		if (!utf8_decode(&state, &codepoint, *s))
 		{
 			if (state != UTF8_ACCEPT) {
-				/**
-				before:
-				perror("\nThe string is not well-formed: ");
-				return;
-				*/
 				return (interop_void){ 0, INTEROP_JSON("The string is not well-formed") };
 			}
-			fprintf(file_ptr_, "U+%04X", codepoint);
+			fprintf(file_ptr_, " U+%04X", codepoint);
 		}
-	int T = true;
+	static int T = true;
 	return (interop_void) { &T, INTEROP_JSON("OK") };
 }
 
 ///<summary>
 /// Validating and counting characters
-/// This function checks if a null - terminated string is a well - formed UTF - 8 sequence and counts how many code points are in the string.
-/// Before valstat it was used like so :
-/// <code>
-/// if (countCodePoints(s, &count)) {
-/// 	printf("The string is malformed\n");
-/// }
-///  else {
-///	   printf("The string is %u characters long\n", count);
-/// }
-/// </code>
-///<summary>
-struct interop_int countCodePoints(uint8_t * s, size_t * count) {
+/// This function checks if a null - terminated string is a well - 
+/// formed UTF - 8 sequence and counts how many code points are in the string.
+/// valstat val is pointer to local static so copy or use it quickly 
+/// yes it is a cludge in here
+///</summary>
+struct interop_int countCodePoints(uint8_t * s) 
+{
 	uint32_t codepoint;
 	uint32_t state = 0;
+	static int count;
 
-	for (*count = 0; *s; ++s)
+	count = 0;
+
+	for (count = 0; *s; ++s)
 		if (!utf8_decode(&state, &codepoint, *s))
-			*count += 1;
-
-	/* before: return state != UTF8_ACCEPT; */
-
-	int T = true;
-	// int F = false;
+			count += 1;
 
 	if (state == UTF8_ACCEPT)
-		return (interop_int) { & T, INTEROP_JSON("Done.") };
+		return (interop_int) { &count, INTEROP_JSON("OK") };
 
 	/*
 	paradigm shift: no need to return any special value that means something
-	like false, it is enough to return empty value
+	like false, it is enough to return empty val valstat
 	*/
 	return (interop_int) { 0, INTEROP_JSON("The string argument was malformed!") };
 }

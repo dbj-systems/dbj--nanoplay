@@ -36,6 +36,9 @@
     <ClCompile Include="utf8\cuchar_sampler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="low_level\print_bits_and_bytes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">
@@ -154,6 +157,9 @@
     </ClInclude>
     <ClInclude Include="dbj--nanolib\nonstd\dbj_sequence_print.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="low_level\memory_pool.cpp">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
