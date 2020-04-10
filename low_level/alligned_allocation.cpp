@@ -70,7 +70,7 @@ namespace dbj::mem {
 
 } // dbj::mem
 
-TU_REGISTER([] 
+TU_REGISTER_NOT([]
     {
 
     /// size_t  alignment = 64, off_set = 5;

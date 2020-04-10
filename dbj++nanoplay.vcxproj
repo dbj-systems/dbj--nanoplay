@@ -202,7 +202,7 @@
     <ClInclude Include="jzon_sampling\tests.h" />
     <ClInclude Include="lambdatix\lambda_mx_makers.h" />
     <ClInclude Include="lambdatix\narf_again.h" />
-    <ClInclude Include="low_level\memory_pool.cpp" />
+    <ClCompile Include="low_level\memory_pool.cpp" />
     <ClInclude Include="pprintpp\pprintpp_test.h" />
     <ClInclude Include="sampling\cpp20.h" />
     <ClInclude Include="sampling\dbj_meta_converter.h" />

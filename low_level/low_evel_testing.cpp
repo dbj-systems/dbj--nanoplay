@@ -31,7 +31,7 @@ void traits_sampling( Allocator  allocator_ , value_t def_val_ )
 #pragma message(  "Warning _ITERATOR_DEBUG_LEVEL is not 0?" )
 #endif
 
-TU_REGISTER([]
+TU_REGISTER_NOT([]
 {
         struct XType final {
             char id;
@@ -60,7 +60,7 @@ TU_REGISTER([]
 template <typename T, std::size_t Alignment>
 using aaloc = dbj::nanolib::alloc::aligned_allocator<T, Alignment>;
 
-TU_REGISTER([]()
+TU_REGISTER_NOT([]()
 {
     typedef std::vector<__m128, aaloc<__m128, sizeof(__m128)> > aligned_vector;
 
@@ -98,7 +98,7 @@ TU_REGISTER([]()
 testing dbj++platform.h
 */
 #include "../dbj--nanolib/dbj++platform.h"
-TU_REGISTER(
+TU_REGISTER_NOT(
     [] {
         namespace pm = dbj::nanolib::platform;
         DBJ_PRINT( " dbj::nanolib::platform::NAME : \"%s\" -- dbj::nanolib::platform::CODE : %3d ", pm::NAME, pm::CODE );
@@ -123,7 +123,7 @@ namespace dbj {
 
 }
 
-TU_REGISTER(
+TU_REGISTER_NOT(
     [] {
         namespace ct = dbj::nanolib::ct;
         namespace log = dbj::nanolib::logging;
@@ -167,7 +167,7 @@ TU_REGISTER(
 #undef HIRAGANA
 #undef HIRAGANA_WS
 
-TU_REGISTER(
+TU_REGISTER_NOT(
     [] {
         namespace log = dbj::nanolib::logging;
      
@@ -212,7 +212,7 @@ char my_delimiters(dbj::nanolib::dc idx_) {
     return '?';
 };
 
-TU_REGISTER([]
+TU_REGISTER_NOT([]
     {
         using namespace std;
         using dbj::nanolib::logging::log;

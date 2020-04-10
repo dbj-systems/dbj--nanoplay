@@ -8,8 +8,8 @@
 //#include "sampling/keep_it_sorted.h"
 //#include "sampling/any_opty.h"
 #ifdef DBJ_HAS_CXX20
-#include "sampling/cpp20.h"
-#include "utf8/utf8_decoder_sampler.h"
+// #include "sampling/cpp20.h"
+// #include "utf8/utf8_decoder_sampler.h"
 #endif
 //#include "utf8/utf8_kilim.h"
 //#include "lambdatix/lambda_mx_makers.h"
@@ -22,8 +22,6 @@
 
 #if 0
 #include "valstat_research/valstat_dbj_samples.h"
-
-
 #include "sampling/testing_dbj_vector.h"
 #include "sampling/no_macros_valstat.h"
 #include "sampling/fmt.h"
@@ -49,7 +47,9 @@ static void dbj_program_start(
 	// in this scenario easiest is to place the break point 
 	// in the test unit of interest
 	// if argumet is true, only tu's listing will be shown
-	dbj::tu::catalog.execute( /*true*/ );
+	dbj::tu::testing_system::execute( 
+	/*true*/ 
+	);
 	dbj::nanolib::system_call("pause");
 }
 

@@ -7,6 +7,8 @@
 #include <errno.h>
 #include <uchar.h>
 
+#include "../common.h"
+
 extern "C" {
     static auto HIRAGANA = U"ひらがな";
     static auto KANJI = U"漢字";
@@ -39,7 +41,7 @@ extern "C" {
 } // "C" 
 #define SHOW_BITS(T,V) do { T x = V; print_bits(#T, #V, (unsigned char*) &x, sizeof(x) ); } while(0)
 
-static auto print_bits_test = [] ( /*int, char ***/) {
+TU_REGISTER_NOT( []{
 
 /*    SHOW_BITS(unsigned char, 'A');
     SHOW_BITS(signed char, 'A');
@@ -75,5 +77,4 @@ static auto print_bits_test = [] ( /*int, char ***/) {
       SHOW_BITS(unsigned int, 1 << 8);
       SHOW_BITS(unsigned int, 1 << 16);
       */
-    return 0;
-} ();
+});
