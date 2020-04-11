@@ -200,7 +200,7 @@ const InstructionSet::InstructionSet_Internal InstructionSet::CPU_Rep;
 
 namespace dbjlog = dbj::nanolib::logging;
 
-TU_REGISTER([]
+TU_REGISTER_NOT([]
     {
         auto support_message = [&](std::string isa_feature, bool is_supported)
         {

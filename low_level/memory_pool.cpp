@@ -44,8 +44,8 @@ struct  memory_pool final
     const block_size  sizeOfEachBlock{}; // Size of each block
     uint numFreeBlocks{}; // Num of remaining blocks
     uint numInitialized{}; // Num of initialized blocks
-    uchar* memStart{}; // Beginning of memory pool
-    uchar* next{}; // Num of next free block
+    address_type * memStart{}; // Beginning of memory pool
+    address_type * next{}; // Num of next free block
 
     /// no default ctor
     memory_pool() = delete ;
@@ -62,7 +62,7 @@ struct  memory_pool final
          sizeOfEachBlock(sizeOfEachBlock_),
          numFreeBlocks(numOfBlocks_.val)
     {
-        memStart = DBJ_ALLOC( uchar, numOfBlocks_.val, sizeOfEachBlock_.val);
+        memStart = DBJ_ALLOC(address_type, numOfBlocks_.val, sizeOfEachBlock_.val);
         _ASSERTE(memStart);
         next = memStart;
     }
@@ -82,40 +82,42 @@ struct  memory_pool final
 
     index_type index_from_addr(const address_type* p) const
     {
+        _ASSERTE(p);
         return (((uint)(p - memStart)) / sizeOfEachBlock.val);
     }
 
-    /// return void * .. this is typeless
-    void* allocate()
+    /// return index
+    index_type allocate()
     {
         if (numInitialized < numOfBlocks.val)
         {
-            uint* p = (uint*)addr_from_index(numInitialized);
+            address_type* p = addr_from_index(numInitialized);
             *p = numInitialized + 1;
             numInitialized++;
         }
-        void* ret = nullptr;
+        address_type* ret = nullptr;
         if (numFreeBlocks > 0)
         {
-            ret = (void*)next;
+            ret = next;
             --numFreeBlocks;
             if (numFreeBlocks != 0)
             {
-                next = addr_from_index(*((uint*)next));
+                next = addr_from_index(*((address_type*)next));
             }
             else
             {
                 next = nullptr;
             }
         }
-        return ret;
+        return index_from_addr( ret );
     }
     
     /// in DEBUG mode we assert on trying to free the nullptr
     /// in RELEASE mode we just return
-
-    void deallocate(void* p)
+    /// we receive double pointer so that we can unlink the freed pointer
+    void deallocate(index_type idx_ )
     {
+        address_type* p = addr_from_index( idx_ );
 #ifdef _DEBUG
         _ASSERTE(p);
 #else  // release
@@ -133,8 +135,6 @@ struct  memory_pool final
             next = (uchar*)p;
         }
 
-        p = nullptr;
-
         ++numFreeBlocks;
     }
 }; // memory_pool
@@ -147,18 +147,15 @@ TU_REGISTER ([]
                 memory_pool::block_count{ 64 }
             );
 
-            /// reminder: the mem pool deals with void * only
-            memory_pool::address_type* cp_ =
-                (memory_pool::address_type*)mem_pool_.allocate();
+            memory_pool::index_type i1_ = mem_pool_.allocate();
 
-            memory_pool::index_type idx_ =
-                mem_pool_.index_from_addr(cp_);
+            memory_pool::address_type* p1_ =
+                mem_pool_.addr_from_index(i1_);
 
-            memory_pool::address_type* cp_2_ =
-                mem_pool_.addr_from_index(idx_);
+            mem_pool_.deallocate( i1_ );
 
-            mem_pool_.deallocate(cp_2_);
-
+            // this should be illegal now
+            p1_ =  mem_pool_.addr_from_index(i1_);
 });
 
 
