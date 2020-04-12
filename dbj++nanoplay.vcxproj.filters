@@ -27,9 +27,6 @@
     <ClCompile Include="low_level\cpuid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="low_level\low_evel_testing.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="low_level\alligned_allocation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -43,6 +40,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="low_level\test_nano_printf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="low_level\low_level_testing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -165,6 +165,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="dbj--nanolib\nonstd\nano_printf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dbj--nanolib\dbj_nano_synchro.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

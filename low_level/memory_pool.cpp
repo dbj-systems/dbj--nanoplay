@@ -1,4 +1,3 @@
-#pragma once
 /*
 Started from:
 -------------
@@ -140,7 +139,7 @@ struct  memory_pool final
 }; // memory_pool
 
 
-TU_REGISTER ([]
+TU_REGISTER_NOT ([]
  {
             memory_pool mem_pool_(
                 memory_pool::block_size{ 128 },

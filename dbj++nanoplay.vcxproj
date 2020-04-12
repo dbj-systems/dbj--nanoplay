@@ -29,26 +29,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>ClangCL</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>ClangCL</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>ClangCL</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>ClangCL</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -182,7 +182,7 @@
   <ItemGroup>
     <ClCompile Include="low_level\alligned_allocation.cpp" />
     <ClCompile Include="low_level\cpuid.cpp" />
-    <ClCompile Include="low_level\low_evel_testing.cpp" />
+    <ClCompile Include="low_level\low_level_testing.cpp" />
     <ClCompile Include="low_level\print_bits_and_bytes.cpp" />
     <ClCompile Include="low_level\test_nano_printf.cpp" />
     <ClCompile Include="main.cpp" />
@@ -194,6 +194,7 @@
     <ClInclude Include="allocators\aligned_allocator.h" />
     <ClInclude Include="allocators\stack_allocator.h" />
     <ClInclude Include="common.h" />
+    <ClInclude Include="dbj--nanolib\dbj_nano_synchro.h" />
     <ClInclude Include="dbj--nanolib\nonstd\dbj_sequence_print.h" />
     <ClInclude Include="dbj--nanolib\nonstd\nano_printf.h" />
     <ClInclude Include="jzon_sampling\conformance-double.h" />

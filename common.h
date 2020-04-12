@@ -1,6 +1,10 @@
 #ifndef _DBJ_INC_COMMON_
 #define _DBJ_INC_COMMON_
 
+// #pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-variable"
+#pragma clang diagnostic ignored "-Wpragma-once-outside-header"
+
 // MSVC STD LIB aka STL
 // _ITERATOR_DEBUG_LEVEL 2 is the DEBUG build default
 // and that will produce segv with dbj stack alocator 
@@ -27,6 +31,9 @@ Why was this used?
 #include <random>
 #include <thread>
 
+/// NOTE: among other things this ensures synchronized output
+///       unless one uses naked <stdio.h> or god forbid <iostream>
+#define DBJ_NANO_LIB_MT
 
 #if 0
 // iuse it as local, for when developing
@@ -133,7 +140,7 @@ namespace dbj {
 				fflush(stream);
 				if (this->revert) {
 					FILE* std_stream_ = DBJ_REDIRECTOR_RESOLVER(std_stream_ordinal_);
-					int dup2_rezult_ = _dup2(fd, _fileno(std_stream_));
+					/*int dup2_rezult_ =*/ _dup2(fd, _fileno(std_stream_));
 					_close(fd);
 					clearerr(std_stream_);
 					fsetpos(std_stream_, &pos);

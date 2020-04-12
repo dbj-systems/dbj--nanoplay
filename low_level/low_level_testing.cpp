@@ -167,6 +167,9 @@ TU_REGISTER_NOT(
 #undef HIRAGANA
 #undef HIRAGANA_WS
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wformat-security"
+
 TU_REGISTER_NOT(
     [] {
         namespace log = dbj::nanolib::logging;
@@ -197,6 +200,7 @@ TU_REGISTER_NOT(
         log::log("Back to default");
     }
 );
+#pragma clang diagnostic pop
 
 char my_delimiters(dbj::nanolib::dc idx_) { 
     switch (idx_) {
