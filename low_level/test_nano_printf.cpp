@@ -1,7 +1,4 @@
 #include "../common.h"
-#include "../dbj--nanolib/nonstd/nano_printf.h"
-
-#include <stdio.h>
 
 /// ----------------------------------------------------------------------------
 
@@ -38,7 +35,7 @@ char buf[BUFSIZ]{0};\
 	// what here?
 	SPRINF("\n%@", 0x00012345);
 	//
-	Sleep(1000);
+	Sleep(0);
 	nano_printf(
 		"\n-----------------------------------------------------------"
 		"\nEND of %s", name_
@@ -63,10 +60,10 @@ static void  test_nano_printf ()
 		/*CREATE_SUSPENDED*/ 0, 
 		NULL);
 
-	WaitForSingleObject(consumer_thread_1, 1000 /* 1 second */);
+	WaitForSingleObject(consumer_thread_1, 1 );
 	CloseHandle(consumer_thread_1);
 
-	WaitForSingleObject(consumer_thread_2, 1000 /* 1 second */);
+	WaitForSingleObject(consumer_thread_2, 1 );
 	CloseHandle(consumer_thread_2);
 }
 

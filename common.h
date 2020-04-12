@@ -34,6 +34,7 @@ Why was this used?
 /// NOTE: among other things this ensures synchronized output
 ///       unless one uses naked <stdio.h> or god forbid <iostream>
 #define DBJ_NANO_LIB_MT
+#define NANO_PRINTF_IN_USE
 
 #if 0
 // iuse it as local, for when developing
