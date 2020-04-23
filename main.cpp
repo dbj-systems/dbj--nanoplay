@@ -55,8 +55,13 @@ static void dbj_program_start(
 
 #pragma warning( pop ) // 4100
 
+/// ----------------------------------------------------------------------
+void ad_hoc_and_temporary(int argc, const char* argv[], const char* envp[]);
+/// ----------------------------------------------------------------------
 int main(int argc, const char* argv[], const char* envp[])
 {
+
+	ad_hoc_and_temporary( argc,argv,envp );
 
 #ifdef DBJ_REDIRECT_STD_IN
 	if (freopen("input.txt", "r", stdin) == NULL) {
@@ -93,6 +98,18 @@ int main(int argc, const char* argv[], const char* envp[])
 		});
 
  	exit(EXIT_SUCCESS);
+}
+
+/// ----------------------------------------------------------------------
+// add remove here ad-hoc testing sampling
+
+extern "C" {
+	void dbj_mx_sampling();
+} // "C
+
+void ad_hoc_and_temporary(int argc, const char* argv[], const char* envp[])
+{
+	dbj_mx_sampling();
 }
 
 
