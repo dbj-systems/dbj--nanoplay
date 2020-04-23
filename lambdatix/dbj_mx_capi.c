@@ -19,7 +19,26 @@
 // MSVC (the latest as of 2020 APR) compiles  only if the code is in the C file
 //
 
+#ifdef _WIN32
+/// -------------------------------------------------------------------------------
+/// now here is the secret sauce key ingredient
+/// on windows machine these are the fastest
+/// proven and measured
 
+#define DBJ_NANO_ALLOC(T_,S_) (T_*)HeapAlloc(GetProcessHeap(), 0, S_ * sizeof(T_))
+
+#define DBJ_NANO_ALLOC_2(T_,S_)(T_*)HeapAlloc(GetProcessHeap(), 0, S_)
+
+#define DBJ_NANO_FREE(P_) HeapFree(GetProcessHeap(), 0, (void*)P_)
+
+__declspec(dllimport) void* __stdcall  GetProcessHeap(void);
+__declspec(allocator) void* __stdcall HeapAlloc(void* /*hHeap*/, size_t /*dwBytes*/);
+int __stdcall HeapFree(void* /*hHeap*/, int  /*dwFlags*/, void* /*lpMem*/);
+
+#endif // _WIN32
+
+/// ---------------------------------------------------------------------------------
+/// ---------------------------------------------------------------------------------
 #include <stdio.h>
 #include <stdbool.h>
 #include <malloc.h>
@@ -28,29 +47,38 @@
    In the "dbj mx" the "matrix" data type
    is pointer to a whole of an 2D array
 
-    T (*2d_array_pointer)[W][H]
+	T (*2d_array_pointer)[W][H]
 */
 #define dbj_mx_declare( T, name, width, height ) T(*name)[width][height]
 /*
-      since we keep the matrix in the data type as above
-      this is how we reach a desired slot and the value
+	  since we keep the matrix in the data type as above
+	  this is how we reach a desired slot and the value
 */
 #define dbj_mx_slot(name,j,k) (*name)[j][k]
 /*
-     allocation is beautifuly simple and elegant, thanks to C99
+	 allocation is beautifuly simple and elegant, thanks to C99
 
-     note: this is fast but matrix slots are not guarenteed to be "zeroed"
+	 note: this is fast but matrix slots are not guarenteed to be "zeroed"
 */
 // #define dbj_mx_make( T, width, height ) /*T(*)[width][height])*/calloc( width * height,  sizeof(T) )
 
+#ifndef _WIN32
 #define dbj_mx_make( T, width, height ) /*(T(*)[width][height])*/malloc( sizeof(T[width][height]) )
+#else
+#define dbj_mx_make( T, width, height ) /*(T(*)[width][height])*/HeapAlloc(GetProcessHeap(), 0, sizeof(T[width][height]))
+#endif // _WIN32
 
+#ifndef _WIN32
 #define dbj_mx_free( ptr_ ) free(ptr_)
+#else
+#define dbj_mx_free( ptr_ ) HeapFree(GetProcessHeap(), 0, (void*)ptr_)
+#endif // _WIN32
+
 
 /*
-    more or less everything can be done through the for-each concept
-    see the callback specimens bellow
-    remember! name is pointer to the whole matrix as declared above
+	more or less everything can be done through the for-each concept
+	see the callback specimens bellow
+	remember! name is pointer to the whole matrix as declared above
 */
 #define dbj_mx_foreach(name,w,h, cb) \
       do {\
@@ -70,29 +98,29 @@ enum { W = 4, H = 4 };
 // prints the matrix of int's
 inline void cback_print(int j, int k, int* const val)
 {
-    static int row_ctr = 0;
-    if (0 == (row_ctr++ % W)) printf("\n");
-    printf(" [%02d][%02d]: %04d", j, k, *val);
+	static int row_ctr = 0;
+	if (0 == (row_ctr++ % W)) printf("\n");
+	printf(" [%02d][%02d]: %04d", j, k, *val);
 }
 
 // fill sample callback
 inline void cback_fill(int j, int k, int* const val)
 {
-    *val = (10 * j) + k;
+	*val = (10 * j) + k;
 }
 // ad hoc testing
 void dbj_mx_sampling()
 {
-    dbj_mx_declare(int, mx2d, W, H);
-    mx2d = dbj_mx_make(int, W, H);
+	dbj_mx_declare(int, mx2d, W, H);
+	mx2d = dbj_mx_make(int, W, H);
 
-    dbj_mx_slot(mx2d, 1, 1) = 42; // just to show 
+	dbj_mx_slot(mx2d, 1, 1) = 42; // just to show 
 
-    printf("\n\n");
+	printf("\n\n");
 
-    dbj_mx_foreach(mx2d, W, H, cback_fill);
-    dbj_mx_foreach(mx2d, W, H, cback_print);
-    dbj_mx_free(mx2d);
-}
+	dbj_mx_foreach(mx2d, W, H, cback_fill);
+	dbj_mx_foreach(mx2d, W, H, cback_print);
+	dbj_mx_free(mx2d);
+ }
 /******************************************************************/
 /* EOF */
