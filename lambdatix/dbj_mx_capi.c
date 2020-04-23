@@ -16,16 +16,13 @@
 //
 // There is no Error checking whatsoever
 //
-// MSVC? Well it compiles here but it should not
-// without any output whatsoever ...
+// MSVC (the latest as of 2020 APR) compiles  only if the code is in the C file
 //
 
 
 #include <stdio.h>
 #include <stdbool.h>
 #include <malloc.h>
-
-static struct { int major; int minor; int patch; } version = { 0,5,0 };
 
 /*
    In the "dbj mx" the "matrix" data type
@@ -57,10 +54,9 @@ static struct { int major; int minor; int patch; } version = { 0,5,0 };
 */
 #define dbj_mx_foreach(name,w,h, cb) \
       do {\
-      for ( int j =0 ; j < w; ++j) {\
+      for ( int j =0 ; j < w; ++j) \
       for ( int k =0 ; k < h; ++k)\
-         if ( false == cb(j,k, &(*name)[j][k]) ) break;\
-      }\
+         cb(j,k, & dbj_mx_slot(name,j,k));\
     } while(0)
 
 /* This is where dbj mx ends ************************************/
@@ -68,23 +64,21 @@ static struct { int major; int minor; int patch; } version = { 0,5,0 };
 /* SAMPLING starts here *****************************************/
 
 // note: width and height do not have to be compile time constants
-enum { W = 0xF, H = 0xF };
+enum { W = 4, H = 4 };
 // callback specimen
 // breaks on false return
 // prints the matrix of int's
-inline bool cback_print(int j, int k, int* const val)
+inline void cback_print(int j, int k, int* const val)
 {
     static int row_ctr = 0;
     if (0 == (row_ctr++ % W)) printf("\n");
     printf(" [%02d][%02d]: %04d", j, k, *val);
-    return true;
 }
 
 // fill sample callback
-inline bool cback_fill(int j, int k, int* const val)
+inline void cback_fill(int j, int k, int* const val)
 {
     *val = (10 * j) + k;
-    return true;
 }
 // ad hoc testing
 void dbj_mx_sampling()
