@@ -32,7 +32,7 @@
 #define DBJ_NANO_FREE(P_) HeapFree(GetProcessHeap(), 0, (void*)P_)
 
 __declspec(dllimport) void* __stdcall  GetProcessHeap(void);
-__declspec(allocator) void* __stdcall HeapAlloc(void* /*hHeap*/, size_t /*dwBytes*/);
+__declspec(allocator) void* __stdcall HeapAlloc(void* /*hHeap*/, int /*flags*/,size_t /*dwBytes*/);
 int __stdcall HeapFree(void* /*hHeap*/, int  /*dwFlags*/, void* /*lpMem*/);
 
 #endif // _WIN32
