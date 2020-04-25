@@ -25,9 +25,9 @@
 /// on windows machine these are the fastest
 /// proven and measured
 
-#define DBJ_NANO_ALLOC(T_,S_) (T_*)HeapAlloc(GetProcessHeap(), 0, S_ * sizeof(T_))
+#define DBJ_NANO_CALLOC(T_,S_) (T_*)HeapAlloc(GetProcessHeap(), 0, S_ * sizeof(T_))
 
-#define DBJ_NANO_ALLOC_2(T_,S_)(T_*)HeapAlloc(GetProcessHeap(), 0, S_)
+#define DBJ_NANO_MALLOC_2(T_,S_)(T_*)HeapAlloc(GetProcessHeap(), 0, S_)
 
 #define DBJ_NANO_FREE(P_) HeapFree(GetProcessHeap(), 0, (void*)P_)
 
@@ -65,13 +65,13 @@ int __stdcall HeapFree(void* /*hHeap*/, int  /*dwFlags*/, void* /*lpMem*/);
 #ifndef _WIN32
 #define dbj_mx_make( T, width, height ) /*(T(*)[width][height])*/malloc( sizeof(T[width][height]) )
 #else
-#define dbj_mx_make( T, width, height ) /*(T(*)[width][height])*/HeapAlloc(GetProcessHeap(), 0, sizeof(T[width][height]))
+#define dbj_mx_make( T, width, height ) (T*)HeapAlloc(GetProcessHeap(), 0, sizeof(T[width][height]))
 #endif // _WIN32
 
 #ifndef _WIN32
 #define dbj_mx_free( ptr_ ) free(ptr_)
 #else
-#define dbj_mx_free( ptr_ ) HeapFree(GetProcessHeap(), 0, (void*)ptr_)
+#define dbj_mx_free( ptr_ )HeapFree(GetProcessHeap(), 0, (void*)ptr_)
 #endif // _WIN32
 
 
