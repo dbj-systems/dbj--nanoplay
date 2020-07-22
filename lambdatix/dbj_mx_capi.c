@@ -22,19 +22,25 @@
 #ifdef _WIN32
 /// -------------------------------------------------------------------------------
 /// now here is the secret sauce key ingredient
-/// on windows machine these are the fastest
-/// proven and measured
+/// on windows machine these are 
+/// the fastest, proven and measured
 
+#undef  DBJ_NANO_CALLOC
 #define DBJ_NANO_CALLOC(T_,S_) (T_*)HeapAlloc(GetProcessHeap(), 0, S_ * sizeof(T_))
 
+#undef DBJ_NANO_MALLOC_2
 #define DBJ_NANO_MALLOC_2(T_,S_)(T_*)HeapAlloc(GetProcessHeap(), 0, S_)
 
+#undef DBJ_NANO_FREE
 #define DBJ_NANO_FREE(P_) HeapFree(GetProcessHeap(), 0, (void*)P_)
 
+// avoid including windows.h
 __declspec(dllimport) void* __stdcall  GetProcessHeap(void);
 __declspec(allocator) void* __stdcall HeapAlloc(void* /*hHeap*/, int /*flags*/,size_t /*dwBytes*/);
 int __stdcall HeapFree(void* /*hHeap*/, int  /*dwFlags*/, void* /*lpMem*/);
 
+#else
+#error It seems WIN32 is required
 #endif // _WIN32
 
 /// ---------------------------------------------------------------------------------
@@ -63,9 +69,11 @@ int __stdcall HeapFree(void* /*hHeap*/, int  /*dwFlags*/, void* /*lpMem*/);
 // #define dbj_mx_make( T, width, height ) /*T(*)[width][height])*/calloc( width * height,  sizeof(T) )
 
 #ifndef _WIN32
-#define dbj_mx_make( T, width, height ) /*(T(*)[width][height])*/malloc( sizeof(T[width][height]) )
+#define dbj_mx_make( T, width, height ) \
+/*(T(*)[width][height])*/malloc( sizeof(T[width][height]) )
 #else
-#define dbj_mx_make( T, width, height ) (T*)HeapAlloc(GetProcessHeap(), 0, sizeof(T[width][height]))
+#define dbj_mx_make( T, width, height ) \
+(T*)HeapAlloc(GetProcessHeap(), 0, sizeof(T[width][height]))
 #endif // _WIN32
 
 #ifndef _WIN32

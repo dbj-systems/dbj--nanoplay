@@ -167,8 +167,10 @@ TU_REGISTER_NOT(
 #undef HIRAGANA
 #undef HIRAGANA_WS
 
+#ifdef __clang__
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wformat-security"
+#endif // __clang__
 
 TU_REGISTER_NOT(
     [] {
@@ -200,7 +202,10 @@ TU_REGISTER_NOT(
         log::log("Back to default");
     }
 );
+
+#ifdef __clang__
 #pragma clang diagnostic pop
+#endif // __clang__
 
 char my_delimiters(dbj::nanolib::dc idx_) { 
     switch (idx_) {

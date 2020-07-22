@@ -82,7 +82,7 @@ struct  memory_pool final
     index_type index_from_addr(const address_type* p) const
     {
         _ASSERTE(p);
-        return (((uint)(p - memStart)) / sizeOfEachBlock.val);
+        return index_type(((uint)(p - memStart)) / sizeOfEachBlock.val);
     }
 
     /// return index

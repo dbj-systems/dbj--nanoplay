@@ -2,8 +2,13 @@
 #define _DBJ_INC_COMMON_
 
 // #pragma clang diagnostic push
+
+#ifdef __clang__
+#pragma clang system_header
 #pragma clang diagnostic ignored "-Wunused-variable"
 #pragma clang diagnostic ignored "-Wpragma-once-outside-header"
+#endif // __clang__
+
 
 // MSVC STD LIB aka STL
 // _ITERATOR_DEBUG_LEVEL 2 is the DEBUG build default
