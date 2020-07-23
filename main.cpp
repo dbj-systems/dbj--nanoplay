@@ -105,16 +105,16 @@ int main(int argc, const char* argv[], const char* envp[])
 
 extern "C" {
 #ifdef __clang__ // using C99 VLA 
-	void dbj_mx_sampling( unsigned , unsigned);
+//  void dbj_mx_sampling( unsigned , unsigned);
+//	void dbj_mx_2_sampling(unsigned , unsigned);
 #endif // __clang__
-	void dbj_mx_2_sampling(unsigned , unsigned);
 } // "C
 
 void ad_hoc_and_temporary(int argc, const char* argv[], const char* envp[])
 {
-	dbj_mx_2_sampling(2, 2);
-#ifdef __clang__ // using C99 VLA 
-	dbj_mx_sampling(2,2);
+#ifdef __clang__ // using C11
+//	dbj_mx_2_sampling(2, 2);
+//	dbj_mx_sampling(2,2);
 #endif // __clang__
 }
 

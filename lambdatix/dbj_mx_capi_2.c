@@ -1,3 +1,5 @@
+#ifdef __clang__ // using C99 VLA 
+
 // https://godbolt.org/z/ViKjcolsF
 //
 // dbj zippy matrix nano API
@@ -125,3 +127,5 @@ void dbj_mx_2_sampling(const int cols, const int rows) {
  }
 /******************************************************************/
 /* EOF */
+
+#endif // __clang__ // using C99 VLA 
