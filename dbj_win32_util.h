@@ -7,11 +7,19 @@
 #include <windows.h>
 /***************************************************************************/
 #include <stdlib.h>
+/*
+ROADMAP: detach from system_error, 
+For me the easiest is to point you to: http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/p0824r0.pdf
+*/
 #include <system_error>
 
-    /* Last WIN32 error, message */
+/* 
+Last WIN32 error, message 
+ROADMAP: detach from std string
+*/
 inline std::wstring last_win32_error_message(int code = 0)
 {
+    // yes this works but is very bad idea to use std::error_code 
     std::error_code ec(
         (code ? code : ::GetLastError()
         ),
@@ -23,6 +31,8 @@ inline std::wstring last_win32_error_message(int code = 0)
 
     ::SetLastError(0); //yes this helps
 
+    // another cludge ... this works because win32 error messages
+    // contain only ASCII chars
     return std::wstring{ buf_, buf_ + 0xFF };
 }
    // CAUTION! __wargv can be easily NULL
@@ -40,7 +50,7 @@ inline std::wstring last_win32_error_message(int code = 0)
 /// ---------------------------------------------------------------------
     inline int mbox(const wchar_t* message) 
     {
-        return MessageBox(NULL, message, app_full_path, MB_ICONEXCLAMATION);
+        return MessageBoxW(NULL, message, app_full_path, MB_ICONEXCLAMATION);
     }
 
     inline int mbox(int last_error_code, const wchar_t * prompt = nullptr )

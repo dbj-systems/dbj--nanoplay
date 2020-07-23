@@ -1,3 +1,5 @@
+#ifdef __clang__ // using C99 VLA 
+
 // https://godbolt.org/z/ViKjWF
 //
 // dbj zippy matrix nano API
@@ -18,6 +20,7 @@
 //
 // MSVC (the latest as of 2020 APR) compiles  only if the code is in the C file
 //
+
 
 #include <assert.h>
 #include <stdio.h>
@@ -75,7 +78,7 @@
 /* SAMPLING starts here *****************************************/
 
 // note: width and height do not have to be compile time constants
-// but be aware that is C99 VLA when not declared in a global space
+// but be aware that is C99 VLA 
 
 // callback specimen
 // prints the matrix of int's
@@ -116,3 +119,5 @@ void dbj_mx_sampling(const int W , const int H )
  }
 /******************************************************************/
 /* EOF */
+
+#endif // __clang__ // using C99 VLA 
