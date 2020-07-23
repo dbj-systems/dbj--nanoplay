@@ -240,6 +240,7 @@
     <None Include="pprintpp\readme.md" />
     <None Include="valstat_research\interop\README.MD" />
     <None Include="valstat_research\README.MD" />
+    <None Include="valstat_research\valstat" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

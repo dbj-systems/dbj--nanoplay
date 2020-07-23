@@ -13,21 +13,21 @@ namespace cpp03 {
 	struct [[nodiscard]] valstat final
 	{
 
-	template<typename T, typename OP >
+	template< typename T_ , typename OP >
 	struct holder final
 	{
 		friend OP;
 		using type = holder;
-		using value_type = T;
+		using value_type = T_;
 
-		friend T const& get(type const& holder_) noexcept {
+		friend T_ const& get(type const& holder_) noexcept {
 			if (&holder_)
 				return *(&holder_);
 			perror("null holder deref.");
 			exit(1);
 		}
 
-		constexpr T const* operator & () const noexcept {
+		constexpr T_ const* operator & () const noexcept {
 			if (false == empty_) {
 				return nullptr;
 			}
@@ -39,12 +39,12 @@ namespace cpp03 {
 			return true;
 		}
 
-		~holder() { if (!empty_) { v_.~T(); empty_ = true; } }
+		~holder() { if (!empty_) { v_.~T_(); empty_ = true; } }
 	private:
 		bool empty_{ true };
-		// T has to be default constructible, moveable, copyable
-		T v_;
-		void set(T new_v_) { v_ = new_v_; empty_ = false; }
+		// T_ has to be default constructible, moveable, copyable
+		T_ v_;
+		void set(T_ new_v_) { v_ = new_v_; empty_ = false; }
 	};
 
 		using type = valstat;
@@ -93,15 +93,18 @@ namespace cpp03 {
 	int_vstat ref_signal(int& input_ref_)
 	{
 		using namespace std;
-
-		log("\n" __FUNCSIG__ );
+#ifdef __clang__
+		log(__func__);
+#else
+		log(__FUNCSIG__);
+#endif // not __clang__
 
 		if (input_ref_ < 42) {
 			input_ref_ = SIG_ATOMIC_MAX;
-			log( " OK return\n" );
+			log( " OK return" );
 			return int_vstat::ok(SIG_ATOMIC_MAX); // { value, empty }
 		}
-		log(" Error return\n");
+		log(" Error return");
 		return int_vstat::error("error: input must be bigger than magical constant");
 	}
 
@@ -109,23 +112,25 @@ namespace cpp03 {
 		{
 			using namespace std;
 
+			log(DBJ_FILE_LINE);
+
 			int arg = 0;
 
 			{
 				auto [value, status] = ref_signal(arg);
-				log("\n");
+				log("");
 				if (value && !status)
-					log(  "\nOK state -- value: " , get(value) , ", status: [empty]");
+					log(  "OK state -- value: " , get(value) , ", status: [empty]");
 
 				if (value && status)
-					log(  "\nINFO state -- value: " , get(value) , ", status: " , get(status));
+					log(  "INFO state -- value: " , get(value) , ", status: " , get(status));
 
 				if (!value && !status)
-					log(  "\nEMPTY state --value: [empty], status : [empty] ");
+					log(  "EMPTY state --value: [empty], status : [empty] ");
 
 				if (!value && status)
-					log(  "\nERROR state -- value: [empty], status: " , get(status));
-				log("\n");
+					log(  "ERROR state -- value: [empty], status: " , get(status));
+				log("");
 			};
 
 		});

@@ -1,24 +1,21 @@
 // (c) 2019 by dbj.org -- CC BY-SA 4.0 -- https://creativecommons.org/licenses/by-sa/4.0/ 
 
-// #define TESTING_DBJ_RETVALS
-#include <crtdbg.h>
-
 #include "common.h"
 
-//#include "sampling/keep_it_sorted.h"
-//#include "sampling/any_opty.h"
+#include "sampling/keep_it_sorted.h"
+#include "sampling/any_opty.h"
 #ifdef DBJ_HAS_CXX20
 // #include "sampling/cpp20.h"
 // #include "utf8/utf8_decoder_sampler.h"
 #endif
-//#include "utf8/utf8_kilim.h"
-//#include "lambdatix/lambda_mx_makers.h"
-//#include "sampling/dbj_meta_converter.h"
-//#include "valstat_research/fibo.h"
-//#include "valstat_research/polygon.h"
-//#include "valstat_research/valstat_dbj_async.h"
-//#include "valstat_research/valstat_dbj_own.h"
-//#include "sampling/find_wovels.h"
+#include "utf8/utf8_kilim.h"
+#include "lambdatix/lambda_mx_makers.h"
+#include "sampling/dbj_meta_converter.h"
+#include "valstat_research/fibo.h"
+#include "valstat_research/polygon.h"
+#include "valstat_research/valstat_dbj_async.h"
+#include "valstat_research/valstat_dbj_own.h"
+#include "sampling/find_wovels.h"
 
 #if 0
 #include "valstat_research/valstat_dbj_samples.h"

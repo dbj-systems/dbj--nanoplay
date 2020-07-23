@@ -398,7 +398,7 @@ namespace meta_conversion_testing {
 				using namespace std;
 				using namespace dbj_meta_converter;
 
-				DBJ_TX(dbj_meta_converter_version_string);
+				DBJ_SX(dbj_meta_converter_version_string);
 				// 
 				// AD hoc testing of the API comfortability
 				//
@@ -409,15 +409,15 @@ namespace meta_conversion_testing {
 
 				// use it
 				// with another string type
-				DBJ_TX( tos(std::wstring(L"WIDE")) );
+				DBJ_SX( tos(std::wstring(L"WIDE")) );
 
 				// with char32_t string literal
-				DBJ_TX( tos(U"WIDE LITERAL") );
+				DBJ_SX( tos(U"WIDE LITERAL") );
 
 				// with native array
 				char16_t utf16[]{ u'U', u'T', u'F', u'1', u'6', 0 };
 
-				DBJ_TX( tos( utf16 ) );
+				DBJ_SX( tos( utf16 ) );
 
 			});
 }

@@ -3,7 +3,7 @@
 valstat 2 -- no pairs
 */
 
-#include <valstat>
+#include "valstat"
 #include "../common.h"
 
 namespace dbj

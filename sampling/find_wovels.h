@@ -36,15 +36,15 @@ namespace dbj::nanoplay {
 		// we cast implicitly references to input elements
 		// from, `char const &` to `int const &`
 		// cost of that is very likely 0
-		for (int const& ch_ : in_)
-			for (int const& v_ : vowels)
+		for (char const& ch_ : in_)
+			for ( char const& v_ : vowels)
 				// there is no if() here
 				// we simply add 0's or 1's, to the rezult
 				// false is 0, true is 1
 				// the correct by the book way of coding that is
 				// static cast from bool to int
 				// rezult +=  static_cast<int>( v_ == ch_ ) ;
-				rezult += v_ == ch_;
+				rezult += (v_ == ch_ ? 1 : 0 );
 
 		// we do not use unnecesary braces { } above
 

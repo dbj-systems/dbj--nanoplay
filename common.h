@@ -40,7 +40,8 @@ Why was this used?
 #endif
 */
 
-
+// #define TESTING_DBJ_RETVALS
+#include <crtdbg.h>
 #include <cassert>
 #include <future>
 #include <iomanip>
