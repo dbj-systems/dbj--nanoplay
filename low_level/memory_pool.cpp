@@ -16,10 +16,6 @@ b.kenwright@ncl.ac.uk
 
 #include "../common.h"
 
-// https://vorpus.org/blog/why-does-calloc-exist/
-#define DBJ_ALLOC(T_,N_,S_) (T_*)calloc(N_,S_)
-#define DBJ_FREE(P_) do { if(P_ != nullptr) free(P_); P_ = nullptr; } while(0)
-
 ///
 /// obviously this deals with memory blocks only
 /// aka void *

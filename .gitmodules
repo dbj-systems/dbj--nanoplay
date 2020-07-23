@@ -2,3 +2,6 @@
 	path = dbj--nanolib
 	url = https://github.com/dbj-systems/dbj--nanolib.git
 
+[submodule "dbj-nanotest"]
+	path = dbj-nanotest
+	url = https://github.com/dbj-systems/dbj-nanotest.git

@@ -19,69 +19,46 @@
 // MSVC (the latest as of 2020 APR) compiles  only if the code is in the C file
 //
 
-#ifdef _WIN32
-/// -------------------------------------------------------------------------------
-/// now here is the secret sauce key ingredient
-/// on windows machine these are 
-/// the fastest, proven and measured
-
-#undef  DBJ_NANO_CALLOC
-#define DBJ_NANO_CALLOC(T_,S_) (T_*)HeapAlloc(GetProcessHeap(), 0, S_ * sizeof(T_))
-
-#undef DBJ_NANO_MALLOC_2
-#define DBJ_NANO_MALLOC_2(T_,S_)(T_*)HeapAlloc(GetProcessHeap(), 0, S_)
-
-#undef DBJ_NANO_FREE
-#define DBJ_NANO_FREE(P_) HeapFree(GetProcessHeap(), 0, (void*)P_)
-
-// avoid including windows.h
-__declspec(dllimport) void* __stdcall  GetProcessHeap(void);
-__declspec(allocator) void* __stdcall HeapAlloc(void* /*hHeap*/, int /*flags*/,size_t /*dwBytes*/);
-int __stdcall HeapFree(void* /*hHeap*/, int  /*dwFlags*/, void* /*lpMem*/);
-
-#else
-#error It seems WIN32 is required
-#endif // _WIN32
-
-/// ---------------------------------------------------------------------------------
-/// ---------------------------------------------------------------------------------
+#include <assert.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include <malloc.h>
 
+// https://vorpus.org/blog/why-does-calloc-exist/
+#undef DBJ_ALLOC
+#define DBJ_ALLOC(S_) calloc(1,S_)
+
+#undef DBJ_FREE
+#define DBJ_FREE(P_) do { assert(P_ != NULL ); if(P_ != NULL) free(P_); P_ = NULL; } while(0)
+
 /*
-   In the "dbj mx" the "matrix" data type
+   (c) 2020 by dbj@dbj.org CC BY SA 4.0
+ ---------------------------------------------------------------------------------
+   ridiculously small and fast matrix
+
+   In the "dbj mx" the data type
    is pointer to a whole of an 2D array
 
-	T (*2d_array_pointer)[W][H]
+	typedef T (*type_name)[W][H]
+
 */
-#define dbj_mx_declare( T, name, width, height ) T(*name)[width][height]
+#ifdef __clang__
+#define dbj_mx_declare( T, type_name, width, height ) typedef T(*type_name)[width][height]
+#else
+#error this is C99 VLA feature, thus it does not work when using MSVC
+#endif
 /*
 	  since we keep the matrix in the data type as above
 	  this is how we reach a desired slot and the value
 */
-#define dbj_mx_slot(name,j,k) (*name)[j][k]
+#define dbj_mx_slot(name,j,k) (*name[j][k])
 /*
-	 allocation is beautifuly simple and elegant, thanks to C99
-
-	 note: this is fast but matrix slots are not guarenteed to be "zeroed"
+	 allocation is beautifully simple and elegant, thanks to C99
+	 note: this is fast but matrix slots are not guaranteed to be "zeroed"
 */
-// #define dbj_mx_make( T, width, height ) /*T(*)[width][height])*/calloc( width * height,  sizeof(T) )
+#define dbj_mx_make( T ) (T)DBJ_ALLOC( sizeof(T) )
 
-#ifndef _WIN32
-#define dbj_mx_make( T, width, height ) \
-/*(T(*)[width][height])*/malloc( sizeof(T[width][height]) )
-#else
-#define dbj_mx_make( T, width, height ) \
-(T*)HeapAlloc(GetProcessHeap(), 0, sizeof(T[width][height]))
-#endif // _WIN32
-
-#ifndef _WIN32
-#define dbj_mx_free( ptr_ ) free(ptr_)
-#else
-#define dbj_mx_free( ptr_ )HeapFree(GetProcessHeap(), 0, (void*)ptr_)
-#endif // _WIN32
-
+#define dbj_mx_free( ptr_ ) DBJ_FREE( ptr_ )
 
 /*
 	more or less everything can be done through the for-each concept
@@ -92,42 +69,49 @@ int __stdcall HeapFree(void* /*hHeap*/, int  /*dwFlags*/, void* /*lpMem*/);
       do {\
       for ( int j =0 ; j < w; ++j) \
       for ( int k =0 ; k < h; ++k)\
-         cb(j,k, & dbj_mx_slot(name,j,k));\
+         cb(w, j,k, & dbj_mx_slot(name,j,k));\
     } while(0)
-
-/* This is where dbj mx ends ************************************/
 
 /* SAMPLING starts here *****************************************/
 
 // note: width and height do not have to be compile time constants
-enum { W = 4, H = 4 };
+// but be aware that is C99 VLA when not declared in a global space
+
 // callback specimen
-// breaks on false return
 // prints the matrix of int's
-inline void cback_print(int j, int k, int* const val)
+static inline void cback_print(int W, int j, int k, int* const val)
 {
 	static int row_ctr = 0;
 	if (0 == (row_ctr++ % W)) printf("\n");
 	printf(" [%02d][%02d]: %04d", j, k, *val);
 }
 
-// fill sample callback
-inline void cback_fill(int j, int k, int* const val)
+// arbitrary fill callback
+static inline void cback_zero(int W, int j, int k, int* const val)
 {
-	*val = (10 * j) + k;
+	*val = 0 ;
 }
+/******************************************************************/
 // ad hoc testing
-void dbj_mx_sampling()
+void dbj_mx_sampling(const int W , const int H )
 {
-	dbj_mx_declare(int, mx2d, W, H);
-	mx2d = dbj_mx_make(int, W, H);
+	// declares mx type
+	// typedef  int(*mx2d_t)[W][H];
+	dbj_mx_declare(int, mx2d_t, W, H);
 
-	dbj_mx_slot(mx2d, 1, 1) = 42; // just to show 
+	// declares and defines the mx variable
+	mx2d_t mx2d = dbj_mx_make(mx2d_t);
+
+	// zero the matrix
+	dbj_mx_foreach(mx2d, W, H, cback_zero);
+
+	// change the int value in mx2d[1][1]
+	dbj_mx_slot(mx2d, 1, 1) = 42;
 
 	printf("\n\n");
-
-	dbj_mx_foreach(mx2d, W, H, cback_fill);
+	// print the matrix
 	dbj_mx_foreach(mx2d, W, H, cback_print);
+
 	dbj_mx_free(mx2d);
  }
 /******************************************************************/

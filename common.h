@@ -22,6 +22,17 @@
 #endif
 
 /*
+assumption is calloc, malloc, free are the best possible implementations 
+for a given platform
+*/
+// https://vorpus.org/blog/why-does-calloc-exist/
+#undef DBJ_ALLOC
+#define DBJ_ALLOC(T_,N_,S_) (T_*)calloc(N_,S_)
+
+#undef DBJ_FREE
+#define DBJ_FREE(P_) do { assert(P_ != nullptr ); if(P_ != nullptr) free(P_); P_ = nullptr; } while(0)
+
+/*
 Why was this used?
 #if (WINVER < NTDDI_WIN10_RS3)
 #else

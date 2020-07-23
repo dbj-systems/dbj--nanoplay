@@ -104,12 +104,14 @@ int main(int argc, const char* argv[], const char* envp[])
 // add remove here ad-hoc testing sampling
 
 extern "C" {
-	void dbj_mx_sampling();
+	void dbj_mx_sampling( unsigned , unsigned);
+	void dbj_mx_2_sampling(unsigned , unsigned);
 } // "C
 
 void ad_hoc_and_temporary(int argc, const char* argv[], const char* envp[])
 {
-	dbj_mx_sampling();
+	dbj_mx_2_sampling(2, 2);
+	dbj_mx_sampling(2,2);
 }
 
 

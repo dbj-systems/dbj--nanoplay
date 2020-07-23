@@ -48,6 +48,9 @@
     <ClCompile Include="lambdatix\dbj_mx_capi.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lambdatix\dbj_mx_capi_2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">
