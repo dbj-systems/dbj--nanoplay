@@ -59,7 +59,7 @@ Why was this used?
 #else
 // use it as a submodule
 #include "dbj--nanolib/dbj++valstat.h"
-#include "dbj--nanolib/dbj++tu.h"
+#include "dbj-nanotest/dbj++tu.h"
 #endif
 
 /*
