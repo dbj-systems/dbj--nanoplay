@@ -1,5 +1,7 @@
 #ifdef __clang__ // using C99 VLA 
 
+// also inspired by https://gustedt.wordpress.com/2014/09/08/dont-use-fake-matrices/
+
 // https://godbolt.org/z/ViKjWF
 //
 // dbj zippy matrix nano API
@@ -45,21 +47,17 @@
 	typedef T (*type_name)[W][H]
 
 */
-#ifdef __clang__
 #define dbj_mx_declare( T, type_name, width, height ) typedef T(*type_name)[width][height]
-#else
-#error this is C99 VLA feature, thus it does not work when using MSVC
-#endif
+#define dbj_mx_type( T, type_name, width, height ) T(*type_name)[width][height]
 /*
 	  since we keep the matrix in the data type as above
 	  this is how we reach a desired slot and the value
 */
-#define dbj_mx_slot(name,j,k) (*name[j][k])
+#define dbj_mx_slot(name,j,k)  ((assert(name!=NULL), (*name[j][k])))
 /*
 	 allocation is beautifully simple and elegant, thanks to C99
-	 note: this is fast but matrix slots are not guaranteed to be "zeroed"
 */
-#define dbj_mx_make( T ) (T)DBJ_ALLOC( sizeof(T) )
+#define dbj_mx_make( T, VAR_, W_, H_  ) T (*VAR_)[W_][H_] = calloc(1, sizeof(T[W_][H_])) 
 
 #define dbj_mx_free( ptr_ ) DBJ_FREE( ptr_ )
 
@@ -68,31 +66,32 @@
 	see the callback specimens bellow
 	remember! name is pointer to the whole matrix as declared above
 */
-#define dbj_mx_foreach(name,w,h, cb) \
+#define dbj_mx_foreach(mx_ptr_ ,w,h, cb) \
       do {\
       for ( int j =0 ; j < w; ++j) \
-      for ( int k =0 ; k < h; ++k)\
-         cb(w, j,k, & dbj_mx_slot(name,j,k));\
+      for ( int k =0 ; k < h; ++k) \
+         cb( w,h, mx_ptr_, j,k );  \
     } while(0)
 
 /* SAMPLING starts here *****************************************/
 
-// note: width and height do not have to be compile time constants
-// but be aware that is C99 VLA 
-
 // callback specimen
 // prints the matrix of int's
-static inline void cback_print(int W, int j, int k, int* const val)
+static inline void cback_print(const int W, const int H, int(*mx)[W][H], int R, int C)
 {
 	static int row_ctr = 0;
 	if (0 == (row_ctr++ % W)) printf("\n");
-	printf(" [%02d][%02d]: %04d", j, k, *val);
+
+	printf(" [%02d %02d]: %04d", R, C, (*mx)[R][C]);
 }
 
 // arbitrary fill callback
-static inline void cback_zero(int W, int j, int k, int* const val)
+static inline void cback_zero
+( const int W, const int H, int (*mx)[W][H], int R, int C )
 {
-	*val = 0 ;
+	assert(R < W);
+	assert(C < H);
+	(*mx)[R][C] = 0 ;
 }
 /******************************************************************/
 // ad hoc testing
@@ -100,16 +99,18 @@ void dbj_mx_sampling(const int W , const int H )
 {
 	// declares mx type
 	// typedef  int(*mx2d_t)[W][H];
-	dbj_mx_declare(int, mx2d_t, W, H);
+	// dbj_mx_declare(int, mx2d_t, W, H);
 
 	// declares and defines the mx variable
-	mx2d_t mx2d = dbj_mx_make(mx2d_t);
+	dbj_mx_make(int, mx2d, W,H);
+
+	assert(mx2d);
 
 	// zero the matrix
 	dbj_mx_foreach(mx2d, W, H, cback_zero);
 
 	// change the int value in mx2d[1][1]
-	dbj_mx_slot(mx2d, 1, 1) = 42;
+	// dbj_mx_slot(mx2d, 1, 1) = 42;
 
 	printf("\n\n");
 	// print the matrix
@@ -119,5 +120,8 @@ void dbj_mx_sampling(const int W , const int H )
  }
 /******************************************************************/
 /* EOF */
-
+#else
+void dbj_mx_sampling(const int W, const int H) {
+#pragma message(__FILE__ "\ndbj_mx_sampling() requires clang compiler")
+}
 #endif // __clang__ // using C99 VLA 

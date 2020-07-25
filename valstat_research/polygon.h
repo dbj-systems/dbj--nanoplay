@@ -186,6 +186,8 @@ namespace valstat_testing_space {
 	TU_REGISTER(
 		[] 
 		{
+			DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
+
 			// __int32 and __int64 are cl.exe intrinsics
 			srand((__int32)time(nullptr));
 			auto root_ = root_point();

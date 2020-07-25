@@ -41,6 +41,7 @@ namespace try_no_marcos {
 
 	TU_REGISTER(
 		[] {
+			DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
 
 			auto driver = [](uint64_t a, uint64_t b) {
 				constexpr auto const& div = the_great_divider_in_the_sky;

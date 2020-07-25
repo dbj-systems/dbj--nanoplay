@@ -15,6 +15,8 @@ namespace dbj::nanolib {
 
 TU_REGISTER(
 	[] {
+		DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
+
 		DBJ_PRINT(DBJ_FG_GREEN_BOLD);
 #ifdef __clang__
 		DBJ_PRINT("\n\nCLANG %s", __clang_version__);

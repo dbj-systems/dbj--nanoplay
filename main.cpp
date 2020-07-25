@@ -53,32 +53,32 @@ static void dbj_program_start(
 #pragma warning( pop ) // 4100
 
 /// ----------------------------------------------------------------------
-void ad_hoc_and_temporary(int argc, const char* argv[], const char* envp[]);
+static void ad_hoc_and_temporary(int argc, const char* argv[], const char* envp[]);
 /// ----------------------------------------------------------------------
 int main(int argc, const char* argv[], const char* envp[])
 {
-
 	ad_hoc_and_temporary( argc,argv,envp );
 
 #ifdef DBJ_REDIRECT_STD_IN
 	if (freopen("input.txt", "r", stdin) == NULL) {
-		// Handle error, errno is set to indicate error
+		perror("freopen(\"input.txt\", \"r\", stdin) failed...");
+		exit(errno);
 	}
 #endif
 
+#ifdef NDEBUG
 #undef  DBJ_REDIRECT_STD_ERR
-#ifdef DBJ_REDIRECT_STD_ERR
-	std::string logfile_name(argv[0]);
-	logfile_name.append(".log");
+#endif
 
+#ifdef DBJ_REDIRECT_STD_ERR
+	using dbj::nanolib::v_buffer;
+	using buff_t = v_buffer::buffer_type;
+	buff_t logfile_name = v_buffer::format("%s.log", argv[0]);
 #ifndef NDEBUG
-	DBJ_PRINT("local log file: %s", logfile_name.c_str());
+	DBJ_PRINT("local log file: %s", logfile_name.data());
 #endif
 	// https://stackoverflow.com/a/46869216/10870835
-
-	bool revert_on_destruct_ = false;
-	dbj::redirector redirect_{ revert_on_destruct_, logfile_name.c_str() };
-
+	dbj::redirector redirect_{ /*revert_on_destruct_*/ false , logfile_name.data() };
 #endif // DBJ_REDIRECT_STD_ERR
 
 	auto main_worker = [&]() {
@@ -101,18 +101,19 @@ int main(int argc, const char* argv[], const char* envp[])
 // add remove here ad-hoc testing sampling
 
 extern "C" {
-#ifdef __clang__ // using C99 VLA 
-//  void dbj_mx_sampling( unsigned , unsigned);
-//	void dbj_mx_2_sampling(unsigned , unsigned);
-#endif // __clang__
+  void dbj_mx_sampling( unsigned , unsigned);
+  void dbj_mx_2_sampling(unsigned , unsigned);
 } // "C
 
-void ad_hoc_and_temporary(int argc, const char* argv[], const char* envp[])
+// #include "./to_be_decided/win32_swprintf_conversion_attempt.h"
+
+static void ad_hoc_and_temporary(int argc, const char* argv[], const char* envp[])
 {
-#ifdef __clang__ // using C11
-//	dbj_mx_2_sampling(2, 2);
-//	dbj_mx_sampling(2,2);
-#endif // __clang__
+#ifdef TEST_WCONVERTER_WSTRING_INC
+	test_wconverter_wstring();
+#endif // TEST_WCONVERTER_WSTRING_INC
+	dbj_mx_2_sampling(2, 2);
+	dbj_mx_sampling(2,2);
 }
 
 

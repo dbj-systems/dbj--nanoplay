@@ -10,7 +10,8 @@ namespace utf_decoder_sampler {
 
 	TU_REGISTER(
 		[] {
-			
+			DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
+
 			DBJ_PRINT("\n\n UTF8 decoding: %s == ", (char const *)SPECIMEN);
 			auto [val, stat] = dbj::utf8_print_code_points(stdout, (uint8_t*)SPECIMEN);
 
@@ -37,6 +38,8 @@ namespace utf_decoder_sampler {
 
 	TU_REGISTER(
 		[] {
+			DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
+
 			DBJ_PRINT("\n\nIterating over u8 string literal: %s\n\n", (char const *)SPECIMEN);
 			unsigned  cnt_ = 1;
 

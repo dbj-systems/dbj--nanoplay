@@ -60,6 +60,8 @@ namespace dbj::cpp20 {
 
 	TU_REGISTER(
 		[] {
+			DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
+
 			using namespace std;
 			auto spec_ = specimen{};
 			auto ret_ = use_fun_obj( spec_, 21 );

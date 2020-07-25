@@ -127,5 +127,8 @@ void dbj_mx_2_sampling(const int cols, const int rows) {
  }
 /******************************************************************/
 /* EOF */
-
+#else
+void dbj_mx_2_sampling(const int cols, const int rows) {
+#pragma message(__FILE__ "\ndbj_mx_2_sampling() requires clang compiler")
+}
 #endif // __clang__ // using C99 VLA 

@@ -51,6 +51,12 @@
     <ClCompile Include="lambdatix\dbj_mx_capi_2.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="dbj--nanolib\win32\win32_error_msg_box_exit.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="win32\test_dbj_nano_win32.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">
@@ -176,11 +182,15 @@
     <ClInclude Include="dbj--nanolib\dbj_nano_synchro.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="dbj--nanolib\win32\win32_error_msg_box_exit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="pprintpp\readme.md" />
     <None Include="valstat_research\README.MD" />
     <None Include="valstat_research\interop\README.MD" />
     <None Include="valstat_research\valstat" />
+    <None Include="dbj--nanolib\win32\readme.md" />
   </ItemGroup>
 </Project>

@@ -42,10 +42,13 @@ char buf[BUFSIZ]{0};\
 	);
 	DBJ_NANO_LIB_SYNC_LEAVE;
 	return 0;
+#undef SPRINF
 }
 /// ----------------------------------------------------------------------------
 static void  test_nano_printf ()
 {
+	DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
+
 	HANDLE consumer_thread_1 = (HANDLE)_beginthreadex(
 		NULL, 0, printer,
 		/* thread data is the name we generate for it */

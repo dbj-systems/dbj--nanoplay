@@ -383,6 +383,8 @@ namespace meta_conversion_testing {
 
 		TU_REGISTER(
 			[] {
+				DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
+
 				test_conversion(dbj::range_to_string);
 				test_conversion(dbj::range_to_wstring);
 				test_conversion(dbj::range_to_u16string);
@@ -395,6 +397,8 @@ namespace meta_conversion_testing {
 
 		TU_REGISTER(
 			[] {
+				DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
+
 				using namespace std;
 				using namespace dbj_meta_converter;
 

@@ -162,8 +162,9 @@ namespace dbj_nanoplay {
 			};
 		};
 
-		TU_REGISTER([] 
+		TU_REGISTER([]
 			{
+				DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
 				using namespace std;
 			//driver< std::list  >({ 1,3,5 }, { 6,4,2 });
 			//// driver< std::deque >({ 1,3,5 }, { 6,4,2 });

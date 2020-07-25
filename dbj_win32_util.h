@@ -1,10 +1,10 @@
 /***************************************************************************/
 #pragma once
 /***************************************************************************/
-#define WIN32_LEAN_AND_MEAN
-#define NOMINMAX
-#define STRICT
-#include <windows.h>
+//#define WIN32_LEAN_AND_MEAN
+//#define NOMINMAX
+//#define STRICT
+//#include <windows.h>
 /***************************************************************************/
 #include <stdlib.h>
 /*
@@ -46,11 +46,20 @@ inline std::wstring last_win32_error_message(int code = 0)
 //     _In_ int nShowCmd
 //     )
 
-    inline wchar_t * app_full_path = __wargv[0];
+    inline wchar_t * app_full_path = (__wargv != 0 ? __wargv [0] : L"null" ) ;
 /// ---------------------------------------------------------------------
-    inline int mbox(const wchar_t* message) 
+#ifndef MessageBox
+    int __stdcall
+        MessageBoxW(
+            void* hWnd,
+            const wchar_t* lpText,
+            const wchar_t* lpCaption,
+            unsigned int uType);
+#endif
+
+    extern "C" inline int dbj_mbox(const wchar_t* message) 
     {
-        return MessageBoxW(NULL, message, app_full_path, MB_ICONEXCLAMATION);
+        return MessageBoxW(NULL, message, app_full_path, /*MB_ICONEXCLAMATION*/ 0x00000030L );
     }
 
     inline int mbox(int last_error_code, const wchar_t * prompt = nullptr )

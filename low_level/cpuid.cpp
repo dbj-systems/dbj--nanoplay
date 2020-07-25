@@ -202,6 +202,8 @@ namespace dbjlog = dbj::nanolib::logging;
 
 TU_REGISTER_NOT([]
     {
+        DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
+
         auto support_message = [&](std::string isa_feature, bool is_supported)
         {
             // outstream << isa_feature << (is_supported ? " supported" : " not supported") << std::endl;

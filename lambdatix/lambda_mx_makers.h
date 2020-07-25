@@ -67,6 +67,8 @@ namespace dbj::mtx {
 
 	TU_REGISTER([]
 		{
+			DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
+
 			using dbj::nanolib::logging::log;
 			using namespace dbj::mtx;
 

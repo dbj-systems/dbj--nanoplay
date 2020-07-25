@@ -180,6 +180,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="dbj--nanolib\win32\win32_error_msg_box_exit.c" />
     <ClCompile Include="lambdatix\dbj_mx_capi.c" />
     <ClCompile Include="lambdatix\dbj_mx_capi_2.c" />
     <ClCompile Include="low_level\alligned_allocation.cpp" />
@@ -191,6 +192,7 @@
     <ClCompile Include="utf8\cuchar_sampler.cpp" />
     <ClCompile Include="utf8\utf8_decoder.c" />
     <ClCompile Include="valstat_research\interop\math_valstat.c" />
+    <ClCompile Include="win32\test_dbj_nano_win32.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="allocators\aligned_allocator.h" />
@@ -199,6 +201,7 @@
     <ClInclude Include="dbj--nanolib\dbj_nano_synchro.h" />
     <ClInclude Include="dbj--nanolib\nonstd\dbj_sequence_print.h" />
     <ClInclude Include="dbj--nanolib\nonstd\nano_printf.h" />
+    <ClInclude Include="dbj--nanolib\win32\win32_error_msg_box_exit.h" />
     <ClInclude Include="jzon_sampling\conformance-double.h" />
     <ClInclude Include="jzon_sampling\conformance-string.h" />
     <ClInclude Include="jzon_sampling\json-checker-fail.h" />
@@ -237,6 +240,7 @@
     <ClInclude Include="valstat_research\polygon.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="dbj--nanolib\win32\readme.md" />
     <None Include="pprintpp\readme.md" />
     <None Include="valstat_research\interop\README.MD" />
     <None Include="valstat_research\README.MD" />

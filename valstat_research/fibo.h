@@ -79,6 +79,8 @@ namespace valstat_testing_space {
         static_assert( fibo(93).value  , "OK: fibo(N), max N == 93 ");
 
         TU_REGISTER([] {
+            DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
+
             // run time usage
             if (auto [val, stat] = fibo(42); val)
             {

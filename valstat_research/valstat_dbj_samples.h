@@ -30,6 +30,8 @@ namespace valstat_testing_space {
 	}
 	// Test Unit aka "Unit Test" ;)
 	TU_REGISTER([] {
+		DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
+
 		using namespace std::literals;
 		using namespace testing_space;
 		driver(
@@ -65,6 +67,8 @@ namespace valstat_testing_space {
 	}; // arry
 
 	TU_REGISTER([] {
+		DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
+
 		static arry<0xFF> xarr{ {"0124356ABCDEFH"} };
 
 		using namespace testing_space;
@@ -120,6 +124,8 @@ namespace valstat_testing_space {
 	}
 
 	TU_REGISTER([] {
+		DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
+
 		auto [val, stat] = 123_charray_valstat;
 
 		if (val) {
@@ -133,6 +139,8 @@ namespace valstat_testing_space {
 		});
 
 	TU_REGISTER([] {
+		DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
+
 		auto [val, stat] = 0xFFF_to_valstat;
 		using namespace dbj; /* pacify ADL */
 		if (val) {
@@ -142,6 +150,8 @@ namespace valstat_testing_space {
 #endif // __clang__
 
 	TU_REGISTER([] {
+		DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
+
 		using namespace dbj;
 		constexpr auto ar = 123_conv;
 		// paradigm shift, no exception logic, local handling
@@ -177,6 +187,8 @@ namespace valstat_testing_space {
 	};
 
 	TU_REGISTER([] {
+		DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
+
 		adamant steadfast{};
 
 		auto info = [&]() -> adamant::vt { return  { steadfast, { "info message" } }; };
@@ -208,6 +220,8 @@ namespace valstat_testing_space {
 	}
 
 	TU_REGISTER([] {
+		DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
+
 		int arg = 0;
 		auto [val, stat] = ref_signal(arg);
 		DBJ_ASSERT(*val == SIG_ATOMIC_MAX);
@@ -244,6 +258,8 @@ namespace valstat_testing_space {
 
 		TU_REGISTER([]
 			{
+				DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
+
 				{
 					optional<Y> opty = Y{};
 					static_assert(42 == opty->special());

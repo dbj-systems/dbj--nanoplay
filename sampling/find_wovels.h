@@ -67,6 +67,8 @@ namespace dbj::nanoplay {
 
 	TU_REGISTER(
 		[] {
+			DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
+
 			std::string input_{ "abra cadabra" };
 			[[maybe_unused]] size_t rezult = count_vowels(input_);
 		}
@@ -121,6 +123,8 @@ namespace dbj_find_wovels
 	// run time test
 	TU_REGISTER([]
 		{
+			DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
+
 #define SPECIMEN "bimbila bambili bumbili" 
 			[[maybe_unused]] size_t r1 = count_vowels(
 				SPECIMEN,

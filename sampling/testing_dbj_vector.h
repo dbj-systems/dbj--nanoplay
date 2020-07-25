@@ -35,6 +35,8 @@ namespace dbj::nanoplay::testing {
 	}
 
 	TU_REGISTER([] {
+		DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
+
 		test_push( std::vector<wchar_t>{}, L'@' );
 		test_push(dbj::nanolib::vector<wchar_t>{}, L'@');
 		});
@@ -70,6 +72,8 @@ namespace dbj::nanoplay::testing {
 	}
 
 	TU_REGISTER([] {
+		DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
+
 		DBJ_PRINT(DBJ_FG_GREEN "\nTesting %s usage with standard algorithms\n" DBJ_RESET
 			, typeid( v_buffer::buffer_type ).name()
 		);

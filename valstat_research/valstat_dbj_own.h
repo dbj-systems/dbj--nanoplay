@@ -109,7 +109,8 @@ namespace cpp03 {
 	}
 
 	TU_REGISTER([]
-		{
+		{				DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
+
 			using namespace std;
 
 			log(DBJ_FILE_LINE);

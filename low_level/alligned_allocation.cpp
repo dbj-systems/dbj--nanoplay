@@ -72,6 +72,7 @@ namespace dbj::mem {
 
 TU_REGISTER_NOT([]
     {
+        DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
 
     /// size_t  alignment = 64, off_set = 5;
 

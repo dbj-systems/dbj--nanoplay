@@ -45,7 +45,7 @@ namespace nano_play {
     };
 
     TU_REGISTER([] {
-        //
+        DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
  {
     using exiter = dbj::nanolib::on_scope_exit<dbj::nanolib::void_void_function_ptr>;
 
