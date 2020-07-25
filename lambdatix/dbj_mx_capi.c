@@ -53,7 +53,7 @@
 	  since we keep the matrix in the data type as above
 	  this is how we reach a desired slot and the value
 */
-#define dbj_mx_slot(name,j,k)  ((assert(name!=NULL), (*name[j][k])))
+#define dbj_mx_slot(MXP_,j,k)  ( (assert(MXP_!=NULL), (*MXP_)[j][k] ) )
 /*
 	 allocation is beautifully simple and elegant, thanks to C99
 */
@@ -82,41 +82,54 @@ static inline void cback_print(const int W, const int H, int(*mx)[W][H], int R, 
 	static int row_ctr = 0;
 	if (0 == (row_ctr++ % W)) printf("\n");
 
-	printf(" [%02d %02d]: %04d", R, C, (*mx)[R][C]);
+	printf(" [%02d %02d]: %04d", R, C, dbj_mx_slot(mx,R,C) );
 }
 
-// arbitrary fill callback
-static inline void cback_zero
-( const int W, const int H, int (*mx)[W][H], int R, int C )
+/// ------------------------------------------------------------------------------------
+// arbitrary filler callback
+static int int_filler_arg = 0;
+static inline void int_filler
+(const int W, const int H, int(*mx)[W][H], int R, int C)
 {
 	assert(R < W);
 	assert(C < H);
-	(*mx)[R][C] = 0 ;
+	(*mx)[R][C] = int_filler_arg;
+}
+/******************************************************************/
+/// ------------------------------------------------------------------------------------
+void matmult_int(
+	size_t n1, size_t n2, size_t n3,
+	int(*A)[n1][n2], int(*B)[n2][n3], int(*C)[n1][n3]
+)
+{
+	for (size_t i1 = 0; i1 < n1; i1++) {
+		for (size_t i3 = 0; i3 < n3; i3++) {
+			(*C)[i1][i3] = 0.0;
+			for (size_t i2 = 0; i2 < n2; i2++)  (*C)[i1][i3] += (*A)[i1][i2] * (*B)[i2][i3];
+		}
+	}
 }
 /******************************************************************/
 // ad hoc testing
 void dbj_mx_sampling(const int W , const int H )
 {
-	// declares mx type
-	// typedef  int(*mx2d_t)[W][H];
-	// dbj_mx_declare(int, mx2d_t, W, H);
+	int n1 = 2, n2 = 3, n3 = 4;
 
-	// declares and defines the mx variable
-	dbj_mx_make(int, mx2d, W,H);
+	dbj_mx_make(int, A, n1, n2);
+	dbj_mx_make(int, B, n2, n3);
+	dbj_mx_make(int, C, n1, n3);
 
-	assert(mx2d);
+	int_filler_arg = 2;
+	dbj_mx_foreach(A, n1, n2, int_filler);
 
-	// zero the matrix
-	dbj_mx_foreach(mx2d, W, H, cback_zero);
+	int_filler_arg = 2;
+	dbj_mx_foreach(B, n2, n3, int_filler);
 
-	// change the int value in mx2d[1][1]
-	// dbj_mx_slot(mx2d, 1, 1) = 42;
+	matmult_int(n1, n2, n3, A, B, C);
 
-	printf("\n\n");
-	// print the matrix
-	dbj_mx_foreach(mx2d, W, H, cback_print);
+	dbj_mx_foreach(C, n1, n3, cback_print);
 
-	dbj_mx_free(mx2d);
+	DBJ_FREE(A); DBJ_FREE(B); DBJ_FREE(C);
  }
 /******************************************************************/
 /* EOF */
