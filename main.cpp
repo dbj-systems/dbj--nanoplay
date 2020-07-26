@@ -101,7 +101,8 @@ int main(int argc, const char* argv[], const char* envp[])
 // add remove here ad-hoc testing sampling
 
 extern "C" {
-  void dbj_mx_sampling( unsigned , unsigned);
+	void test_clang_vs_setup();
+	void dbj_mx_sampling(unsigned, unsigned);
   void dbj_mx_2_sampling(unsigned , unsigned);
 } // "C
 
@@ -109,6 +110,7 @@ extern "C" {
 
 static void ad_hoc_and_temporary(int argc, const char* argv[], const char* envp[])
 {
+	test_clang_vs_setup();
 #ifdef TEST_WCONVERTER_WSTRING_INC
 	test_wconverter_wstring();
 #endif // TEST_WCONVERTER_WSTRING_INC

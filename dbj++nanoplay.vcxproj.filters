@@ -57,6 +57,9 @@
     <ClCompile Include="win32\test_dbj_nano_win32.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lambdatix\clang_atomics.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">
@@ -183,6 +186,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="dbj--nanolib\win32\win32_error_msg_box_exit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lambdatix\stdatomic_nano.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

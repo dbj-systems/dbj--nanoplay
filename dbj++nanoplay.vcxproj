@@ -181,6 +181,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dbj--nanolib\win32\win32_error_msg_box_exit.c" />
+    <ClCompile Include="lambdatix\clang_atomics.c" />
     <ClCompile Include="lambdatix\dbj_mx_capi.c" />
     <ClCompile Include="lambdatix\dbj_mx_capi_2.c" />
     <ClCompile Include="low_level\alligned_allocation.cpp" />
@@ -211,6 +212,7 @@
     <ClInclude Include="lambdatix\lambda_mx_makers.h" />
     <ClInclude Include="lambdatix\narf_again.h" />
     <ClCompile Include="low_level\memory_pool.cpp" />
+    <ClInclude Include="lambdatix\stdatomic_nano.h" />
     <ClInclude Include="pprintpp\pprintpp_test.h" />
     <ClInclude Include="sampling\cpp20.h" />
     <ClInclude Include="sampling\dbj_meta_converter.h" />
