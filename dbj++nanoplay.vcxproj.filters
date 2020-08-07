@@ -60,6 +60,12 @@
     <ClCompile Include="lambdatix\clang_atomics.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lambdatix\mx_fundamental.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lambdatix\mx_struct.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">
