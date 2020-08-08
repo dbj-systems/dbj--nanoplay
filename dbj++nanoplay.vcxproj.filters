@@ -57,13 +57,16 @@
     <ClCompile Include="win32\test_dbj_nano_win32.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lambdatix\clang_atomics.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lambdatix\mx_fundamental.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="lambdatix\mx_generic_macros.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lambdatix\mx_fundamental_native_array_functions.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lambdatix\std_atomic_nano_test.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lambdatix\arr_struct_simple_sample.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -146,9 +149,6 @@
     <ClInclude Include="valstat_research\fibo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lambdatix\lambda_mx_makers.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="sampling\cpp20.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -195,6 +195,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lambdatix\stdatomic_nano.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lambdatix\cpp_lambda_mx_makers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="win32\dbj_win32_util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

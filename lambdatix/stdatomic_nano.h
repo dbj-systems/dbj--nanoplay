@@ -1,24 +1,6 @@
 #ifndef _STDATOMIC_NANO_H_
 #define	_STDATOMIC_NANO_H_
 
-#ifdef _MSC_VER
-#ifndef __clang__
-#error __FILE__ " requires clang visual studio setup"
-#endif // !__clang__
-#endif // _MSC_VER
-
-#ifdef __clang_
-#prgama clang system_header
-
-#if __STDC_NO_ATOMICS__
-#error "C11 Atomics NOT available"
-#else
-#pragma message "C11 Atomics ARE available"
-#endif
-
-
-#endif // __clang_
-
 /// https://gist.github.com/nhatminhle/5181506
 /*
  * An implementation of C11 stdatomic.h directly borrowed from FreeBSD
@@ -38,7 +20,24 @@
  *   available on any system.
  */
 
- /*-
+#ifdef _MSC_VER
+#ifndef __clang__
+#error __FILE__ " requires clang visual studio setup"
+#endif // !__clang__
+#endif // _MSC_VER
+
+#ifdef __clang_
+#prgama clang system_header
+
+#if __STDC_NO_ATOMICS__
+#error "C11 Atomics NOT available"
+#else
+#pragma message "C11 Atomics ARE available"
+#endif
+
+#endif // __clang_
+
+/*-
   * Copyright (c) 2011 Ed Schouten <ed@FreeBSD.org>
   *                    David Chisnall <theraven@FreeBSD.org>
   * All rights reserved.

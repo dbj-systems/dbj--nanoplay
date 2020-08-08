@@ -9,7 +9,7 @@
 // #include "utf8/utf8_decoder_sampler.h"
 #endif
 #include "utf8/utf8_kilim.h"
-#include "lambdatix/lambda_mx_makers.h"
+#include "lambdatix/cpp_lambda_mx_makers.h"
 #include "sampling/dbj_meta_converter.h"
 #include "valstat_research/fibo.h"
 #include "valstat_research/polygon.h"
@@ -34,18 +34,18 @@
 // in no particular order
 static void dbj_program_start(
 	const	int	   argc,
-	const	char * argv[],
-	const	char * envp[]
+	const	char* argv[],
+	const	char* envp[]
 )
 {
-	DBJ_PRINT("dbj++nanolib version: %s" , dbj::nanolib::VERSION  );
+	DBJ_PRINT("dbj++nanolib version: %s", dbj::nanolib::VERSION);
 	DBJ_PRINT(DBJ_FG_CYAN  "dbj++nanolib playground version:[" __TIMESTAMP__ "]");
 	// call the test units registered, in random order
 	// in this scenario easiest is to place the break point 
 	// in the test unit of interest
 	// if argumet is true, only tu's listing will be shown
-	dbj::tu::testing_system::execute( 
-	/*true*/ 
+	dbj::tu::testing_system::execute(
+		/*true*/
 	);
 	dbj::nanolib::system_call("pause");
 }
@@ -57,7 +57,7 @@ static void ad_hoc_and_temporary(int argc, const char* argv[], const char* envp[
 /// ----------------------------------------------------------------------
 int main(int argc, const char* argv[], const char* envp[])
 {
-	ad_hoc_and_temporary( argc,argv,envp );
+	ad_hoc_and_temporary(argc, argv, envp);
 
 #ifdef DBJ_REDIRECT_STD_IN
 	if (freopen("input.txt", "r", stdin) == NULL) {
@@ -94,7 +94,7 @@ int main(int argc, const char* argv[], const char* envp[])
 		main_worker();
 		});
 
- 	exit(EXIT_SUCCESS);
+	exit(EXIT_SUCCESS);
 }
 
 /// ----------------------------------------------------------------------
@@ -103,16 +103,20 @@ int main(int argc, const char* argv[], const char* envp[])
 extern "C" {
 	void test_clang_vs_setup();
 	void dbj_mx_sampling(unsigned, unsigned);
-  void dbj_mx_2_sampling(unsigned , unsigned);
+	void dbj_mx_2_sampling(unsigned, unsigned);
 
-  int dbj_matrix_struct_test();
+	int dbj_matrix_struct_test();
 
 } // "C
+
+void aligned_allocation_test();
 
 // #include "./to_be_decided/win32_swprintf_conversion_attempt.h"
 
 static void ad_hoc_and_temporary(int argc, const char* argv[], const char* envp[])
 {
+	aligned_allocation_test();
+
 	dbj_matrix_struct_test();
 
 	test_clang_vs_setup();
@@ -120,7 +124,7 @@ static void ad_hoc_and_temporary(int argc, const char* argv[], const char* envp[
 	test_wconverter_wstring();
 #endif // TEST_WCONVERTER_WSTRING_INC
 	dbj_mx_2_sampling(2, 2);
-	dbj_mx_sampling(2,2);
+	dbj_mx_sampling(2, 2);
 }
 
 
