@@ -1,3 +1,7 @@
+#if ! defined(__clang__) && ! defined(__GNUC__)
+// #error clang or gnuc are required
+#else //  __clang__
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -84,3 +88,5 @@ int fundamental_mx()
 
     return EXIT_SUCCESS;
 }
+
+#endif //  __clang__

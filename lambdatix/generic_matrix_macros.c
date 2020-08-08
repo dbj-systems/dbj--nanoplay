@@ -1,3 +1,12 @@
+#if ! defined(__clang__) && ! defined(__GNUC__)
+
+int dbj_matrix_struct_test() {
+    // #error clang or gnuc are required
+    return 0;
+}
+
+#else //  __clang__
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -7,9 +16,7 @@
 this is developed in VS 2019 using clang 10.0.1
 all is fine beside intellisence going berserk ... sometimes
 */
-#if ! defined(__clang__) && ! defined(__GNUC__)
-#error clang or gnuc are required
-#endif
+
 
 #define CONCAT_IMPL( x, y ) x##y
 #define MACRO_CONCAT( x, y ) CONCAT_IMPL( x, y )
@@ -217,3 +224,5 @@ undefine macros that can clash with other macros
 */
 #undef CONCAT_IMPL
 #undef MACRO_CONCAT
+
+#endif // __clang__ reqouired

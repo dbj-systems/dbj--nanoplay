@@ -57,9 +57,6 @@
     <ClCompile Include="win32\test_dbj_nano_win32.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lambdatix\mx_generic_macros.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="lambdatix\mx_fundamental_native_array_functions.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -67,6 +64,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="lambdatix\arr_struct_simple_sample.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lambdatix\generic_matrix_macros.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
