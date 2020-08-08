@@ -185,7 +185,7 @@
     <ClCompile Include="lambdatix\dbj_mx_capi.c" />
     <ClCompile Include="lambdatix\dbj_mx_capi_2.c" />
     <ClCompile Include="lambdatix\mx_fundamental.c" />
-    <ClCompile Include="lambdatix\mx_struct.c" />
+    <ClCompile Include="lambdatix\mx_generic_macros.c" />
     <ClCompile Include="low_level\alligned_allocation.cpp" />
     <ClCompile Include="low_level\cpuid.cpp" />
     <ClCompile Include="low_level\low_level_testing.cpp" />

@@ -63,7 +63,7 @@
     <ClCompile Include="lambdatix\mx_fundamental.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lambdatix\mx_struct.c">
+    <ClCompile Include="lambdatix\mx_generic_macros.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

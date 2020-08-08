@@ -104,12 +104,17 @@ extern "C" {
 	void test_clang_vs_setup();
 	void dbj_mx_sampling(unsigned, unsigned);
   void dbj_mx_2_sampling(unsigned , unsigned);
+
+  int dbj_matrix_struct_test();
+
 } // "C
 
 // #include "./to_be_decided/win32_swprintf_conversion_attempt.h"
 
 static void ad_hoc_and_temporary(int argc, const char* argv[], const char* envp[])
 {
+	dbj_matrix_struct_test();
+
 	test_clang_vs_setup();
 #ifdef TEST_WCONVERTER_WSTRING_INC
 	test_wconverter_wstring();
