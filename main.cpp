@@ -110,11 +110,14 @@ extern "C" {
 } // "C
 
 void aligned_allocation_test();
+int recursive_lambada();
 
 // #include "./to_be_decided/win32_swprintf_conversion_attempt.h"
 
 static void ad_hoc_and_temporary(int argc, const char* argv[], const char* envp[])
 {
+	recursive_lambada();
+
 	aligned_allocation_test();
 
 	dbj_matrix_struct_test();

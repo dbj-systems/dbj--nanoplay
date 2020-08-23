@@ -69,6 +69,9 @@
     <ClCompile Include="lambdatix\generic_matrix_macros.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="recursive_lambada.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">

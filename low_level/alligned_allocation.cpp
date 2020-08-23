@@ -1,5 +1,7 @@
 #include "../common.h"
 
+/// https://thephd.github.io/freestanding-noexcept-allocators-vector-memory-hole
+
 /// https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/aligned-malloc?view=vs-2019
 
 // Any R&D beyond this one file requires investment
