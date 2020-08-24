@@ -16,6 +16,7 @@ namespace  valstat_testing_space
 	TU_REGISTER([]
 	{				DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
 
+	
 		// from a packaged_task
 		std::packaged_task<int_vt()> task([] { return vt_7; }); // wrap the function
 		std::future<int_vt> f1 = task.get_future();  // get a future
@@ -29,14 +30,14 @@ namespace  valstat_testing_space
 		std::future<int_vt> f3 = p.get_future();
 		std::thread([&p] { p.set_value_at_thread_exit(vt_9); }).detach();
 
-		log_trace("Waiting...");
+		DBJ_PRINT("Waiting...");
 		f1.wait();
 		f2.wait();
 		f3.wait();
 
 		using namespace dbj; // for ADL to work
-
-		log_trace( "All done!\nResults are: \n\n"
+		using ::dbj::nanolib::ostrmng::prinf;
+		prinf( "All done!\nResults are: \n\n"
 			, to_string( f1.get() ), "\n\n"
 			, to_string( f2.get() ), "\n\n"
 			, to_string( f3.get() ), '\n');

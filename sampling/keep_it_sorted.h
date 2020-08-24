@@ -65,22 +65,22 @@ namespace dbj_nanoplay {
 
 			auto size_ = [&] { return  size_t( distance( begin_, end_ ) );  };
 
-			if (show_size) log_trace(" sequence [size:" ,size_() ,"]");
+			if (show_size) DBJ_PRINT(" sequence [size:" ,size_() ,"]");
 
-			log_trace(" {");
+			DBJ_PRINT(" {");
 			auto walker = begin_ ;
 			if (walker != end_ )
 			{
 				// first sequence element
 				// no leading comma
-				log_trace(" " ,*walker);
+				DBJ_PRINT(" " ,*walker);
 				walker++;
 				while (walker != end_ ) {
-					log_trace(" , " ,*walker);
+					DBJ_PRINT(" , " ,*walker);
 					walker++;
 				}
 			}
-			log_trace(" }");
+			DBJ_PRINT(" }");
 		}
 
 		// print a sequence with a comma in between elements
@@ -118,7 +118,7 @@ namespace dbj_nanoplay {
 
 			assign_sorted(sorted_, added_);
 
-			log_trace("\nMerged sorted\n");sequence_print(sorted_);	log_trace("\n");
+			DBJ_PRINT("\nMerged sorted\n");sequence_print(sorted_);	DBJ_PRINT("\n");
 		}
 
 		// second call does it all
@@ -136,7 +136,7 @@ namespace dbj_nanoplay {
 
 				assign_sorted(sorted_, unsorted_);
 
-				log_trace("\ntwo_calls merged sorted\n"); sequence_print(sorted_); log_trace("\n");
+				DBJ_PRINT("\ntwo_calls merged sorted\n"); sequence_print(sorted_); DBJ_PRINT("\n");
 			};
 		};
 
@@ -153,8 +153,8 @@ namespace dbj_nanoplay {
 				auto args_set_1 = make_tuple( ppack_1 ... );
 				auto args_set_2 = make_tuple( ppack_2 ... );
 
-				log_trace(" First  ppack: " ,boolalpha ,args_set_1 );
-				log_trace(" Second ppack: " ,boolalpha ,args_set_2);
+				::dbj::nanolib::ostrmng::prinf(" First  ppack: " ,boolalpha ,args_set_1 );
+				::dbj::nanolib::ostrmng::prinf(" Second ppack: " ,boolalpha ,args_set_2);
 
 				return tuple_cat(args_set_1, args_set_2);
 			};
@@ -164,13 +164,14 @@ namespace dbj_nanoplay {
 			{
 				DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
 				using namespace std;
+				using ::dbj::nanolib::ostrmng::prinf;
 			//driver< std::list  >({ 1,3,5 }, { 6,4,2 });
 			//// driver< std::deque >({ 1,3,5 }, { 6,4,2 });
 
 			//two_calls<std::list>(1, 3, 5)(6, 4, 2);
 
 			auto merged_pack = two_ppacks(1, false, 'X')(6.32f, "Hola!", 3.14156);
-			log_trace(" Merged  ppack: " , merged_pack);
+			prinf(" Merged  ppack: " , merged_pack);
 
 			//variadicoid<list>(1,2);
 

@@ -139,14 +139,14 @@ inline auto changer = [](auto matrix_, size_t row_, size_t col_, auto value_) {
 inline auto printer = [](auto matrix_, size_t width_, size_t height_) -> void {
 
 		for (size_t row_ = 0; row_ < width_; row_++) {
-			log_trace("\n{");
+			DBJ_PRINT("\n{");
 			for (size_t col_ = 0; col_ < height_; col_++) {
 				/// cout << setw(3) <<  matrix_(row_, col_) << " ";
-				log_trace("%d ", matrix_(row_, col_));
+				DBJ_PRINT("%d ", matrix_(row_, col_));
 			}
-			log_trace("}\n");
+			DBJ_PRINT("}\n");
 		}
-		log_trace("\n");
+		DBJ_PRINT("\n");
 };
 
 	TU_REGISTER([]
@@ -166,10 +166,10 @@ inline auto printer = [](auto matrix_, size_t width_, size_t height_) -> void {
              // notice this is run time operation
 			auto matrix_on_heap = dbj_mx_make_heap(int, width_, height_);
 
-			log_trace("matrix_on_stack\n");
+			DBJ_PRINT("matrix_on_stack\n");
 			printer(changer(matrix_on_stack, last_col_, last_row_, 42), width_, height_);
 
-			log_trace("\nmatrix_on_heap\n");
+			DBJ_PRINT("\nmatrix_on_heap\n");
 			printer(changer(matrix_on_stack, last_col_, last_row_, 42), width_, height_);
 		});
 

@@ -28,7 +28,7 @@ namespace dbj_kilim {
 				::system("chcp 65001");
 				// LINUX
 				auto smiley = u8"😀";
-				log_trace(
+				DBJ_PRINT(
 					"The %s 'glyph': %s", typeid(smiley).name(), (const char*)smiley
 				);
 			}
@@ -42,13 +42,13 @@ namespace dbj_kilim {
 				{
 					// just print & pray
 					// this cast makes it silent
-					log_trace("%s", (const char *)char_set[random_idx(the_generator_)]);
+					DBJ_PRINT("%s", (const char *)char_set[random_idx(the_generator_)]);
 					std::this_thread::sleep_for(0s);
 				}
-				log_trace(" ");
+				DBJ_PRINT(" ");
 			};
 
-			log_trace(" (c) 2020 dusanjovanovic.org ");
+			DBJ_PRINT(" (c) 2020 dusanjovanovic.org ");
 			//driver(singles,		0xFFFF);
 			//driver(doubles,		0xFFFF);
 			//driver(doublesv,	0xFF);

@@ -86,27 +86,27 @@ namespace testing_space {
 	{
 		using namespace std;
 
-		if (prompt_) log_trace(prompt_);
+		if (prompt_) DBJ_PRINT(prompt_);
 
-		log_trace(DBJ_FG_CYAN, "valstat:", DBJ_RESET);
+		DBJ_PRINT("%s%s%s", DBJ_FG_CYAN, "valstat:", DBJ_RESET);
 
 		// structured binding of a result from a C function
 		auto [value, status] = function_();
 
-		log_trace("value: ");
+		DBJ_PRINT("value: ");
 		if (value)
-			log_trace(DBJ_FG_CYAN_BOLD, *value, DBJ_RESET);
+			DBJ_PRINT("%s%s%s", DBJ_FG_CYAN_BOLD, *value, DBJ_RESET);
 		else
-			log_trace(DBJ_FG_CYAN_BOLD, "{ empty }", DBJ_RESET);
+			DBJ_PRINT("%s%s%s", DBJ_FG_CYAN_BOLD, "{ empty }", DBJ_RESET);
 
-		log_trace(" / status:") ;
+		DBJ_PRINT(" / status:") ;
 		if (status)
 			if (false == testing_c_interop)
-				log_trace(DBJ_FG_RED_BOLD, *status, DBJ_RESET);
+				DBJ_PRINT("%s%s%s", DBJ_FG_RED_BOLD, *status, DBJ_RESET);
 			else
-				log_trace(DBJ_FG_RED_BOLD, status, DBJ_RESET);
+				DBJ_PRINT("%s%s%s", DBJ_FG_RED_BOLD, status, DBJ_RESET);
 		else
-			log_trace(DBJ_FG_CYAN_BOLD, "{ empty }", DBJ_RESET);
+			DBJ_PRINT("%s%s%s", DBJ_FG_CYAN_BOLD, "{ empty }", DBJ_RESET);
 
 	}
 } // interop_testing_space

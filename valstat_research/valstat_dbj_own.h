@@ -92,17 +92,17 @@ namespace cpp03 {
 	{
 		using namespace std;
 #ifdef __clang__
-		log_trace(__func__);
+		DBJ_PRINT(__func__);
 #else
-		log_trace(__FUNCSIG__);
+		DBJ_PRINT(__FUNCSIG__);
 #endif // not __clang__
 
 		if (input_ref_ < 42) {
 			input_ref_ = SIG_ATOMIC_MAX;
-			log_trace( " OK return" );
+			DBJ_PRINT( " OK return" );
 			return int_vstat::ok(SIG_ATOMIC_MAX); // { value, empty }
 		}
-		log_trace(" Error return");
+		DBJ_PRINT(" Error return");
 		return int_vstat::error("error: input must be bigger than magical constant");
 	}
 
@@ -111,25 +111,26 @@ namespace cpp03 {
 
 			using namespace std;
 
-			log_trace(DBJ_FILE_LINE);
+			DBJ_PRINT(DBJ_FILE_LINE);
 
 			int arg = 0;
 
 			{
+				using ::dbj::nanolib::ostrmng::prinf;
 				auto [value, status] = ref_signal(arg);
-				log_trace("");
+				prinf("");
 				if (value && !status)
-					log_trace(  "OK state -- value: " , get(value) , ", status: [empty]");
+					prinf(  "OK state -- value: " , get(value) , ", status: [empty]");
 
 				if (value && status)
-					log_trace(  "INFO state -- value: " , get(value) , ", status: " , get(status));
+					prinf(  "INFO state -- value: " , get(value) , ", status: " , get(status));
 
 				if (!value && !status)
-					log_trace(  "EMPTY state --value: [empty], status : [empty] ");
+					prinf(  "EMPTY state --value: [empty], status : [empty] ");
 
 				if (!value && status)
-					log_trace(  "ERROR state -- value: [empty], status: " , get(status));
-				log_trace("");
+					prinf(  "ERROR state -- value: [empty], status: " , get(status));
+				prinf("");
 			};
 
 		});

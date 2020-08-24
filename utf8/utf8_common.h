@@ -55,7 +55,7 @@ namespace dbj {
 	inline auto
 		print(T const& first_param, A const& ... params)
 	{
-		log_trace( first_param, params ... ) ;
+		DBJ_PRINT( first_param, params ... ) ;
 	};
 } // dbj
 

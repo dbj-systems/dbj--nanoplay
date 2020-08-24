@@ -15,4 +15,6 @@ int dbj_string_storage_test( const int argc, const char ** argv )
 	DBJ_SX("%s" , sl_storage_get(ss_, ss_index));
 
 	DBJ_SX("%llu", sl_storage_left(ss_));
+
+	return 42;
 }
