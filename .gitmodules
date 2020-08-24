@@ -5,3 +5,6 @@
 [submodule "dbj-nanotest"]
 	path = dbj-nanotest
 	url = https://github.com/dbj-systems/dbj-nanotest.git
+[submodule "dbj--simplelog"]
+	path = dbj--simplelog
+	url = https://github.com/dbj-systems/dbj--simplelog.git
