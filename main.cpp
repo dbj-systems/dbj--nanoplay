@@ -8,6 +8,7 @@
 // #include "sampling/cpp20.h"
 // #include "utf8/utf8_decoder_sampler.h"
 #endif
+#include "utf8/utf8_dbj_nano_services.h"
 #include "utf8/utf8_kilim.h"
 #include "lambdatix/cpp_lambda_mx_makers.h"
 #include "sampling/dbj_meta_converter.h"
@@ -107,6 +108,8 @@ extern "C" {
 
 	int dbj_matrix_struct_test();
 
+	int dbj_string_storage_test(const int argc, const char** argv);
+
 } // "C
 
 void aligned_allocation_test();
@@ -116,6 +119,8 @@ int recursive_lambada();
 
 static void ad_hoc_and_temporary(int argc, const char* argv[], const char* envp[])
 {
+	dbj_string_storage_test( argc, argv);
+
 	recursive_lambada();
 
 	aligned_allocation_test();

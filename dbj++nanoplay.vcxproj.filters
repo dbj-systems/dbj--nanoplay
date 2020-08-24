@@ -72,6 +72,9 @@
     <ClCompile Include="recursive_lambada.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="dbj_string_storage\dbj_string_storage_test.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">
@@ -204,6 +207,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="win32\dbj_win32_util.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dbj_string_storage\dbj_simplelock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dbj_string_storage\dbj_string_storage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dbj_string_storage\paul_hsieh_hash_fun.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utf8\utf8_dbj_nano_services.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

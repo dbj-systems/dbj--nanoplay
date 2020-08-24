@@ -1,5 +1,6 @@
 #include "../common.h"
 
+
 /// https://thephd.github.io/freestanding-noexcept-allocators-vector-memory-hole
 
 /// https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/aligned-malloc?view=vs-2019
@@ -8,6 +9,11 @@
 
 #include <malloc.h>
 #include <stdio.h>
+
+// printf and "%4x" shenanigans
+#pragma warning( push )
+#pragma warning( disable : 4313 )
+#pragma warning( disable : 4477 )
 
 namespace dbj::mem {
 
@@ -203,3 +209,5 @@ void aligned_allocation_test()
 		}
 
 }
+
+#pragma warning( pop )
