@@ -198,8 +198,6 @@ private:
 // Initialize static member data
 const InstructionSet::InstructionSet_Internal InstructionSet::CPU_Rep;
 
-namespace dbjlog = dbj::nanolib::logging;
-
 TU_REGISTER_NOT([]
     {
         DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
@@ -207,11 +205,11 @@ TU_REGISTER_NOT([]
         auto support_message = [&](std::string isa_feature, bool is_supported)
         {
             // outstream << isa_feature << (is_supported ? " supported" : " not supported") << std::endl;
-            dbjlog::logfmt(" %-16s %-16s", isa_feature.c_str() , (is_supported ? " supported" : " not supported"));
+            log_trace(" %-16s %-16s", isa_feature.c_str() , (is_supported ? " supported" : " not supported"));
         };
 
-        dbjlog::logfmt(" Vendor: %s", InstructionSet::Vendor().c_str());
-        dbjlog::logfmt(" Brand: %s\n", InstructionSet::Brand().c_str());
+        log_trace(" Vendor: %s", InstructionSet::Vendor().c_str());
+        log_trace(" Brand: %s\n", InstructionSet::Brand().c_str());
 
         support_message("3DNOW", InstructionSet::_3DNOW());
         support_message("3DNOWEXT", InstructionSet::_3DNOWEXT());

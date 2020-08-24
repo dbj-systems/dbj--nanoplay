@@ -137,24 +137,22 @@ inline auto changer = [](auto matrix_, size_t row_, size_t col_, auto value_) {
 };
 
 inline auto printer = [](auto matrix_, size_t width_, size_t height_) -> void {
-		using dbj::nanolib::logging::log;
 
 		for (size_t row_ = 0; row_ < width_; row_++) {
-			log("\n{");
+			log_trace("\n{");
 			for (size_t col_ = 0; col_ < height_; col_++) {
 				/// cout << setw(3) <<  matrix_(row_, col_) << " ";
-				log(matrix_(row_, col_), " ");
+				log_trace("%d ", matrix_(row_, col_));
 			}
-			log("}\n");
+			log_trace("}\n");
 		}
-		log("\n");
+		log_trace("\n");
 };
 
 	TU_REGISTER([]
 		{
 			DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
 
-			using dbj::nanolib::logging::log;
 			using namespace dbj::mtx;
 
 			constexpr size_t width_ = 3; // col index := 0,1,2
@@ -168,10 +166,10 @@ inline auto printer = [](auto matrix_, size_t width_, size_t height_) -> void {
              // notice this is run time operation
 			auto matrix_on_heap = dbj_mx_make_heap(int, width_, height_);
 
-			log("matrix_on_stack\n");
+			log_trace("matrix_on_stack\n");
 			printer(changer(matrix_on_stack, last_col_, last_row_, 42), width_, height_);
 
-			log("\nmatrix_on_heap\n");
+			log_trace("\nmatrix_on_heap\n");
 			printer(changer(matrix_on_stack, last_col_, last_row_, 42), width_, height_);
 		});
 

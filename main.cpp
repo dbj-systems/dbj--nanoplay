@@ -54,10 +54,20 @@ static void dbj_program_start(
 #pragma warning( pop ) // 4100
 
 /// ----------------------------------------------------------------------
+struct dbj_simplelog_finalizer final {
+	~dbj_simplelog_finalizer() {
+		dbj_log_finalize();
+	}
+};
+static dbj_simplelog_finalizer dsf_;
+
+/// ----------------------------------------------------------------------
 static void ad_hoc_and_temporary(int argc, const char* argv[], const char* envp[]);
 /// ----------------------------------------------------------------------
 int main(int argc, const char* argv[], const char* envp[])
 {
+	dbj_simple_log_startup(argv[0]);
+
 	ad_hoc_and_temporary(argc, argv, envp);
 
 #ifdef DBJ_REDIRECT_STD_IN
@@ -83,12 +93,16 @@ int main(int argc, const char* argv[], const char* envp[])
 #endif // DBJ_REDIRECT_STD_ERR
 
 	auto main_worker = [&]() {
+#ifndef _KERNEL_MODE
 		try {
+#endif
 			dbj_program_start(argc, argv, envp);
+#ifndef _KERNEL_MODE
 		}
 		catch (...) {
 			DBJ_PRINT(DBJ_FG_RED_BOLD "\n\n" __FILE__ "\n\nUnknown exception!\n\n" DBJ_RESET);
 		}
+#endif
 	};
 
 	(void)std::async(std::launch::async, [&] {

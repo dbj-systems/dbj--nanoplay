@@ -55,8 +55,7 @@ namespace dbj {
 	inline auto
 		print(T const& first_param, A const& ... params)
 	{
-		using dbj::nanolib::logging::log;
-		log( first_param, params ... ) ;
+		log_trace( first_param, params ... ) ;
 	};
 } // dbj
 

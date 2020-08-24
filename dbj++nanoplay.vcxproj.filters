@@ -42,9 +42,6 @@
     <ClCompile Include="low_level\test_nano_printf.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="low_level\low_level_testing.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="lambdatix\dbj_mx_capi.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -73,6 +70,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="dbj_string_storage\dbj_string_storage_test.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="redirector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dbj--simplelog\dbj_simple_log.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -219,6 +222,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="utf8\utf8_dbj_nano_services.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dbj-nanotest\ostrstream_operators.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

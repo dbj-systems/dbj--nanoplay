@@ -24,13 +24,11 @@ namespace dbj_kilim {
 		{
 			DBJ_PRINT( DBJ_FG_CYAN_BOLD DBJ_FILE_LINE DBJ_RESET );
 
-			using dbj::nanolib::logging::logfmt;
-
 			{
 				::system("chcp 65001");
 				// LINUX
 				auto smiley = u8"😀";
-				logfmt(
+				log_trace(
 					"The %s 'glyph': %s", typeid(smiley).name(), (const char*)smiley
 				);
 			}
@@ -44,13 +42,13 @@ namespace dbj_kilim {
 				{
 					// just print & pray
 					// this cast makes it silent
-					logfmt("%s", (const char *)char_set[random_idx(the_generator_)]);
+					log_trace("%s", (const char *)char_set[random_idx(the_generator_)]);
 					std::this_thread::sleep_for(0s);
 				}
-				logfmt(" ");
+				log_trace(" ");
 			};
 
-			logfmt(" (c) 2020 dusanjovanovic.org ");
+			log_trace(" (c) 2020 dusanjovanovic.org ");
 			//driver(singles,		0xFFFF);
 			//driver(doubles,		0xFFFF);
 			//driver(doublesv,	0xFF);

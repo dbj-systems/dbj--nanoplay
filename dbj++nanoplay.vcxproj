@@ -181,6 +181,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dbj--nanolib\win32\win32_error_msg_box_exit.c" />
+    <ClCompile Include="dbj--simplelog\dbj_simple_log.c" />
     <ClCompile Include="dbj_string_storage\dbj_string_storage_test.c" />
     <ClCompile Include="lambdatix\arr_struct_simple_sample.c" />
     <ClCompile Include="lambdatix\std_atomic_nano_test.c" />
@@ -190,11 +191,11 @@
     <ClCompile Include="lambdatix\generic_matrix_macros.c" />
     <ClCompile Include="low_level\alligned_allocation.cpp" />
     <ClCompile Include="low_level\cpuid.cpp" />
-    <ClCompile Include="low_level\low_level_testing.cpp" />
     <ClCompile Include="low_level\print_bits_and_bytes.cpp" />
     <ClCompile Include="low_level\test_nano_printf.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="recursive_lambada.cpp" />
+    <ClCompile Include="redirector.cpp" />
     <ClCompile Include="utf8\cuchar_sampler.cpp" />
     <ClCompile Include="utf8\utf8_decoder.c" />
     <ClCompile Include="valstat_research\interop\math_valstat.c" />
@@ -208,6 +209,7 @@
     <ClInclude Include="dbj--nanolib\nonstd\dbj_sequence_print.h" />
     <ClInclude Include="dbj--nanolib\nonstd\nano_printf.h" />
     <ClInclude Include="dbj--nanolib\win32\win32_error_msg_box_exit.h" />
+    <ClInclude Include="dbj-nanotest\ostrstream_operators.h" />
     <ClInclude Include="dbj_string_storage\dbj_simplelock.h" />
     <ClInclude Include="dbj_string_storage\dbj_string_storage.h" />
     <ClInclude Include="dbj_string_storage\paul_hsieh_hash_fun.h" />

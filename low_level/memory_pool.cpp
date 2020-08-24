@@ -46,7 +46,7 @@ struct  memory_pool final
     memory_pool() = delete ;
 
     ~memory_pool() {
-            DBJ_FREE( memStart );
+            DBJ_NANO_FREE( memStart );
     }
 
      memory_pool
@@ -57,8 +57,8 @@ struct  memory_pool final
          sizeOfEachBlock(sizeOfEachBlock_),
          numFreeBlocks(numOfBlocks_.val)
     {
-        memStart = DBJ_ALLOC(address_type, numOfBlocks_.val, sizeOfEachBlock_.val);
-        _ASSERTE(memStart);
+        memStart = DBJ_NANO_CALLOC(address_type, numOfBlocks_.val * sizeOfEachBlock_.val);
+        DBJ_ASSERT(memStart);
         next = memStart;
     }
 

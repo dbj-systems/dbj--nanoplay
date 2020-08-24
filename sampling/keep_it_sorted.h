@@ -21,8 +21,6 @@ The solution
 
 namespace dbj_nanoplay {
 
-	namespace dbjlog = dbj::nanolib::logging;
-
 	namespace detail {
 
 		/*
@@ -67,22 +65,22 @@ namespace dbj_nanoplay {
 
 			auto size_ = [&] { return  size_t( distance( begin_, end_ ) );  };
 
-			if (show_size) dbjlog::log(" sequence [size:" ,size_() ,"]");
+			if (show_size) log_trace(" sequence [size:" ,size_() ,"]");
 
-			dbjlog::log(" {");
+			log_trace(" {");
 			auto walker = begin_ ;
 			if (walker != end_ )
 			{
 				// first sequence element
 				// no leading comma
-				dbjlog::log(" " ,*walker);
+				log_trace(" " ,*walker);
 				walker++;
 				while (walker != end_ ) {
-					dbjlog::log(" , " ,*walker);
+					log_trace(" , " ,*walker);
 					walker++;
 				}
 			}
-			dbjlog::log(" }");
+			log_trace(" }");
 		}
 
 		// print a sequence with a comma in between elements
@@ -120,7 +118,7 @@ namespace dbj_nanoplay {
 
 			assign_sorted(sorted_, added_);
 
-			dbjlog::log("\nMerged sorted\n");sequence_print(sorted_);	dbjlog::log("\n");
+			log_trace("\nMerged sorted\n");sequence_print(sorted_);	log_trace("\n");
 		}
 
 		// second call does it all
@@ -138,7 +136,7 @@ namespace dbj_nanoplay {
 
 				assign_sorted(sorted_, unsorted_);
 
-				dbjlog::log("\ntwo_calls merged sorted\n"); sequence_print(sorted_); dbjlog::log("\n");
+				log_trace("\ntwo_calls merged sorted\n"); sequence_print(sorted_); log_trace("\n");
 			};
 		};
 
@@ -155,8 +153,8 @@ namespace dbj_nanoplay {
 				auto args_set_1 = make_tuple( ppack_1 ... );
 				auto args_set_2 = make_tuple( ppack_2 ... );
 
-				dbjlog::log(" First  ppack: " ,boolalpha ,args_set_1 );
-				dbjlog::log(" Second ppack: " ,boolalpha ,args_set_2);
+				log_trace(" First  ppack: " ,boolalpha ,args_set_1 );
+				log_trace(" Second ppack: " ,boolalpha ,args_set_2);
 
 				return tuple_cat(args_set_1, args_set_2);
 			};
@@ -172,7 +170,7 @@ namespace dbj_nanoplay {
 			//two_calls<std::list>(1, 3, 5)(6, 4, 2);
 
 			auto merged_pack = two_ppacks(1, false, 'X')(6.32f, "Hola!", 3.14156);
-			dbjlog::log(" Merged  ppack: " , merged_pack);
+			log_trace(" Merged  ppack: " , merged_pack);
 
 			//variadicoid<list>(1,2);
 

@@ -153,13 +153,13 @@ TU_REGISTER_NOT(
         auto target_count_ = ct::countof(target);
         constexpr auto target_count_ct_ = ct::countof(HIRAGANA);
 
-        log::logfmt("%zu -- %zu", target_count_, target_count_ct_);
+        log_trace("%zu -- %zu", target_count_, target_count_ct_);
 
 #define HIRAGANA_WS "  平\t \v仮\r \f 名 "
 
         constexpr auto clean_hana_ = ct::remove_ws( HIRAGANA_WS );
 
-       log::log("Clean Hiragana: %s", clean_hana_.data());
+        log_trace("Clean Hiragana: %s", clean_hana_.data());
 
     }
 );
@@ -174,7 +174,6 @@ TU_REGISTER_NOT(
 
 TU_REGISTER_NOT(
     [] {
-        namespace log = dbj::nanolib::logging;
      
         // log to console
         // default timestamp
