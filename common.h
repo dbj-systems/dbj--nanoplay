@@ -57,11 +57,9 @@ Why was this used?
 
 #if 0
 // iuse it as local, for when developing
-#include "../dbj--nanolib/dbj++valstat.h"
 #include "../dbj--nanolib/dbj++tu.h"
 #else
 // use it as a submodule
-#include "dbj--nanolib/dbj++valstat.h"
 #include "dbj-nanotest/dbj++tu.h"
 #endif
 
