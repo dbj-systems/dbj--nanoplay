@@ -230,6 +230,12 @@
     <ClInclude Include="dbj-nanotest\ostrmng.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="dbj--nanolib\dbj_type_traits.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dbj--nanolib\win32\dbj_minwindef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="pprintpp\readme.md" />

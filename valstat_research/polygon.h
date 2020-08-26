@@ -13,33 +13,8 @@ NOTE: very often beginners code looks like C
 
 namespace valstat_testing_space {
 
-	namespace debug
-	{
-#ifdef NDEBUG
-#define release_mode_macro (1==1)
-#else
-#define release_mode_macro (1==0)
-#endif
-
-		template <bool = false>
-		struct release_mode : std::false_type {};
-
-		template <>
-		struct release_mode< true > : std::true_type {};
-
-		constexpr inline bool release_mode_v = release_mode<release_mode_macro>::value;
-
-		template < typename ... A >
-		void print(const char* format_string, A ... args_)
-		{
-			if constexpr (!release_mode_v)
-			{
-				::fprintf(stderr, format_string, args_ ...);
-			}
-		}
-	}
-
 	using namespace std;
+	using dbj::print ;
 
 	/// <summary>
 	/// We declare status to be std::string
@@ -97,7 +72,7 @@ namespace valstat_testing_space {
 	inline void point_print_all(Point::pointer pl_) noexcept
 	{
 		while (pl_ ) {
-			debug::print("\n\nPoint { [%d] %d, %d, %p }", pl_->TAG, pl_->x, pl_->y, pl_->next.get());
+			print("\n\nPoint { [%d] %d, %d, %p }", pl_->TAG, pl_->x, pl_->y, pl_->next.get());
 			pl_ = pl_->next;
 		}
 	}
@@ -105,7 +80,7 @@ namespace valstat_testing_space {
 	inline void point_rmv(Point::pointer pl_) noexcept
 	{
 		while (pl_ ) {
-			debug::print("\n\nRMV-ing Point { (%d, %d, %d), next: %p }", pl_->TAG, pl_->x, pl_->y, pl_->next.get());
+			print("\n\nRMV-ing Point { (%d, %d, %d), next: %p }", pl_->TAG, pl_->x, pl_->y, pl_->next.get());
 			auto tmp = pl_ ;
 			pl_ = pl_->next;
 			tmp = nullptr;
@@ -192,24 +167,24 @@ namespace valstat_testing_space {
 			srand((__int32)time(nullptr));
 			auto root_ = root_point();
 
-			if (auto [point_, e_] = make_unit_square( root_); e_) debug::print("Error %s", (*e_).c_str());
+			if (auto [point_, e_] = make_unit_square( root_); e_) print("Error %s", (*e_).c_str());
 				else {
 					point_print_all(*point_);
-					if (auto [area, e_] = polygon_area((*point_)->next); e_) debug::print("Error %s", (*e_).c_str());
+					if (auto [area, e_] = polygon_area((*point_)->next); e_) print("Error %s", (*e_).c_str());
 					else
-						debug::print("\n\nThe area of the unit square is %0.2lf  'units'\n", *area);
+						print("\n\nThe area of the unit square is %0.2lf  'units'\n", *area);
 				};
 
 			// another example -- we simply forget about the previous root_
 			root_ = root_point(); 
 
 			// valstat consumption
-			if ( auto [ p, e ] = make_random_polygon(42, root_); e)  debug::print("Error %s", (*e).c_str());
+			if ( auto [ p, e ] = make_random_polygon(42, root_); e)  print("Error %s", (*e).c_str());
 			else {
 				point_print_all(*p);
-				if (auto [area, e_] = polygon_area((*p)->next); e_) debug::print("Error %s", (*e_).c_str());
+				if (auto [area, e_] = polygon_area((*p)->next); e_) print("Error %s", (*e_).c_str());
 				else
-					debug::print("\n\nThe area of the unit square is %0.2lf 'units' \n", *area);
+					print("\n\nThe area of the unit square is %0.2lf 'units' \n", *area);
 			};
 
 			// again, let's forget about the root pointer

@@ -79,7 +79,7 @@ inline std::wstring last_win32_error_message(int code = 0)
         return MessageBox(NULL, buf_ , app_full_path, MB_ICONEXCLAMATION);
     }
 
-    inline auto dbj_terror(bool result, const wchar_t * expression)
+    inline auto dbj::terror(bool result, const wchar_t * expression)
     {
         if (result) return;
         mbox( ::GetLastError(), expression );

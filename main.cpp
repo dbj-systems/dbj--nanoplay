@@ -48,7 +48,10 @@ static void dbj_program_start(
 	dbj::tu::testing_system::execute(
 		/*true*/
 	);
-	dbj::nanolib::system_call("pause");
+#ifndef NDEBUG
+	::system("@pause");
+#endif
+
 }
 
 #pragma warning( pop ) // 4100
