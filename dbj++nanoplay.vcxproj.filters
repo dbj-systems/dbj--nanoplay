@@ -78,6 +78,9 @@
     <ClCompile Include="dbj--simplelog\dbj_simple_log.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="win32\compare_all_allocation_methods.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">

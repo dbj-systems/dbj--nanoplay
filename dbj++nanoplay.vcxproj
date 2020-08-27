@@ -199,6 +199,7 @@
     <ClCompile Include="utf8\cuchar_sampler.cpp" />
     <ClCompile Include="utf8\utf8_decoder.c" />
     <ClCompile Include="valstat_research\interop\math_valstat.c" />
+    <ClCompile Include="win32\compare_all_allocation_methods.cpp" />
     <ClCompile Include="win32\test_dbj_nano_win32.cpp" />
   </ItemGroup>
   <ItemGroup>

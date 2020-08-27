@@ -27,6 +27,9 @@
 #include "lambdatix/narf_again.h"
 #endif
 
+#define _ITERATOR_DEBUG_LEVEL 0
+
+
 #pragma warning( push )
 #pragma warning( disable: 4100 )
 // https://msdn.microsoft.com/en-us/library/26kb9fy0.aspx 
@@ -127,6 +130,8 @@ extern "C" {
 
 	int dbj_string_storage_test(const int argc, const char** argv);
 
+	int compare_all_allocation_methods(int argc, const char** argv);
+
 } // "C
 
 void aligned_allocation_test();
@@ -136,6 +141,8 @@ int recursive_lambada();
 
 static void ad_hoc_and_temporary(int argc, const char* argv[], const char* envp[])
 {
+	compare_all_allocation_methods(argc, argv);
+
 	dbj_string_storage_test( argc, argv);
 
 	recursive_lambada();
