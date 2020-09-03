@@ -1,5 +1,5 @@
 #include "../common.h"
-
+#include "../dbj--nanolib/nonstd/nano_printf.h"
 /// ----------------------------------------------------------------------------
 
 inline void dbj_putc(void* p, char c) noexcept
@@ -47,7 +47,7 @@ char buf[BUFSIZ]{0};\
 /// ----------------------------------------------------------------------------
 static void  test_nano_printf ()
 {
-	DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
+	DBJ_PRINT("\n" DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
 
 	HANDLE consumer_thread_1 = (HANDLE)_beginthreadex(
 		NULL, 0, printer,

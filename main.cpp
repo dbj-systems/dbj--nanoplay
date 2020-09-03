@@ -49,7 +49,7 @@ static void dbj_program_start(
 )
 {
 	DBJ_PRINT("dbj++nanolib version: %s", dbj::nanolib::VERSION);
-	DBJ_PRINT(DBJ_FG_CYAN  "dbj++nanolib playground version:[" __TIMESTAMP__ "]");
+	DBJ_PRINT(DBJ_FG_CYAN  "\ndbj++nanolib playground version:[" __TIMESTAMP__ "]\n");
 	// call the test units registered, in random order
 	// in this scenario easiest is to place the break point 
 	// in the test unit of interest
@@ -80,18 +80,7 @@ int main(int argc, const char* argv[], const char* envp[])
 {
 	dbj_simple_log_startup(argv[0]);
 
-	ad_hoc_and_temporary(argc, argv, envp);
-
-#ifdef DBJ_REDIRECT_STD_IN
-	if (freopen("input.txt", "r", stdin) == NULL) {
-		perror("freopen(\"input.txt\", \"r\", stdin) failed...");
-		exit(errno);
-	}
-#endif
-
-#ifdef NDEBUG
-#undef  DBJ_REDIRECT_STD_ERR
-#endif
+	// ad_hoc_and_temporary(argc, argv, envp);
 
 #ifdef DBJ_REDIRECT_STD_ERR
 	using dbj::nanolib::v_buffer;

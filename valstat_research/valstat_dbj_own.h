@@ -11,39 +11,40 @@ namespace cpp03 {
 	struct [[nodiscard]] valstat final
 	{
 
-	template< typename T_ , typename OP >
-	struct holder final
-	{
-		friend OP;
-		using type = holder;
-		using value_type = T_;
+		template< typename T_, typename OP >
+		struct holder final
+		{
+			friend OP;
+			using type = holder;
+			using value_type = T_;
 
-		friend T_ const& get(type const& holder_) noexcept {
-			if (&holder_)
-				return *(&holder_);
-			perror("null holder deref.");
-			exit(1);
-		}
-
-		constexpr T_ const* operator & () const noexcept {
-			if (false == empty_) {
-				return nullptr;
+			friend T_ const& get(type const& holder_) noexcept
+			{
+				if (holder_)
+					return holder_.v_;
+				perror("null holder deref.");
+				exit(1);
 			}
-			return &v_;
-		}
 
-		constexpr operator bool() const noexcept {
-			if (empty_) return false;
-			return true;
-		}
+			constexpr T_ const* operator & () const noexcept {
+				if (false == empty_) {
+					return nullptr;
+				}
+				return &v_;
+			}
 
-		~holder() { if (!empty_) { v_.~T_(); empty_ = true; } }
-	private:
-		bool empty_{ true };
-		// T_ has to be default constructible, moveable, copyable
-		T_ v_;
-		void set(T_ new_v_) { v_ = new_v_; empty_ = false; }
-	};
+			constexpr operator bool() const noexcept {
+				if (empty_) return false;
+				return true;
+			}
+
+			~holder() { if (!empty_) { v_.~T_(); empty_ = true; } }
+		private:
+			bool empty_{ true };
+			// T_ has to be default constructible, moveable, copyable
+			T_ v_;
+			void set(T_ new_v_) { v_ = new_v_; empty_ = false; }
+		};
 
 		using type = valstat;
 		using value_type = T;
@@ -86,52 +87,44 @@ namespace cpp03 {
 	};
 
 	/* usage ------------------------------------------------------------*/
-	using int_vstat = valstat<int, std::string>;
+	using int_vstat = cpp03::valstat<int, const char* >;
 
 	int_vstat ref_signal(int& input_ref_)
 	{
 		using namespace std;
-#ifdef __clang__
-		DBJ_PRINT(__func__);
-#else
-		DBJ_PRINT(__FUNCSIG__);
-#endif // not __clang__
 
 		if (input_ref_ < 42) {
 			input_ref_ = SIG_ATOMIC_MAX;
-			DBJ_PRINT( " OK return" );
 			return int_vstat::ok(SIG_ATOMIC_MAX); // { value, empty }
 		}
-		DBJ_PRINT(" Error return");
-		return int_vstat::error("error: input must be bigger than magical constant");
+		return int_vstat::error("Input must NOT be bigger than magical constant");
 	}
 
 	TU_REGISTER([]
-		{				DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
+		{
+			DBJ_PRINT("\n" DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT("\n" DBJ_RESET);
 
-			using namespace std;
-
-			DBJ_PRINT(DBJ_FILE_LINE);
-
-			int arg = 0;
-
+			auto driver = [](int arg)
 			{
 				using ::dbj::nanolib::ostrmng::prinf;
 				auto [value, status] = ref_signal(arg);
 				prinf("");
 				if (value && !status)
-					prinf(  "OK state -- value: " , get(value) , ", status: [empty]");
+					prinf("\nOK state -- value: ", get(value), ", status: [empty]");
 
 				if (value && status)
-					prinf(  "INFO state -- value: " , get(value) , ", status: " , get(status));
+					prinf("\nINFO state -- value: ", get(value), ", status: ", get(status));
 
 				if (!value && !status)
-					prinf(  "EMPTY state --value: [empty], status : [empty] ");
+					prinf("\nEMPTY state --value: [empty], status : [empty] ");
 
 				if (!value && status)
-					prinf(  "ERROR state -- value: [empty], status: " , get(status));
+					prinf("\nERROR state -- value: [empty], status: ", get(status));
 				prinf("");
 			};
+
+			driver(41);
+			driver(43);
 
 		});
 
