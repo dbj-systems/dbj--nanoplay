@@ -22,8 +22,9 @@ namespace cpp03 {
 			{
 				if (holder_)
 					return holder_.v_;
-				perror("null holder deref.");
-				exit(1);
+
+				DBJ_PERROR;
+				exit(-1);
 			}
 
 			constexpr T_ const* operator & () const noexcept {
