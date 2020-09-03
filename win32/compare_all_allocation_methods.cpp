@@ -226,7 +226,7 @@ extern "C" int compare_all_allocation_methods( int argc, const char ** argv )
 #ifdef DBJ_PPL
    // Alloc_Free
    wcout << L"Took " << reverse_array<Alloc_Free>() 
-         << " ms with Alloc/Free." << endl;
+         << " ms with PPL Alloc/Free." << endl;
 #endif // ! DBJ_PPL
 
    // dbj_alloc_free

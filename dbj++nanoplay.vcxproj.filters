@@ -239,6 +239,9 @@
     <ClInclude Include="dbj--nanolib\win32\dbj_minwindef.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="dbj--nanolib\win32\win32_console.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="pprintpp\readme.md" />

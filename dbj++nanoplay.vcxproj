@@ -211,6 +211,7 @@
     <ClInclude Include="dbj--nanolib\nonstd\dbj_sequence_print.h" />
     <ClInclude Include="dbj--nanolib\nonstd\nano_printf.h" />
     <ClInclude Include="dbj--nanolib\win32\dbj_minwindef.h" />
+    <ClInclude Include="dbj--nanolib\win32\win32_console.h" />
     <ClInclude Include="dbj--nanolib\win32\win32_error_msg_box_exit.h" />
     <ClInclude Include="dbj-nanotest\ostrmng.h" />
     <ClInclude Include="dbj-nanotest\ostrstream_operators.h" />
