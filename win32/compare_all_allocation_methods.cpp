@@ -1,15 +1,4 @@
 
-// MSVC STD LIB aka STL
-// _ITERATOR_DEBUG_LEVEL 2 is the DEBUG build default
-// and that will produce segv with dbj stack alocator 
-// that was not tested with stack allocator I suppose?
-// https://docs.microsoft.com/en-us/cpp/standard-library/iterator-debug-level?view=vs-2019
-
-#if (_ITERATOR_DEBUG_LEVEL != 0)
-#undef _ITERATOR_DEBUG_LEVEL
-#define _ITERATOR_DEBUG_LEVEL  0
-#endif
-
 // https://docs.microsoft.com/en-us/cpp/parallel/concrt/how-to-use-alloc-and-free-to-improve-memory-performance?view=vs-2019
 // allocators.cpp
 // compile with: /EHsc 
@@ -30,19 +19,10 @@
 #include <ppl.h>
 #endif
 
-
-
-
 #include <crtdbg.h>
 #include <iostream>
 // #include <vector>
 #include <algorithm> // swap()
-
-#if (_ITERATOR_DEBUG_LEVEL != 0)
-#undef _ITERATOR_DEBUG_LEVEL
-#define _ITERATOR_DEBUG_LEVEL  0
-#endif
-
 
 #undef MAKE_IT_SLOW
 #define MAKE_IT_SLOW

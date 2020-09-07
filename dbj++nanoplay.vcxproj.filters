@@ -18,67 +18,28 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="valstat_research\interop\math_valstat.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="utf8\utf8_decoder.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="low_level\cpuid.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="low_level\alligned_allocation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="utf8\cuchar_sampler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="low_level\print_bits_and_bytes.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="low_level\memory_pool.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="low_level\test_nano_printf.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lambdatix\dbj_mx_capi.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lambdatix\dbj_mx_capi_2.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="dbj--nanolib\win32\win32_error_msg_box_exit.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="win32\test_dbj_nano_win32.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lambdatix\mx_fundamental_native_array_functions.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lambdatix\std_atomic_nano_test.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lambdatix\arr_struct_simple_sample.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lambdatix\generic_matrix_macros.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="recursive_lambada.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dbj_string_storage\dbj_string_storage_test.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="redirector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="dbj--simplelog\dbj_simple_log.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="win32\compare_all_allocation_methods.cpp">
+    <ClCompile Include="EASTL2010\src\allocator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EASTL2010\src\assert.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EASTL2010\src\fixed_pool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EASTL2010\src\hashtable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EASTL2010\src\red_black_tree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EASTL2010\src\string.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

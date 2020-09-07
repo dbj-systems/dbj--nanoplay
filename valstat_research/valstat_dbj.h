@@ -16,23 +16,23 @@ namespace dbj
 	this makes them fully std::valstat compliant
 	this also makes other people better understand their API's
 
-	NOTE: std::string is not the most performant json
+	NOTE: DBJ_STRING is not the most performant json
 		  string implementation. dbj, they usually use vector<char> or even
 		  unique_ptr<char[]>
 		  that issue is largely mitigated by not using strings
 		  but handles to the strings registry as the status type
 	*/
 	template< typename T>
-	using valstat = std::valstat<T, std::string >;
+	using valstat = std::valstat<T, DBJ_STRING  >;
 
 	// descriptive output
 	// the  verbose valstat consuming
 	// for testing purposes only
 	// dbj usualy do not use <iostream> in a production code
 	template<typename T>
-	inline std::string to_string ( const dbj::valstat<T> & vt)
+	inline DBJ_STRING   to_string ( const dbj::valstat<T> & vt)
 	{
-		std::string retval( "\nvalstat state: ");
+		DBJ_STRING retval( "\nvalstat state: ");
 		if (!vt.value && vt.status) retval +=  "ERROR";
 		if (vt.value && !vt.status) retval += "OK";
 		if (vt.value && vt.status) retval += "INFO";
@@ -61,7 +61,7 @@ namespace dbj
 	/// valstat_bj_status.h contains message
 	/// creation from std::errc, part of <system_error>
 	/// namespace dbj::posix {
-	///		inline std::string errc_to_message(std::errc posix_err_code);
+	///		inline DBJ_STRING errc_to_message(std::errc posix_err_code);
 	/// }
 	/// used only when needed. 
 	/// 

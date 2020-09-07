@@ -59,6 +59,6 @@ void test_clang_vs_setup() {
 
 #else  // no clang
 void test_clang_vs_setup() {
-#pragma message __FILE__ " requires clang compiler"
+#pragma message (__FILE__ " requires clang compiler")
 }
 #endif // no clang

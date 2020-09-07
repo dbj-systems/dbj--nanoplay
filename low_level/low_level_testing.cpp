@@ -27,10 +27,6 @@ void traits_sampling( Allocator  allocator_ , value_t def_val_ )
 
 }
 
-#if (_ITERATOR_DEBUG_LEVEL != 0)
-#pragma message(  "Warning _ITERATOR_DEBUG_LEVEL is not 0?" )
-#endif
-
 TU_REGISTER_NOT([]
 {
         struct XType final {

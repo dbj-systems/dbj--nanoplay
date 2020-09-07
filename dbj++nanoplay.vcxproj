@@ -72,28 +72,28 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>D:\DEVL\GitHub\dbj-valstat;$(IncludePath)</IncludePath>
+    <IncludePath>D:\DEVL\GitHub\dbj++nanoplay\EASTL2010\include;$(IncludePath)</IncludePath>
     <CodeAnalysisRuleSet>CppCoreCheckStlRules.ruleset</CodeAnalysisRuleSet>
     <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>D:\DEVL\GitHub\dbj-valstat;$(IncludePath)</IncludePath>
+    <IncludePath>D:\DEVL\GitHub\dbj++nanoplay\EASTL2010\include;$(IncludePath)</IncludePath>
     <CodeAnalysisRuleSet>CppCoreCheckStlRules.ruleset</CodeAnalysisRuleSet>
     <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>D:\DEVL\GitHub\dbj-valstat;$(IncludePath)</IncludePath>
+    <IncludePath>D:\DEVL\GitHub\dbj++nanoplay\EASTL2010\include;$(IncludePath)</IncludePath>
     <CodeAnalysisRuleSet>CppCoreCheckStlRules.ruleset</CodeAnalysisRuleSet>
     <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>D:\DEVL\GitHub\dbj-valstat;$(IncludePath)</IncludePath>
+    <IncludePath>D:\DEVL\GitHub\dbj++nanoplay\EASTL2010\include;$(IncludePath)</IncludePath>
     <CodeAnalysisRuleSet>CppCoreCheckStlRules.ruleset</CodeAnalysisRuleSet>
     <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
@@ -104,7 +104,7 @@
       <WarningLevel>Level1</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_ITERATOR_DEBUG_LEVEL=2</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>/utf-8 /d2FH4 %(AdditionalOptions)</AdditionalOptions>
@@ -123,7 +123,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_ITERATOR_DEBUG_LEVEL=2</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_ITERATOR_DEBUG_LEVEL=2</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>/utf-8 /d2FH4 %(AdditionalOptions)</AdditionalOptions>
@@ -143,7 +143,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_ITERATOR_DEBUG_LEVEL=2</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>/utf-8 /d2FH4 %(AdditionalOptions)</AdditionalOptions>
@@ -165,7 +165,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_ITERATOR_DEBUG_LEVEL=2</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>/utf-8 /d2FH4 %(AdditionalOptions)</AdditionalOptions>
@@ -182,25 +182,13 @@
   <ItemGroup>
     <ClCompile Include="dbj--nanolib\win32\win32_error_msg_box_exit.c" />
     <ClCompile Include="dbj--simplelog\dbj_simple_log.c" />
-    <ClCompile Include="dbj_string_storage\dbj_string_storage_test.c" />
-    <ClCompile Include="lambdatix\arr_struct_simple_sample.c" />
-    <ClCompile Include="lambdatix\std_atomic_nano_test.c" />
-    <ClCompile Include="lambdatix\dbj_mx_capi.c" />
-    <ClCompile Include="lambdatix\dbj_mx_capi_2.c" />
-    <ClCompile Include="lambdatix\mx_fundamental_native_array_functions.c" />
-    <ClCompile Include="lambdatix\generic_matrix_macros.c" />
-    <ClCompile Include="low_level\alligned_allocation.cpp" />
-    <ClCompile Include="low_level\cpuid.cpp" />
-    <ClCompile Include="low_level\print_bits_and_bytes.cpp" />
-    <ClCompile Include="low_level\test_nano_printf.cpp" />
+    <ClCompile Include="EASTL2010\src\allocator.cpp" />
+    <ClCompile Include="EASTL2010\src\assert.cpp" />
+    <ClCompile Include="EASTL2010\src\fixed_pool.cpp" />
+    <ClCompile Include="EASTL2010\src\hashtable.cpp" />
+    <ClCompile Include="EASTL2010\src\red_black_tree.cpp" />
+    <ClCompile Include="EASTL2010\src\string.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="recursive_lambada.cpp" />
-    <ClCompile Include="redirector.cpp" />
-    <ClCompile Include="utf8\cuchar_sampler.cpp" />
-    <ClCompile Include="utf8\utf8_decoder.c" />
-    <ClCompile Include="valstat_research\interop\math_valstat.c" />
-    <ClCompile Include="win32\compare_all_allocation_methods.cpp" />
-    <ClCompile Include="win32\test_dbj_nano_win32.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="allocators\aligned_allocator.h" />
@@ -228,7 +216,6 @@
     <ClInclude Include="jzon_sampling\tests.h" />
     <ClInclude Include="lambdatix\cpp_lambda_mx_makers.h" />
     <ClInclude Include="lambdatix\narf_again.h" />
-    <ClCompile Include="low_level\memory_pool.cpp" />
     <ClInclude Include="lambdatix\stdatomic_nano.h" />
     <ClInclude Include="pprintpp\pprintpp_test.h" />
     <ClInclude Include="sampling\cpp20.h" />

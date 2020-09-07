@@ -31,7 +31,7 @@ namespace dbj {
 		bellow is just a message+file+line status, for sampling the valstat
 		it is in a JSON format as every other status message
 		*/
-		inline std::string
+		inline DBJ_STRING
 			make_status(const char* file, long line, const char* time_stamp, const char* msg = nullptr)
 		{
 			auto nix_path = v_buffer::replace(v_buffer::format("%s", file), '\\', '/');
@@ -43,16 +43,16 @@ namespace dbj {
 		}
 
 		namespace posix {
-			inline std::string errc_to_message(std::errc posix_err_code)
+			inline DBJ_STRING errc_to_message(std::errc posix_err_code)
 			{
 				::std::error_code ec = std::make_error_code(posix_err_code);
-				return ec.message() ;
+				return DBJ_STRING( ec.message().c_str() ) ;
 			};
 
 			// consume immediately
 			inline char const* e_to_s(std::errc posix_err_code)
 			{
-				static std::string anchor_{};
+				static DBJ_STRING anchor_{};
 				anchor_ = errc_to_message(posix_err_code);
 				return anchor_.c_str();
 			};
@@ -70,7 +70,7 @@ namespace dbj {
 			constexpr inline bool is_ok(error_code const& ec_) { return ec_.v == 0; }
 
 			/* Last WIN32 error, message */
-			inline std::string error_message(int code = 0)
+			inline DBJ_STRING error_message(int code = 0)
 			{
 				std::error_code ec(
 					(code ? code : ::GetLastError()),
@@ -81,7 +81,7 @@ namespace dbj {
 				return { buffy.data() };
 			}
 
-			inline auto code_to_message(win32::error_code code) -> std::string
+			inline auto code_to_message(win32::error_code code) -> DBJ_STRING
 			{
 				if (code.v)
 					return error_message(code.v);

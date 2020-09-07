@@ -33,9 +33,6 @@
 #include "lambdatix/narf_again.h"
 #endif
 
-#define _ITERATOR_DEBUG_LEVEL 0
-
-
 #pragma warning( push )
 #pragma warning( disable: 4100 )
 // https://msdn.microsoft.com/en-us/library/26kb9fy0.aspx 
@@ -66,19 +63,23 @@ static void dbj_program_start(
 #pragma warning( pop ) // 4100
 
 /// ----------------------------------------------------------------------
+#ifdef DBJ_USING_SIMPLE_LOG
 struct dbj_simplelog_finalizer final {
 	~dbj_simplelog_finalizer() {
 		dbj_log_finalize();
 	}
 };
 static dbj_simplelog_finalizer dsf_;
+#endif // DBJ_USING_SIMPLE_LOG
 
 /// ----------------------------------------------------------------------
-static void ad_hoc_and_temporary(int argc, const char* argv[], const char* envp[]);
+// static void ad_hoc_and_temporary(int argc, const char* argv[], const char* envp[]);
 /// ----------------------------------------------------------------------
 int main(int argc, const char* argv[], const char* envp[])
 {
+#ifdef DBJ_USING_SIMPLE_LOG
 	dbj_simple_log_startup(argv[0]);
+#endif
 
 	// ad_hoc_and_temporary(argc, argv, envp);
 
@@ -93,7 +94,6 @@ int main(int argc, const char* argv[], const char* envp[])
 	dbj::redirector redirect_{ /*revert_on_destruct_*/ false , logfile_name.data() };
 #endif // DBJ_REDIRECT_STD_ERR
 
-	auto main_worker = [&]() {
 #ifndef _KERNEL_MODE
 		try {
 #endif
@@ -104,11 +104,6 @@ int main(int argc, const char* argv[], const char* envp[])
 			DBJ_PRINT(DBJ_FG_RED_BOLD "\n\n" __FILE__ "\n\nUnknown exception!\n\n" DBJ_RESET);
 		}
 #endif
-	};
-
-	(void)std::async(std::launch::async, [&] {
-		main_worker();
-		});
 
 	exit(EXIT_SUCCESS);
 }

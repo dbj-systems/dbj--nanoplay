@@ -110,7 +110,7 @@ namespace cpp03 {
 			{
 				using ::dbj::nanolib::ostrmng::prinf;
 				auto [value, status] = ref_signal(arg);
-				prinf("");
+				prinf(DBJ_FG_CYAN_BOLD);
 				if (value && !status)
 					prinf("\nOK state -- value: ", get(value), ", status: [empty]");
 
@@ -122,7 +122,7 @@ namespace cpp03 {
 
 				if (!value && status)
 					prinf("\nERROR state -- value: [empty], status: ", get(status));
-				prinf("");
+				prinf(DBJ_RESET);
 			};
 
 			driver(41);
