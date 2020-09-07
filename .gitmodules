@@ -8,3 +8,6 @@
 [submodule "dbj--simplelog"]
 	path = dbj--simplelog
 	url = https://github.com/dbj-systems/dbj--simplelog.git
+[submodule "EASTL2010"]
+	path = EASTL2010
+	url = https://github.com/DBJDBJ/EASTL2010

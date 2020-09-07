@@ -29,9 +29,10 @@ namespace cpp03 {
 
 			constexpr T_ const* operator & () const noexcept {
 				if (false == empty_) {
-					return nullptr;
+					return v_ ;
 				}
-				return &v_;
+				DBJ_PERROR;
+				exit(-1);
 			}
 
 			constexpr operator bool() const noexcept {
