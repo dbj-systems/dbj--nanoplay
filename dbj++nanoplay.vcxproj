@@ -181,7 +181,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dbj--nanolib\win32\win32_error_msg_box_exit.c" />
-    <ClCompile Include="dbj--simplelog\dbj_simple_log.c" />
     <ClCompile Include="EASTL2010\src\allocator.cpp" />
     <ClCompile Include="EASTL2010\src\assert.cpp" />
     <ClCompile Include="EASTL2010\src\fixed_pool.cpp" />
@@ -194,10 +193,13 @@
     <ClInclude Include="allocators\aligned_allocator.h" />
     <ClInclude Include="allocators\stack_allocator.h" />
     <ClInclude Include="common.h" />
+    <ClInclude Include="dbj--nanolib\dbj_eastl_inclusor.h" />
     <ClInclude Include="dbj--nanolib\dbj_nano_synchro.h" />
+    <ClInclude Include="dbj--nanolib\dbj_single_inclusor.h" />
     <ClInclude Include="dbj--nanolib\dbj_type_traits.h" />
     <ClInclude Include="dbj--nanolib\nonstd\dbj_sequence_print.h" />
     <ClInclude Include="dbj--nanolib\nonstd\nano_printf.h" />
+    <ClInclude Include="dbj--nanolib\removed\from_nanolib_header.h" />
     <ClInclude Include="dbj--nanolib\win32\dbj_minwindef.h" />
     <ClInclude Include="dbj--nanolib\win32\win32_console.h" />
     <ClInclude Include="dbj--nanolib\win32\win32_error_msg_box_exit.h" />

@@ -1,7 +1,6 @@
 #pragma once
 
-// std::string view requires C++17
-#include <string_view>
+#include "../common.h"
 
 // always use namespace,to avoid name clashes
 namespace dbj::nanoplay {

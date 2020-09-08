@@ -1,5 +1,7 @@
 #ifndef _DBJ_META_CONVERTER_INC_
 #define _DBJ_META_CONVERTER_INC_
+
+#include "../common.h"
 /*
 (c) 2019 by dbj@dbj.org
 LICENCE -- CC BY SA 4.0 -- https://creativecommons.org/licenses/by-sa/4.0/
@@ -18,9 +20,6 @@ printf() might be the way out, and <uchar.h> otherwise.
 
 thus the macto _TEST bellow does not get in that mess ...
 */
-
-#include <type_traits>
-#include <string>
 
 namespace dbj_meta_converter {
 
@@ -268,14 +267,10 @@ namespace dbj_meta_converter {
 	// C++20
 	inline inner::meta_converter<std::u8string> range_to_u8string{};
 #endif
-} // dbj_meta_converter 
+} // dbj_meta_converter  ns
 
 // TESTING
 
-#include <deque>
-#include <forward_list>
-#include <array>
-#include <vector>
 
 // just show the type of the result ...
 // do not get involved in a C++20 std::cout mess
@@ -385,10 +380,10 @@ namespace meta_conversion_testing {
 			[] {
 				DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
 
-				test_conversion(dbj::range_to_string);
-				test_conversion(dbj::range_to_wstring);
-				test_conversion(dbj::range_to_u16string);
-				test_conversion(dbj::range_to_u32string);
+				test_conversion(dbj_meta_converter::range_to_string);
+				test_conversion(dbj_meta_converter::range_to_wstring);
+				test_conversion(dbj_meta_converter::range_to_u16string);
+				test_conversion(dbj_meta_converter::range_to_u32string);
 #if __cplusplus > 201703L
 				test_conversion(dbj::range_to_u8string);
 #endif	

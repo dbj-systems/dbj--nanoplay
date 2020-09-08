@@ -2,12 +2,6 @@
 
 #include "../common.h"
 
-#include <list>
-#include <deque>
-#include <string>
-#include <iterator>
-
-
 /*
 The problem statement
 
