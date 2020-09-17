@@ -11,3 +11,6 @@
 [submodule "EASTL2010"]
 	path = EASTL2010
 	url = https://github.com/DBJDBJ/EASTL2010
+[submodule "optparse"]
+	path = optparse
+	url = https://github.com/skeeto/optparse.git
