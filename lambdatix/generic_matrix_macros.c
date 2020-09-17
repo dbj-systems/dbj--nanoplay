@@ -46,6 +46,11 @@ struct { \
     /*const*/ size_t height; \
     T(*data)[WIDTH][HEIGHT]; \
 } 
+/*
+dbj note: above could be T data[WIDTH][HEIGHT] ... 
+which would likely deplete your stack rather quickly
+but yes, this is how embeded OS does it ... all on a  stack, no heap
+*/
 
 /*
 matrix element pointer 
@@ -58,6 +63,11 @@ move these asserts inside a macro if required:
 
 /*
 https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_71/rzarg/typeof_operator.htm
+
+dbj: bellow is totaly generic. if used for matrix as declared above
+     one could check that sizes are equal
+     bellow will fail if a and b types are sufficiently different
+     but if they are not, swap will happen and heisenbug is born
 */
 #define DBJ_SWAP(a,b) do { __typeof__(a) temp; temp = a; a = b; b = temp; } while(0)
 
@@ -69,13 +79,13 @@ https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_71/rzarg/typeof_operato
 
 // make mx instance as compund literal
 // us this ad-hoc and localy 
-// NOTE: calloc/malloc can no be used from global space
+// NOTE: calloc/malloc can not be used from a global space
 #define DBJ_MX_INIT(T, MXT_,W_,H_) \
 (MXT_){ W_, H_, calloc(1, sizeof(T[W_][H_])) }
 
 // make a mx typedef
 // also make a factory function creating the instance of
-// factory function name is TYPENAME_##_factory
+// factory. Function name is TYPENAME_##_factory
 // example: 
 // my_matrix_type  my_matrix_type_factory() ;
 // returns instances of my_matrix_type
@@ -88,9 +98,9 @@ https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_71/rzarg/typeof_operato
     }
 
 /*
-callback as a macro 
+bellow is an callback as a macro 
 (example) : zero the element of the matrix
-if flag is set to false, for each stops
+If flag is set to false, for each stops
 
 move these two asserts inside a macro if required:
     assert( ROW_ < MX_.width ); \
@@ -120,7 +130,7 @@ do { \
 
 /*
 here we create a unique goto label
-so we can repeat this macto inside a same scope
+so we can repeat this macro inside a same scope
 */
 #define DBJ_MX_FOREACH( MX_,  CBACK ) \
 DBJ_MX_FOREACH_( MX_,  CBACK, MACRO_CONCAT( dbj_exit_label_, __COUNTER__) ) 
@@ -135,7 +145,13 @@ do {\
     }\
 } while(0)
 
-// static void multiply(int m, int n, int p, int a[m][n], int b[n][p], int c[m][p])
+//
+// note: this is naive algorithm
+//
+// standard declaration
+//static void multiply(int m, int n, int p, int a[m][n], int b[n][p], int c[m][p]);
+//
+// using DBJ MX types
 //static void multiply(int_3_4_mx a, int_4_3_mx b, int_3_3_mx c )
 //{
 //    const size_t m = a.width, n = a.height, p = b.width;
@@ -166,29 +182,34 @@ static void dbj_mx_core_tests()
     DBJ_MX_E_TYPE(mx)   integer = 42;
     DBJ_MX_EP_TYPE(mx)  integer_ptr = (DBJ_MX_EP_TYPE(mx)) & integer;
 
-    /* due to usage of calloc alli is zeroed , but we want to test
+    /* due to usage of calloc all is zeroed , but we want to test
     callback_zoro to  set the element 1,1 to 0 */
     bool callback_flag;
     callback_zoro(1, 1, mx, &callback_flag);
+
+    /* give some values */
 
     *DBJ_MX_EP(mx, 0, 0) = 1;
     *DBJ_MX_EP(mx, 0, 1) = 2;
     *DBJ_MX_EP(mx, 1, 0) = 3;
     *DBJ_MX_EP(mx, 1, 1) = 4;
 
-    *DBJ_MX_EP(mx2, 0, 0) = 4;
-    *DBJ_MX_EP(mx2, 0, 1) = 3;
-    *DBJ_MX_EP(mx2, 1, 0) = 2;
-    *DBJ_MX_EP(mx2, 1, 1) = 1;
+    *DBJ_MX_EP(mx2, 0, 0) = 5;
+    *DBJ_MX_EP(mx2, 0, 1) = 6;
+    *DBJ_MX_EP(mx2, 1, 0) = 7;
+    *DBJ_MX_EP(mx2, 1, 1) = 8;
 
     /* we can swap two matrixes of equal type */
     DBJ_SWAP(mx, mx2);
 }
 
 /*
+Another test bench
 */
 enum { r1 = 3, c1 = 4, r2 = c1, c2 = r1 };
 
+// make matrix types declarations 
+// and factory functions implementations
 DBJ_MX_TYPE_AND_FACTORY(int,r1,c1, int34mx );
 DBJ_MX_TYPE_AND_FACTORY(int,r2,c2, int43mx );
 DBJ_MX_TYPE_AND_FACTORY(int,r1,c2, int33mx );
@@ -201,10 +222,7 @@ int dbj_matrix_struct_test ()
     int43mx mx43 = int43mx_factory();
     int33mx mx33 = int33mx_factory();
 
-    //   int (*mat1)[r1][c1] = malloc( sizeof(int[r1][c1]) ) ;
-    //   int (*mat2)[r2][c2] = malloc( sizeof(int[r2][c2]) ) ;
-    //   int (*ans )[r1][c2] = malloc( sizeof(int[r1][c2]) ) ;
-
+    // callback_zoro is also a macro
     DBJ_MX_FOREACH( mx34, callback_zoro );
     DBJ_MX_FOREACH( mx43, callback_zoro );
     DBJ_MX_FOREACH( mx33, callback_zoro );
@@ -225,4 +243,4 @@ undefine macros that can clash with other macros
 #undef CONCAT_IMPL
 #undef MACRO_CONCAT
 
-#endif // __clang__ reqouired
+#endif // __clang__ required

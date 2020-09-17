@@ -27,7 +27,7 @@
 #endif // _MSC_VER
 
 #ifdef __clang_
-#prgama clang system_header
+#pragma clang system_header
 
 #if __STDC_NO_ATOMICS__
 #error "C11 Atomics NOT available"

@@ -6,9 +6,24 @@ valstat 2 -- no pairs
 #include "valstat"
 #include "../common.h"
 
+#include <sstream> // this is bad :(
+
 namespace dbj
 {
-	// using namespace std;
+	template<typename T>
+	inline DBJ_STRING full_fat_str (T const & val_ )
+	{
+		std::ostringstream buf_;
+		buf_ << val_;
+		return buf_.str().c_str() ;
+	}
+
+	template< >
+	inline DBJ_STRING full_fat_str<DBJ_STRING>
+		(DBJ_STRING const & val )
+	{
+		return val;
+	}
 
 	/*
 	dbj -- the imagined company
@@ -41,14 +56,14 @@ namespace dbj
 		retval += " , content: \n{";
 		if (vt.value)
 		{
-			retval += "\n { value: ";  retval += *vt.value + " }";
+			retval += "\n { value: ";  retval += full_fat_str( *vt.value ) + " }";
 		}
 		else
 			retval += "\n { value: empty }";
 		retval += " ,";
 		if (vt.status)
 		{
-			retval += "\n { status: "; retval += *vt.status + " }";
+			retval += "\n { status: "; retval += full_fat_str( *vt.status ) + " }";
 		}
 		else
 			retval += "\n { status: empty }";

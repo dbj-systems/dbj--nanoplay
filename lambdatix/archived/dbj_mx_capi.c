@@ -42,7 +42,7 @@
    ridiculously small and fast matrix
 
    In the "dbj mx" the data type
-   is pointer to a whole of an 2D array
+   is pointer to a *whole* of an 2D array
 
 	typedef T (*type_name)[W][H]
 
@@ -62,7 +62,7 @@
 #define dbj_mx_free( ptr_ ) DBJ_FREE( ptr_ )
 
 /*
-	more or less everything can be done through the for-each concept
+	more or less everything can be done with the for-each concept
 	see the callback specimens bellow
 	remember! name is pointer to the whole matrix as declared above
 */
@@ -86,7 +86,7 @@ static inline void cback_print(const int W, const int H, int(*mx)[W][H], int R, 
 }
 
 /// ------------------------------------------------------------------------------------
-// arbitrary filler callback
+// ad-hoc filler callback
 static int int_filler_arg = 0;
 static inline void int_filler
 (const int W, const int H, int(*mx)[W][H], int R, int C)
@@ -96,7 +96,7 @@ static inline void int_filler
 	(*mx)[R][C] = int_filler_arg;
 }
 /******************************************************************/
-/// ------------------------------------------------------------------------------------
+/// naive algorithm
 void matmult_int(
 	size_t n1, size_t n2, size_t n3,
 	int(*A)[n1][n2], int(*B)[n2][n3], int(*C)[n1][n3]

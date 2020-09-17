@@ -13,7 +13,12 @@
 #endif // __STDC_NO_THREADS__
 /*
 __c11_atomic builtins
-Clang provides a set of builtins which are intended to be used to implement C11’s <stdatomic.h> header. These builtins provide the semantics of the _explicit form of the corresponding C11 operation, and are named with a __c11_ prefix. The supported operations, and the differences from the corresponding C11 operations, are:
+Clang provides a set of builtins which are intended to be used to implement 
+C11’s <stdatomic.h> header. 
+
+These builtins provide the semantics of the _explicit form of the corresponding 
+C11 operation, and are named with a __c11_ prefix. The supported operations, 
+and the differences from the corresponding C11 operations, are:
 
 __c11_atomic_init
 __c11_atomic_thread_fence
@@ -31,7 +36,13 @@ __c11_atomic_fetch_or
 __c11_atomic_fetch_xor
 __c11_atomic_fetch_max
 __c11_atomic_fetch_min
-The macros __ATOMIC_RELAXED, __ATOMIC_CONSUME, __ATOMIC_ACQUIRE, __ATOMIC_RELEASE, __ATOMIC_ACQ_REL, and __ATOMIC_SEQ_CST are provided, with values corresponding to the enumerators of C11’s memory_order enumeration.
+
+The macros __ATOMIC_RELAXED, __ATOMIC_CONSUME, __ATOMIC_ACQUIRE, 
+__ATOMIC_RELEASE, __ATOMIC_ACQ_REL, and __ATOMIC_SEQ_CST 
+
+are provided, with values corresponding to the enumerators of
+C11’s memory_order enumeration.
+
 /// ------------------------------------------------------------------------------------
 */
 #include "stdatomic_nano.h"

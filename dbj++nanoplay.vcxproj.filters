@@ -39,6 +39,15 @@
     <ClCompile Include="EASTL2010\src\string.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lambdatix\various_matmuls.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="getopt_win32\getopt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lambdatix\generic_arr_struct_simple_sample.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">
@@ -164,12 +173,6 @@
     <ClInclude Include="dbj--nanolib\win32\win32_error_msg_box_exit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lambdatix\stdatomic_nano.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="lambdatix\cpp_lambda_mx_makers.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="win32\dbj_win32_util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -209,6 +212,21 @@
     <ClInclude Include="dbj--nanolib\dbj_eastl_inclusor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="dbj--nanolib\dbj_heap_alloc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="getopt_win32\getopt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lambdatix\dbj_measurement_collector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="low_level\stdatomic_nano.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lambdatix\archived\cpp_lambda_mx_makers_using_uniqptr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="pprintpp\readme.md" />
@@ -216,5 +234,6 @@
     <None Include="valstat_research\interop\README.MD" />
     <None Include="valstat_research\valstat" />
     <None Include="dbj--nanolib\win32\readme.md" />
+    <None Include="lambdatix\readme.md" />
   </ItemGroup>
 </Project>
