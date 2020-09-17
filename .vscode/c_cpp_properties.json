@@ -14,13 +14,11 @@
             "windowsSdkVersion": "10.0.18362.0",
             "includePath": [
                 "${workspaceFolder}/**",
-                "D:\\PROD\\programs\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.24.28314\\include",
+                "D:\\PROD\\programs\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.27.29110\\include",
                 "D:\\Windows Kits\\10\\Include\\10.0.18362.0\\ucrt",
                 "D:\\Windows Kits\\10\\Include\\10.0.18362.0\\um",
                 "D:\\Windows Kits\\10\\Include\\10.0.18362.0\\shared",
-                "C:\\Program Files (x86)\\Visual Leak Detector\\include",
-                "D:\\vcpkg\\installed\\x86-windows\\include\\Common",
-                "D:\\vcpkg\\installed\\x86-windows\\include"
+                "C:\\Program Files (x86)\\Visual Leak Detector\\include"
             ]
         }
     ],
