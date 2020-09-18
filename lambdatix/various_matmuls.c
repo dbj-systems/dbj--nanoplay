@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 #define DBJ_API static
+// #define __SSE__
 
 /**********************************
  Pseudo-random number generator
@@ -27,34 +28,63 @@ DBJ_API double mat_drand(void)
 	return (xorshift128plus(mat_rng) >> 11) * (1.0 / 9007199254740992.0);
 }
 
-/*******************************************
- Helper routines for matrix manipulation 
+/*
+ Helper routines for matrix manipulation
+
  */
 
+#ifdef  __clang__
+/*
+actually this works in any compiler supporting the VLA
+but notice we actually do use VLA just to declare the structure we want
+no usual VLA stack use 
+*/
+DBJ_API float** mat_init(int n_rows, int n_cols)
+{
+	// single ste no reqwiring matrix creation
+	// we could have used malloc but calloc zeros the mem allocated
+	// and contrary to popular belief it might be faster than malloc
+	return  (float**)calloc(1, sizeof(float[n_rows][n_cols]) );
+}
+#else // ! __clang__
+/*
+ Now next is perhaps a very intweresting matrix allocation to study
+ (see: https://en.wikipedia.org/wiki/Row-_and_column-major_order )
+ but also slow: two step allocation + rewiring algorithm
+*/
 DBJ_API float** mat_init(int n_rows, int n_cols)
 {
 	float** m;
 	int i;
+	/* allocate array of pointers to rows first */
 	m = (float**)malloc(n_rows * sizeof(float*));
+	/* allocate height * width, 1D array of required data type */
 	m[0] = (float*)calloc(n_rows * n_cols, sizeof(float));
-	for (i = 1; i < n_rows; ++i)
+	/* now re-wire the first array pointers to simulate the 2D layout */
+	for (i = 1; i < n_rows; ++i) {
+		/* re-wire to point to the beginning of the row */
 		m[i] = m[i - 1] + n_cols;
+	}
 	return m;
 }
+#endif // ! __ clang_
 
 DBJ_API void mat_destroy(float** m)
 {
 	free(m[0]); free(m);
 }
 
+/*
+allocate the matrix and populate it with random float's
+*/
 DBJ_API float** mat_gen_random(int n_rows, int n_cols)
 {
-	float** m;
+	float** m = NULL ;
 	int i, j;
 	m = mat_init(n_rows, n_cols);
 	for (i = 0; i < n_rows; ++i)
 		for (j = 0; j < n_cols; ++j)
-			m[i][j] = (float)mat_drand() ; // DBJ: added cast
+			m[i][j] = (float)mat_drand() ; // added cast
 	return m;
 }
 
@@ -97,7 +127,6 @@ DBJ_API float sdot_8(int n, const float* x, const float* y)
 	return s;
 }
 
-#define __SSE__
 #ifdef __SSE__
 #include <intrin.h>
 
@@ -261,47 +290,53 @@ DBJ_API** mat_mul6(int n_a_rows, int n_a_cols, float* const* a, int n_b_cols, fl
 #include "../getopt_win32/getopt.h"
 #include <time.h>
 
-enum { default_multiplication_algorithm = 4, max_matrix_size = 0xFF + 0xFF } ;
+enum { default_multiplication_algorithm = 4, max_matrix_side = 0xFF + 0xFF } ;
 
-DBJ_API int test_matmul(unsigned matrix_size, unsigned algorithm_id, const char * algo_name  )
+/*
+These are square matrices, matrix_side_length is the length of the side of that square
+matrix data type is pointer to pointer
+matrix element type is float
+*/
+DBJ_API int test_matmul(unsigned matrix_side_length, unsigned algorithm_id, const char * algo_name  )
 {
-	int rows_cols = 0xFF, algo = algorithm_id;
+	int algo = algorithm_id;
 	
 	float** matrix_A = NULL, ** matrix_B = NULL , ** matrix_M = NULL ;
 
-	matrix_size = matrix_size % (size_t)max_matrix_size;
+	// quietly adjusting to max side .. not exactly good but ok in this context
+	matrix_side_length = matrix_side_length % (size_t)max_matrix_side;
 
-	matrix_A = mat_gen_random(matrix_size, matrix_size);
-	matrix_B = mat_gen_random(matrix_size, matrix_size);
+	matrix_A = mat_gen_random(matrix_side_length, matrix_side_length);
+	matrix_B = mat_gen_random(matrix_side_length, matrix_side_length);
 
 	clock_t start_time_ = clock();
 
 	if (algo == 0) {
-		matrix_M = mat_mul0(matrix_size, matrix_size, matrix_A, matrix_size, matrix_B);
+		matrix_M = mat_mul0(matrix_side_length, matrix_side_length, matrix_A, matrix_side_length, matrix_B);
 	}
 	else if (algo == 1) {
-		matrix_M = mat_mul1(matrix_size, matrix_size, matrix_A, matrix_size, matrix_B);
+		matrix_M = mat_mul1(matrix_side_length, matrix_side_length, matrix_A, matrix_side_length, matrix_B);
 #ifdef __SSE__
 	}
 	else if (algo == 2) {
-		matrix_M = mat_mul2(matrix_size, matrix_size, matrix_A, matrix_size, matrix_B);
+		matrix_M = mat_mul2(matrix_side_length, matrix_side_length, matrix_A, matrix_side_length, matrix_B);
 	}
 	else if (algo == 7) {
-		matrix_M = mat_mul7(matrix_size, matrix_size, matrix_A, matrix_size, matrix_B);
+		matrix_M = mat_mul7(matrix_side_length, matrix_side_length, matrix_A, matrix_side_length, matrix_B);
 #endif
 	}
 	else if (algo == 3) {
-		matrix_M = mat_mul3(matrix_size, matrix_size, matrix_A, matrix_size, matrix_B);
+		matrix_M = mat_mul3(matrix_side_length, matrix_side_length, matrix_A, matrix_side_length, matrix_B);
 	}
 	else if (algo == 4) {
-		matrix_M = mat_mul4(matrix_size, matrix_size, matrix_A, matrix_size, matrix_B);
+		matrix_M = mat_mul4(matrix_side_length, matrix_side_length, matrix_A, matrix_side_length, matrix_B);
 #ifdef HAVE_CBLAS
 	}
 	else if (algo == 5) {
-		matrix_M = mat_mul5(matrix_size, matrix_size, matrix_A, matrix_size, matrix_B);
+		matrix_M = mat_mul5(matrix_side_length, matrix_side_length, matrix_A, matrix_side_length, matrix_B);
 	}
 	else if (algo == 6) {
-		matrix_M = mat_mul6(matrix_size, matrix_size, matrix_A, matrix_size, matrix_B);
+		matrix_M = mat_mul6(matrix_side_length, matrix_side_length, matrix_A, matrix_side_length, matrix_B);
 #endif
 	}
 	else {

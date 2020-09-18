@@ -23,13 +23,14 @@ namespace dbj_kilim {
 	TU_REGISTER([]
 		{
 			DBJ_PRINT( DBJ_FG_CYAN_BOLD DBJ_FILE_LINE DBJ_RESET );
+			DBJ_PRINT( DBJ_FG_CYAN_BOLD "\nFor this test use console font that can show the Unicode glyphs you use. " DBJ_RESET );
 
 			{
 				::system("chcp 65001");
 				// LINUX
 				auto smiley = u8"😀";
 				DBJ_PRINT(
-					"The %s 'glyph': %s", typeid(smiley).name(), (const char*)smiley
+					"\nThe %s , the smiley 'glyph': %s", typeid(smiley).name(), (const char*)smiley
 				);
 			}
 
@@ -38,21 +39,24 @@ namespace dbj_kilim {
 				using namespace std::chrono_literals;
 				std::uniform_int_distribution<> random_idx(0, int(char_set.size()) - 1);
 
+				DBJ_PRINT("\n");
+
 				while (counter--)
 				{
 					// just print & pray
 					// this cast makes it silent
 					DBJ_PRINT("%s", (const char *)char_set[random_idx(the_generator_)]);
-					std::this_thread::sleep_for(0s);
+					// std::this_thread::sleep_for(0s);
 				}
-				DBJ_PRINT(" ");
 			};
 
-			DBJ_PRINT(" (c) 2020 dusanjovanovic.org ");
-			//driver(singles,		0xFFFF);
-			//driver(doubles,		0xFFFF);
-			//driver(doublesv,	0xFF);
-			//driver(singlesv,	0xFF);
+			DBJ_PRINT("\n(c) 2020 dusanjovanovic.org ");
+#if 0
+			driver(singles,		0xFFFF);
+			driver(doubles,		0xFFFF);
+			driver(doublesv,	0xFF);
+			driver(singlesv,	0xFF);
+#endif // 0
 			driver(arufabetto);
 		});
 }

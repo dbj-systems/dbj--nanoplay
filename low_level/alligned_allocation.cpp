@@ -10,7 +10,7 @@
 #include <malloc.h>
 #include <stdio.h>
 
-// printf and "%4x" shenanigans
+// DBJ_PRINT and "%4x" shenanigans
 #pragma warning( push )
 #pragma warning( disable : 4313 )
 #pragma warning( disable : 4477 )
@@ -135,79 +135,79 @@ TU_REGISTER_NOT([]
 
 	});
 
-void aligned_allocation_test()
-	{
-		DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
+	TU_REGISTERT([]
+		{
+			DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
 
-		enum { ASZ = 16 };
+			enum { ASZ = 16 };
 
-// https://stackoverflow.com/a/24274753/10870835
-// make a nice 16 align macro
+			// https://stackoverflow.com/a/24274753/10870835
+			// make a nice 16 align macro
 #ifndef ALIGN16
 #define ALIGN16 __declspec(align(ASZ))
 #endif
 
 // align the structure
-		struct ALIGN16 CB {
-			ALIGN16 bool m1; // and
-			ALIGN16 int m2; // align
-			ALIGN16 int m3; // each
-			ALIGN16 short m4; // element
-		};
-
-		printf("\n"
-			"\n	struct ALIGN16 CB {"
-			"\n		ALIGN16 bool m1; // and"
-			"\n		ALIGN16 int m2; // align"
-			"\n		ALIGN16 int m3; // each"
-			"\n		ALIGN16 short m4; // element"
-			"\n	};"
-			"\n\n");
-
-		#define PFMT "%4x"
-		#define FMT "%llu"
-		// now it performs as expected
-		printf("sizeof(CB): " FMT "\n", sizeof(CB));
-		CB vCb;
-		printf("CB:    " PFMT ", " FMT "\n", &vCb,    (UINT_PTR)&vCb    % ASZ);
-		printf("CB.m1: " PFMT ", " FMT "\n", &vCb.m1, (UINT_PTR)&vCb.m1 % ASZ);
-		printf("CB.m2: " PFMT ", " FMT "\n", &vCb.m2, (UINT_PTR)&vCb.m2 % ASZ);
-		printf("CB.m3: " PFMT ", " FMT "\n", &vCb.m3, (UINT_PTR)&vCb.m3 % ASZ);
-		printf("CB.m4: " PFMT ", " FMT "\n", &vCb.m4, (UINT_PTR)&vCb.m4 % ASZ);
-
-		{
-			enum { ASZ = 64 };
-			#define ALIGN64 __declspec(align(ASZ))
-
-			struct ALIGN64 CB {
-				ALIGN64 bool m1; // and
-				ALIGN64 int m2; // align
-				ALIGN64 int m3; // each
-				ALIGN64 short m4; // element
+			struct ALIGN16 CB {
+				ALIGN16 bool m1; // and
+				ALIGN16 int m2; // align
+				ALIGN16 int m3; // each
+				ALIGN16 short m4; // element
 			};
 
-			printf("\n"
-				"\n	struct ALIGN64 CB {"
-				"\n		ALIGN64 bool m1; // and"
-				"\n		ALIGN64 int m2; // align"
-				"\n		ALIGN64 int m3; // each"
-				"\n		ALIGN64 short m4; // element"
+			DBJ_PRINT("\n"
+				"\n	struct ALIGN16 CB {"
+				"\n		ALIGN16 bool m1; // and"
+				"\n		ALIGN16 int m2; // align"
+				"\n		ALIGN16 int m3; // each"
+				"\n		ALIGN16 short m4; // element"
 				"\n	};"
 				"\n\n");
 
 #define PFMT "%4x"
 #define FMT "%llu"
 			// now it performs as expected
-			printf("sizeof(CB): " FMT "\n", sizeof(CB));
+			DBJ_PRINT("sizeof(CB): " FMT "\n", sizeof(CB));
 			CB vCb;
-			printf("CB:    " PFMT ", " FMT "\n", &vCb, (UINT_PTR)&vCb % ASZ);
-			printf("CB.m1: " PFMT ", " FMT ", size: " FMT "\n", &vCb.m1, (UINT_PTR)&vCb.m1 % ASZ, sizeof(vCb.m1));
-			printf("CB.m2: " PFMT ", " FMT "\n", &vCb.m2, (UINT_PTR)&vCb.m2 % ASZ);
-			printf("CB.m3: " PFMT ", " FMT "\n", &vCb.m3, (UINT_PTR)&vCb.m3 % ASZ);
-			printf("CB.m4: " PFMT ", " FMT "\n", &vCb.m4, (UINT_PTR)&vCb.m4 % ASZ);
+			DBJ_PRINT("CB:    " PFMT ", " FMT "\n", &vCb, (UINT_PTR)&vCb % ASZ);
+			DBJ_PRINT("CB.m1: " PFMT ", " FMT "\n", &vCb.m1, (UINT_PTR)&vCb.m1 % ASZ);
+			DBJ_PRINT("CB.m2: " PFMT ", " FMT "\n", &vCb.m2, (UINT_PTR)&vCb.m2 % ASZ);
+			DBJ_PRINT("CB.m3: " PFMT ", " FMT "\n", &vCb.m3, (UINT_PTR)&vCb.m3 % ASZ);
+			DBJ_PRINT("CB.m4: " PFMT ", " FMT "\n", &vCb.m4, (UINT_PTR)&vCb.m4 % ASZ);
 
-		}
+			{
+				enum { ASZ = 64 };
+#define ALIGN64 __declspec(align(ASZ))
 
-}
+				struct ALIGN64 CB {
+					ALIGN64 bool m1; // and
+					ALIGN64 int m2; // align
+					ALIGN64 int m3; // each
+					ALIGN64 short m4; // element
+				};
+
+				DBJ_PRINT("\n"
+					"\n	struct ALIGN64 CB {"
+					"\n		ALIGN64 bool m1; // and"
+					"\n		ALIGN64 int m2; // align"
+					"\n		ALIGN64 int m3; // each"
+					"\n		ALIGN64 short m4; // element"
+					"\n	};"
+					"\n\n");
+
+#define PFMT "%4x"
+#define FMT "%llu"
+				// now it performs as expected
+				DBJ_PRINT("sizeof(CB): " FMT "\n", sizeof(CB));
+				CB vCb;
+				DBJ_PRINT("CB:    " PFMT ", " FMT "\n", &vCb, (UINT_PTR)&vCb % ASZ);
+				DBJ_PRINT("CB.m1: " PFMT ", " FMT ", size: " FMT "\n", &vCb.m1, (UINT_PTR)&vCb.m1 % ASZ, sizeof(vCb.m1));
+				DBJ_PRINT("CB.m2: " PFMT ", " FMT "\n", &vCb.m2, (UINT_PTR)&vCb.m2 % ASZ);
+				DBJ_PRINT("CB.m3: " PFMT ", " FMT "\n", &vCb.m3, (UINT_PTR)&vCb.m3 % ASZ);
+				DBJ_PRINT("CB.m4: " PFMT ", " FMT "\n", &vCb.m4, (UINT_PTR)&vCb.m4 % ASZ);
+
+			}
+
+		});
 
 #pragma warning( pop )

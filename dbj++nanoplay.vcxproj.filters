@@ -48,6 +48,9 @@
     <ClCompile Include="lambdatix\generic_arr_struct_simple_sample.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="optparse\test.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">
@@ -173,9 +176,6 @@
     <ClInclude Include="dbj--nanolib\win32\win32_error_msg_box_exit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="win32\dbj_win32_util.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="dbj_string_storage\dbj_simplelock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -225,6 +225,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lambdatix\archived\cpp_lambda_mx_makers_using_uniqptr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="optparse\optparse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="win32nanosampling\dbj_win32_util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -380,6 +380,8 @@ namespace meta_conversion_testing {
 			[] {
 				DBJ_PRINT(DBJ_FG_CYAN_BOLD DBJ_FILE_LINE); DBJ_PRINT(" " DBJ_RESET);
 
+				DBJ_PRINT(DBJ_FG_CYAN_BOLD "This test produces very long and bussy output. If you need it please remove the #if 0  bellow."); DBJ_PRINT(" " DBJ_RESET);
+#if 0
 				test_conversion(dbj_meta_converter::range_to_string);
 				test_conversion(dbj_meta_converter::range_to_wstring);
 				test_conversion(dbj_meta_converter::range_to_u16string);
@@ -387,6 +389,7 @@ namespace meta_conversion_testing {
 #if __cplusplus > 201703L
 				test_conversion(dbj::range_to_u8string);
 #endif	
+#endif // 0
 			});
 #endif
 

@@ -22,7 +22,7 @@ static void tprintf(const char* format, T value, Targs... Fargs) // recursive va
 
 ////////////////////////////////////////////////////////////////////////////////////
 #ifndef __clang__
-auto print = []( auto const& first, auto const & ... args)
+static auto print = []( auto const& first, auto const & ... args)
 {
     auto inner = [&](auto const& first, auto const & ... args) 
     {
@@ -53,7 +53,7 @@ struct printer final {
     }
 };
 ////////////////////////////////////////////////////////////////////////////////////
-int recursive_lambada()
+extern "C" int recursive_lambada()
 {
 #ifndef __clang__
     tprintf("_MSC_FULL_VER : %\n\n", _MSC_FULL_VER);

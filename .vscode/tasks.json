@@ -2,22 +2,19 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "DEBUG build",
+            "label": "DEBUG DBJ build",
             "type": "shell",
-            "command": "cl.exe",
+            "command": "clang-cl.exe",
             "args": [
                 "/std:c++17",
                 "/MDd",
                 "-D_HAS_EXCEPTIONS=0",
-                "/I", "D:\\vcpkg\\installed\\x86-windows\\include\\Common",
-                "/I", "D:\\vcpkg\\installed\\x86-windows\\include",
                 "/I", "C:\\Program Files (x86)\\Visual Leak Detector\\include",
                 "/Zi",
                 "/Fe:",
                 "nanoplay_dbg.exe",
                 "main.cpp",
-                "/link",
-                "/LIBPATH:D:\\vcpkg\\installed\\x86-windows\\debug\\lib"
+                "/link"
             ],
             "group": {
                 "kind": "build",
@@ -29,9 +26,9 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "msvc release build",
+            "label": "RELEASE DBJ build",
             "type": "shell",
-            "command": "cl.exe",
+            "command": "clang-cl.exe",
             "args": [
                 "/std:c++17",
                 "/MDd",
