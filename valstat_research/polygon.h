@@ -169,7 +169,7 @@ namespace valstat_testing_space {
 
 			if (auto [point_, e_] = make_unit_square( root_); e_) print("Error %s", (*e_).c_str());
 				else {
-					point_print_all(*point_);
+					// point_print_all(*point_);
 					if (auto [area, e_] = polygon_area((*point_)->next); e_) print("Error %s", (*e_).c_str());
 					else
 						print("\n\nThe area of the unit square is %0.2lf  'units'\n", *area);
@@ -181,7 +181,7 @@ namespace valstat_testing_space {
 			// valstat consumption
 			if ( auto [ p, e ] = make_random_polygon(42, root_); e)  print("Error %s", (*e).c_str());
 			else {
-				point_print_all(*p);
+				// point_print_all(*p);
 				if (auto [area, e_] = polygon_area((*p)->next); e_) print("Error %s", (*e_).c_str());
 				else
 					print("\n\nThe area of the unit square is %0.2lf 'units' \n", *area);
