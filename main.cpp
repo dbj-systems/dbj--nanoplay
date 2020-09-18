@@ -78,10 +78,11 @@ static dbj_simplelog_finalizer dsf_;
 #define KERNEL_CATCH } catch (...) { DBJ_PRINT(DBJ_FG_RED_BOLD "\n\n" __FILE__ "\n\nUnknown exception!\n\n" DBJ_RESET);}
 #endif  // ! _KERNEL_MODE
 
+extern "C" int test_optparse(int argc, char** argv);
 /// ----------------------------------------------------------------------
 int main(int argc, char* argv[],  char* envp[])
 {
-
+	return test_optparse( argc, argv);
 #ifdef DBJ_USING_SIMPLE_LOG
 	dbj_simple_log_startup(argv[0]);
 #endif

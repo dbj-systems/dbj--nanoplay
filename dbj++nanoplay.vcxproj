@@ -184,6 +184,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="chunde_getopt\getopt.c" />
     <ClCompile Include="dbj--nanolib\win32\win32_error_msg_box_exit.c" />
     <ClCompile Include="EASTL2010\src\allocator.cpp" />
     <ClCompile Include="EASTL2010\src\assert.cpp" />
@@ -191,7 +192,6 @@
     <ClCompile Include="EASTL2010\src\hashtable.cpp" />
     <ClCompile Include="EASTL2010\src\red_black_tree.cpp" />
     <ClCompile Include="EASTL2010\src\string.cpp" />
-    <ClCompile Include="getopt_win32\getopt.c" />
     <ClCompile Include="lambdatix\generic_arr_struct_simple_sample.c" />
     <ClCompile Include="lambdatix\various_matmuls.c" />
     <ClCompile Include="main.cpp" />
