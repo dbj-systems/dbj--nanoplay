@@ -287,7 +287,6 @@ DBJ_API** mat_mul6(int n_a_rows, int n_a_cols, float* const* a, int n_b_cols, fl
 
 /**********************************************************************************/
 
-#include "../getopt_win32/getopt.h"
 #include <time.h>
 
 enum { default_multiplication_algorithm = 4, max_matrix_side = 0xFF + 0xFF } ;
