@@ -116,7 +116,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalOptions>/utf-8  -D_FORTIFY_SOURCE=2 %(AdditionalOptions)    -std=c++17</AdditionalOptions>
+      <AdditionalOptions>/utf-8  %(AdditionalOptions)   -D_FORTIFY_SOURCE=2</AdditionalOptions>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
@@ -134,7 +134,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_ITERATOR_DEBUG_LEVEL=2</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalOptions>/utf-8  -D_FORTIFY_SOURCE=2 %(AdditionalOptions)    -std=c++17</AdditionalOptions>
+      <AdditionalOptions>/utf-8  %(AdditionalOptions)   -D_FORTIFY_SOURCE=2</AdditionalOptions>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </ClCompile>
     <Link>
@@ -152,7 +152,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalOptions>/utf-8  -D_FORTIFY_SOURCE=2  -O1 %(AdditionalOptions)    -std=c++17</AdditionalOptions>
+      <AdditionalOptions>/utf-8  -D_FORTIFY_SOURCE=2  -O1 %(AdditionalOptions)    -std=c++17  -D_FORTIFY_SOURCE=2</AdditionalOptions>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </ClCompile>
     <Link>
@@ -172,7 +172,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalOptions>/utf-8  -D_FORTIFY_SOURCE=2  -O1 %(AdditionalOptions)    -std=c++17</AdditionalOptions>
+      <AdditionalOptions>/utf-8  -D_FORTIFY_SOURCE=2  -O1 %(AdditionalOptions)    -std=c++17  -D_FORTIFY_SOURCE=2</AdditionalOptions>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </ClCompile>
     <Link>
