@@ -124,16 +124,10 @@ extern "C" {
 #define DBJ_META_CONVERTER_CANONICAL_TESTS 
 #include "sampling/dbj_meta_converter.h"
 
-#include "valstat_research/fibo.h"
-#include "valstat_research/polygon.h"
-#include "valstat_research/valstat_dbj_async.h"
-#include "valstat_research/valstat_dbj_own.h"
 #include "sampling/find_wovels.h"
 
 #if 0
-#include "valstat_research/valstat_dbj_samples.h"
 #include "sampling/testing_dbj_vector.h"
-#include "sampling/no_macros_valstat.h"
 #include "sampling/fmt.h"
 #include "sampling/win/logfile.h"
 #endif
